@@ -86,6 +86,7 @@ import java.util.regex.Pattern;
 /**
  * @author Sindre Mehus
  */
+//LALANDA TODO SubsonicTabActivity
 public class SubsonicTabActivity extends ResultActivity implements OnClickListener
 {
 	private static final String TAG = SubsonicTabActivity.class.getSimpleName();
@@ -1275,6 +1276,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		}
 	}
 
+	//TODO LALANDA AQUI SÃO OS CLIQUES
 	@Override
 	public void onClick(View v)
 	{
