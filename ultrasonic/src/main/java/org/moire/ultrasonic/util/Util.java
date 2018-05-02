@@ -730,7 +730,7 @@ public class Util extends DownloadActivity
 		{
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			return hexEncode(md5.digest(s.getBytes(Constants.UTF_8)));
-		}
+	}
 		catch (Exception x)
 		{
 			throw new RuntimeException(x.getMessage(), x);

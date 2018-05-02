@@ -137,7 +137,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.LEFT, MenuDrawer.MENU_DRAG_WINDOW);
 		menuDrawer.setMenuView(R.layout.menu_main);
 
-		chatMenuItem = findViewById(R.id.menu_chat);
+		//chatMenuItem = findViewById(R.id.menu_chat);
 		bookmarksMenuItem = findViewById(R.id.menu_bookmarks);
 		sharesMenuItem = findViewById(R.id.menu_shares);
 
@@ -145,9 +145,9 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		findViewById(R.id.menu_browse).setOnClickListener(this);
 		findViewById(R.id.menu_search).setOnClickListener(this);
 		findViewById(R.id.menu_playlists).setOnClickListener(this);
-		findViewById(R.id.menu_podcasts).setOnClickListener(this);
+		//findViewById(R.id.menu_podcasts).setOnClickListener(this);
 		sharesMenuItem.setOnClickListener(this);
-		chatMenuItem.setOnClickListener(this);
+		//chatMenuItem.setOnClickListener(this);
 		bookmarksMenuItem.setOnClickListener(this);
 		findViewById(R.id.menu_now_playing).setOnClickListener(this);
 		findViewById(R.id.menu_settings).setOnClickListener(this);
@@ -170,7 +170,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		instance = this;
 
 		int visibility = Util.isOffline(this) ? View.GONE : View.VISIBLE;
-		chatMenuItem.setVisibility(visibility);
+		//chatMenuItem.setVisibility(visibility);
 		bookmarksMenuItem.setVisibility(visibility);
 		sharesMenuItem.setVisibility(visibility);
 	}
@@ -1307,19 +1307,19 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, intent);
 				break;
-			case R.id.menu_podcasts:
+			/*case R.id.menu_podcasts:
 				intent = new Intent(SubsonicTabActivity.this, PodcastsActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, intent);
-				break;
+				break;*/
 			case R.id.menu_shares:
 				intent = new Intent(SubsonicTabActivity.this, ShareActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, intent);
 				break;
-			case R.id.menu_chat:
+			/*case R.id.menu_chat:
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, ChatActivity.class);
-				break;
+				break;*/
 			case R.id.menu_bookmarks:
 				startActivityForResultWithoutTransition(this, BookmarkActivity.class);
 				break;

@@ -79,7 +79,7 @@ public final class HelpActivity extends ResultActivity implements OnClickListene
 		menuDrawer = MenuDrawer.attach(this, MenuDrawer.Type.BEHIND, Position.LEFT, MenuDrawer.MENU_DRAG_WINDOW);
 		menuDrawer.setMenuView(R.layout.menu_main);
 
-		chatMenuItem = findViewById(R.id.menu_chat);
+		//chatMenuItem = findViewById(R.id.menu_chat);
 		bookmarksMenuItem = findViewById(R.id.menu_bookmarks);
 		sharesMenuItem = findViewById(R.id.menu_shares);
 		View aboutMenuItem = findViewById(R.id.menu_about);
@@ -277,9 +277,9 @@ public final class HelpActivity extends ResultActivity implements OnClickListene
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivityForResultWithoutTransition(this, intent);
 				break;
-			case R.id.menu_chat:
-				startActivityForResultWithoutTransition(this, ChatActivity.class);
-				break;
+//			case R.id.menu_chat:
+//				startActivityForResultWithoutTransition(this, ChatActivity.class);
+//				break;
 			case R.id.menu_bookmarks:
 				startActivityForResultWithoutTransition(this, BookmarkActivity.class);
 				break;

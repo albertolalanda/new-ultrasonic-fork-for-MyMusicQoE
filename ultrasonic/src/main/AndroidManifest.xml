@@ -51,20 +51,20 @@
             a:configChanges="orientation|keyboardHidden"
             a:label="@string/playlist.label"
             a:launchMode="standard"/>
-        <activity
-            a:name=".activity.PodcastsActivity"
-            a:configChanges="orientation|keyboardHidden"
-            a:label="@string/podcasts.label"
-            a:launchMode="standard"/>
+        <!--<activity-->
+            <!--a:name=".activity.PodcastsActivity"-->
+            <!--a:configChanges="orientation|keyboardHidden"-->
+            <!--a:label="@string/podcasts.label"-->
+            <!--a:launchMode="standard"/>-->
         <activity
             a:name=".activity.BookmarkActivity"
             a:configChanges="orientation|keyboardHidden"/>
         <activity
             a:name=".activity.ShareActivity"
             a:configChanges="orientation|keyboardHidden"/>
-        <activity
-            a:name=".activity.ChatActivity"
-            a:configChanges="orientation|keyboardHidden"/>
+        <!--<activity-->
+            <!--a:name=".activity.ChatActivity"-->
+            <!--a:configChanges="orientation|keyboardHidden"/>-->
         <activity
             a:name=".activity.DownloadActivity"
             a:configChanges="keyboardHidden"

@@ -336,6 +336,7 @@ public class MainActivity extends SubsonicTabActivity
 		}
 
 		menu.setGroupCheckable(MENU_GROUP_SERVER, true, true);
+		//SELECT SERVER STRING TODO LALANDA
 		menu.setHeaderTitle(R.string.main_select_server);
 	}
 
