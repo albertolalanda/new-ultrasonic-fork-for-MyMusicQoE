@@ -106,7 +106,7 @@ public class MusicServiceFactory {
                     Constants.REST_CLIENT_ID, allowSelfSignedCertificate,
                     enableLdapUserSupport, BuildConfig.DEBUG);
         }
-
+        //LALANDA TODO
         return new SubsonicAPIClient(serverUrl, username, password,
                 SubsonicAPIVersions.fromApiVersion(Constants.REST_PROTOCOL_VERSION),
                 Constants.REST_CLIENT_ID, allowSelfSignedCertificate,
