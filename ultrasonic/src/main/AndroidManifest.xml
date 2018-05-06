@@ -27,7 +27,7 @@
         <activity
             a:name=".activity.MainActivity"
             a:configChanges="orientation|keyboardHidden"
-            a:label="UltraSonic"
+            a:label="MyMusicQoE"
             a:launchMode="standard">
             <intent-filter>
                 <action a:name="android.intent.action.MAIN"/>

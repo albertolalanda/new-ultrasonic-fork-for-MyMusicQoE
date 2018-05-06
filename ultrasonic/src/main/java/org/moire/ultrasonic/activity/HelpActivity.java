@@ -89,7 +89,7 @@ public final class HelpActivity extends ResultActivity implements OnClickListene
 		findViewById(R.id.menu_search).setOnClickListener(this);
 		findViewById(R.id.menu_playlists).setOnClickListener(this);
 		sharesMenuItem.setOnClickListener(this);
-		chatMenuItem.setOnClickListener(this);
+		//chatMenuItem.setOnClickListener(this);
 		bookmarksMenuItem.setOnClickListener(this);
 		findViewById(R.id.menu_now_playing).setOnClickListener(this);
 		findViewById(R.id.menu_settings).setOnClickListener(this);
@@ -156,7 +156,7 @@ public final class HelpActivity extends ResultActivity implements OnClickListene
 		super.onPostCreate(bundle);
 
 		int visibility = Util.isOffline(this) ? View.GONE : View.VISIBLE;
-		chatMenuItem.setVisibility(visibility);
+		//chatMenuItem.setVisibility(visibility);
 		bookmarksMenuItem.setVisibility(visibility);
 		sharesMenuItem.setVisibility(visibility);
 	}

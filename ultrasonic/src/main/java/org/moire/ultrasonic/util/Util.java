@@ -198,6 +198,18 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
+	public static void setMyMusicQoEServer(Context context, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, instance);
+		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_NAME + 1, "MyMusicQoE Server").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://159.65.29.155:8080/airsonic").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "test").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "test").apply();
+		editor.commit();
+	}
+
 	public static int getActiveServer(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
@@ -382,6 +394,7 @@ public class Util extends DownloadActivity
 
 		// Slightly obfuscate password
 		password = "enc:" + Util.utf8HexEncode(password);
+		//password = "enc:" + Util.utf8HexEncode("teste");
 
 		builder.append(serverUrl);
 		if (builder.charAt(builder.length() - 1) != '/')
@@ -394,6 +407,19 @@ public class Util extends DownloadActivity
 		builder.append("&p=").append(password);
 		builder.append("&v=").append(Constants.REST_PROTOCOL_VERSION);
 		builder.append("&c=").append(Constants.REST_CLIENT_ID);
+
+		//LALANDA tentar alterar aqui os dados do servidor teste
+//		builder.append("http://159.65.29.155:8080");
+//		if (builder.charAt(builder.length() - 1) != '/')
+//		{
+//			builder.append('/');
+//		}
+//
+//		builder.append("rest/").append(method).append(".view");
+//		builder.append("?u=").append("test");
+//		builder.append("&p=").append(password);
+//		builder.append("&v=").append(Constants.REST_PROTOCOL_VERSION);
+//		builder.append("&c=").append(Constants.REST_CLIENT_ID);
 
 		return builder.toString();
 	}
@@ -799,6 +825,7 @@ public class Util extends DownloadActivity
 		showDialog(context, android.R.drawable.ic_dialog_info, titleId, messageId);
 	}
 
+	//LALANDA WELCOME DIALOG
 	public static void showWelcomeDialog(final Context context, final MainActivity activity, int titleId, int messageId)
 	{
 		new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_info).setTitle(titleId).setMessage(messageId).setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener()
@@ -807,7 +834,7 @@ public class Util extends DownloadActivity
 			public void onClick(DialogInterface dialog, int i)
 			{
 				dialog.dismiss();
-				activity.startActivityForResultWithoutTransition(activity, SettingsActivity.class);
+				//activity.startActivityForResultWithoutTransition(activity, SettingsActivity.class);
 			}
 		}).show();
 	}

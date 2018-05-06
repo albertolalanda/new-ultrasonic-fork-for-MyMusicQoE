@@ -27,9 +27,11 @@ public class ServerSettingsActivity extends AppCompatActivity {
         if (savedInstanceState == null) {
             configureActionBar();
             //LALANDA TODO
+            //Atividade de editar um server
+            System.out.println("ServerSettingActivity onCreate");
+            //-----//
             final int serverId = extras.getInt(ARG_SERVER_ID);
-            getFragmentManager().beginTransaction()
-                    .add(android.R.id.content, ServerSettingsFragment.newInstance(serverId)).commit();
+            getFragmentManager().beginTransaction().add(android.R.id.content, ServerSettingsFragment.newInstance(serverId)).commit();
         }
 
     }

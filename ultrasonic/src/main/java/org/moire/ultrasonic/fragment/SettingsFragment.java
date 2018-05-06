@@ -33,8 +33,7 @@ import java.io.File;
 /**
  * Shows main app settings.
  */
-public class SettingsFragment extends PreferenceFragment
-        implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
     private static final String LOG_TAG = SettingsFragment.class.getSimpleName();
 
     private ListPreference theme;
@@ -233,7 +232,10 @@ public class SettingsFragment extends PreferenceFragment
                 if (activeServers == maxServerCount) {
                     return false;
                 }
-
+                //LALANDA SOUT CHECK ACTIVE SERVERS
+                System.out.println("LALANDA SOUT - ACTIVESERVERS = " + activeServers);
+                System.out.println(getActivity());
+                //-------
                 activeServers++;
 
                 settings.edit()

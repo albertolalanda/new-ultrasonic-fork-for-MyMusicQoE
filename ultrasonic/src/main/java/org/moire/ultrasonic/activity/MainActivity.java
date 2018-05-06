@@ -22,6 +22,8 @@ package org.moire.ultrasonic.activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceManager;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -34,6 +36,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.moire.ultrasonic.R;
+import org.moire.ultrasonic.fragment.ServerSettingsFragment;
+import org.moire.ultrasonic.fragment.SettingsFragment;
 import org.moire.ultrasonic.service.DownloadService;
 import org.moire.ultrasonic.service.DownloadServiceImpl;
 import org.moire.ultrasonic.service.MusicService;
@@ -66,6 +70,12 @@ public class MainActivity extends SubsonicTabActivity
 
 	private static boolean infoDialogDisplayed;
 	private static boolean shouldUseId3;
+
+	//LALANDA
+	private SharedPreferences settings;
+	private PreferenceCategory serversCategory;
+	//
+	private SharedPreferences sharedPreferences;
 
 	/**
 	 * Called when the activity is first created.
@@ -135,9 +145,45 @@ public class MainActivity extends SubsonicTabActivity
 		if (name == null)
 		{
 			shouldShowDialog = true;
-			Util.setActiveServer(this, 0);
+			Util.setActiveServer(this, 1);
 			instance = Util.getActiveServer(this);
 			name = Util.getServerName(this, instance);
+
+//			//LALANDA CREATE A NEW BLANK SERVER ----
+			Util.setMyMusicQoEServer(this, 0);
+			setActiveServer(1);
+//			//shared preferences need context ->
+//			System.out.println("PASSEI POR AQUI");
+//			SettingsFragment settingsFragment = new SettingsFragment();
+//			/*settings = PreferenceManager.getDefaultSharedPreferences(settingsFragment.getActivity());
+//
+//			settings.edit().putInt(Constants.PREFERENCES_KEY_ACTIVE_SERVERS, 0).apply();*/
+//
+//			Preference addServerPreference = settingsFragment.findPreference(Constants.PREFERENCES_KEY_ADD_SERVER);
+//
+//			if (addServerPreference != null) {
+//				serversCategory.removePreference(addServerPreference);
+//			}
+//
+//			/*Preference newServerPrefs = new Preference(settingsFragment.getActivity());
+//			newServerPrefs.setTitle(getString(R.string.settings_server_name));
+//			newServerPrefs.setSummary(getString(R.string.settings_server_address_unset));
+//			serversCategory.addPreference(newServerPrefs);*/
+//
+//			if (addServerPreference != null) {
+//				serversCategory.addPreference(addServerPreference);
+//				addServerPreference.setEnabled(true);
+//			}
+//
+//
+//			ServerSettingsFragment serverSettingsFragment = new ServerSettingsFragment();
+//			sharedPreferences = PreferenceManager.getDefaultSharedPreferences(serverSettingsFragment.getActivity());
+//
+//			sharedPreferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_NAME + 1, "MyMusicQoE Server").apply();
+//			sharedPreferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://159.65.29.155:8080/airsonic").apply();
+//			sharedPreferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "teste").apply();
+//			sharedPreferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "teste").apply();
+			//------------
 		}
 
 		serverTextView.setText(name);
@@ -482,8 +528,10 @@ public class MainActivity extends SubsonicTabActivity
 		finish();
 	}
 
+	//LALANDA WELCOME TO ULTRASONIC BOX
 	private void showInfoDialog(final boolean show)
 	{
+
 		if (!infoDialogDisplayed)
 		{
 			infoDialogDisplayed = true;
