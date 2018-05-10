@@ -22,9 +22,9 @@ package org.moire.ultrasonic.util;
  * @author Sindre Mehus
  * @version $Id$
  */
+//LALANDA CONSTANTS
 public final class Constants
 {
-
 	// Character encoding used throughout.
 	public static final String UTF_8 = "UTF-8";
 
