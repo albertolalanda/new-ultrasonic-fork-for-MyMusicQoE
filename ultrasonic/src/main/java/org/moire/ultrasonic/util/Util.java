@@ -209,7 +209,7 @@ public class Util extends DownloadActivity
 		preferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "test").apply();
 		preferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "test").apply();
 		//LALANDA não percebo bem o que acontece com a alteração desta constante
-		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, instance);
+		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
 		editor.commit();
 	}
 
