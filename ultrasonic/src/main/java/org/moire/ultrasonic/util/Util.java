@@ -54,6 +54,7 @@ import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.activity.DownloadActivity;
 import org.moire.ultrasonic.activity.MainActivity;
 import org.moire.ultrasonic.activity.SettingsActivity;
+import org.moire.ultrasonic.activity.UserInformationActivity;
 import org.moire.ultrasonic.domain.Bookmark;
 import org.moire.ultrasonic.domain.MusicDirectory;
 import org.moire.ultrasonic.domain.MusicDirectory.Entry;
@@ -212,6 +213,20 @@ public class Util extends DownloadActivity
 		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
 		editor.commit();
 	}
+
+	//LALANDA DUNNO IF I NEED TO MAKE A CLASS HERE
+//	public static void setUserInformation(Context context, int instance, int id, String sex)
+//	{
+//		SharedPreferences preferences = getPreferences(context);
+//		SharedPreferences.Editor editor = preferences.edit();
+//		editor.putInt(Constants.USER_ID, id);
+//		preferences.edit().putString(Constants.USER_SEX, sex).apply();
+//		preferences.edit().putString(Constants.USER_AGE, "test").apply();
+//		preferences.edit().putString(Constants.USER_FAVORITE_GENRES, "test").apply();
+//		//LALANDA não percebo bem o que acontece com a alteração desta constante
+//		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
+//		editor.commit();
+//	}
 
 	public static int getActiveServer(Context context)
 	{
@@ -838,6 +853,8 @@ public class Util extends DownloadActivity
 			{
 				dialog.dismiss();
 				//activity.startActivityForResultWithoutTransition(activity, SettingsActivity.class);
+
+				//activity.startActivityForResultWithoutTransition(activity, UserInformationActivity.class);
 			}
 		}).show();
 	}

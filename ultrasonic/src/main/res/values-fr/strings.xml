@@ -100,8 +100,8 @@
     <string name="main.songs_starred">Favoris</string>
     <string name="main.songs_title">Titres</string>
     <string name="main.videos">Vidéos</string>
-    <string name="main.welcome_text">Bienvenue dans UltraSonic ! L\'application n\'est pas configurée. Après avoir configuré votre serveur personnel (disponible à partir de <b>subsonic.org</b>), veuillez accéder aux <b>Paramètres</b> et modifier la configuration pour vous y connecter.</string>
-    <string name="main.welcome_title">Bienvenue!</string>
+    <string name="main.welcome_text">TODO Bienvenue dans UltraSonic ! L\'application n\'est pas configurée. Après avoir configuré votre serveur personnel (disponible à partir de <b>subsonic.org</b>), veuillez accéder aux <b>Paramètres</b> et modifier la configuration pour vous y connecter.</string>
+    <string name="main.welcome_title">Bienvenue! TODO</string>
     <string name="menu.about">À propos</string>
     <string name="menu.common">Général</string>
     <string name="menu.deleted_playlist">Playlist %s supprimée</string>
@@ -109,6 +109,7 @@
     <string name="menu.exit">Quitter</string>
     <string name="menu.navigation">Navigation</string>
     <string name="menu.settings">Paramètres</string>
+    <string name="menu.userinf">User Information</string>
     <string name="music_library.label">Bibliothèque musicale</string>
     <string name="music_library.label_offline">Musique hors-ligne</string>
     <string name="music_service.retry">Une erreur de réseau s\'est produite. Essai %1$d de %2$d.</string>

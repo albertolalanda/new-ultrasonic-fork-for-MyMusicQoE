@@ -87,6 +87,7 @@ public class ServerSettingsFragment extends PreferenceFragment implements Prefer
         setupPreferencesListeners();
     }
 
+    //LALANDA SHARED PREFERENCES CHANGE COMMIT
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         if (preference == serverNamePref) {

@@ -100,8 +100,8 @@
     <string name="main.songs_starred">Csillaggal megjelölt</string>
     <string name="main.songs_title">Dalok</string>
     <string name="main.videos">Videók</string>
-    <string name="main.welcome_text">Üdvözli az UltraSonic! Az alkalmazás még nincs beállítva. Miután konfigurálta saját kiszolgálóját (elérhető: <b>subsonic.org</b>), húzza balról jobbra az oldalsávot, lépjen be a <b>Beállítások</b> menüpontba, és adja meg csatlakozási adatokat!</string>
-    <string name="main.welcome_title">Üdvözlet!</string>
+    <string name="main.welcome_text">TODO Üdvözli az UltraSonic! Az alkalmazás még nincs beállítva. Miután konfigurálta saját kiszolgálóját (elérhető: <b>subsonic.org</b>), húzza balról jobbra az oldalsávot, lépjen be a <b>Beállítások</b> menüpontba, és adja meg csatlakozási adatokat!</string>
+    <string name="main.welcome_title">Üdvözlet! TODO</string>
     <string name="menu.about">Névjegy</string>
     <string name="menu.common">Általános</string>
     <string name="menu.deleted_playlist">Törölt lejátszási lista %s</string>
@@ -109,6 +109,7 @@
     <string name="menu.exit">Kilépés</string>
     <string name="menu.navigation">Navigáció</string>
     <string name="menu.settings">Beállítások</string>
+    <string name="menu.userinf">User Information</string>
     <string name="music_library.label">Mediakönyvtár</string>
     <string name="music_library.label_offline">Kapcsolat nélküli médiák</string>
     <string name="music_service.retry">Hálózati hiba történt! Újrapróbálkozás %1$d - %2$d.</string>

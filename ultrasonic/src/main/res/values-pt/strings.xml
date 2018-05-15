@@ -100,8 +100,8 @@
     <string name="main.songs_starred">Favoritas</string>
     <string name="main.songs_title">Músicas</string>
     <string name="main.videos">Vídeos</string>
-    <string name="main.welcome_text">Bem-vindo ao UltraSonic! O aplicativo ainda não está configurado. Após configurar seu servidor pessoal (disponível em <b>subsonic.org</b>), clique em <i>Adicionar Servidor</i> em <b>Configurações</b> para a conexão.</string>
-    <string name="main.welcome_title">Bem-vindo!</string>
+    <string name="main.welcome_text">TODO Bem-vindo ao UltraSonic! O aplicativo ainda não está configurado. Após configurar seu servidor pessoal (disponível em <b>subsonic.org</b>), clique em <i>Adicionar Servidor</i> em <b>Configurações</b> para a conexão.</string>
+    <string name="main.welcome_title">Bem-vindo ao MyMusicQoE!</string>
     <string name="menu.about">Sobre</string>
     <string name="menu.common">Comum</string>
     <string name="menu.deleted_playlist">Playlist apagada %s</string>
@@ -109,6 +109,7 @@
     <string name="menu.exit">Sair</string>
     <string name="menu.navigation">Navegação</string>
     <string name="menu.settings">Configurações</string>
+    <string name="menu.userinf">User Information</string>
     <string name="music_library.label">Biblioteca de Mídia</string>
     <string name="music_library.label_offline">Mídia Offline</string>
     <string name="music_service.retry">Ocorreu um erro de rede. Tentativa %1$d de %2$d.</string>

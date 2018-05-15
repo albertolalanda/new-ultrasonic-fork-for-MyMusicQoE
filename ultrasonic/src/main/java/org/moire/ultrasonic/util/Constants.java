@@ -60,8 +60,11 @@ public final class Constants
 	public static final String INTENT_EXTRA_NAME_IS_ALBUM = "subsonic.isalbum";
 	public static final String INTENT_EXTRA_NAME_VIDEOS = "subsonic.videos";
 
-	// Notification IDs.
-	public static final int NOTIFICATION_ID_PLAYING = 100;
+	// User preferences
+	public static final String USER_ID = "userId";
+	public static final String USER_SEX = "userSex";
+	public static final String USER_AGE = "userAge";
+	public static final String USER_FAVORITE_GENRES = "userFavoriteGenres";
 
 	// Preferences keys.
 	public static final String PREFERENCES_KEY_SERVER = "server";
