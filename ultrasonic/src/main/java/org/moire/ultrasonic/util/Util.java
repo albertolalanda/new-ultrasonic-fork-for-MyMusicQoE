@@ -247,6 +247,7 @@ public class Util extends DownloadActivity
 	}
 
 
+
 	public static int getActiveServer(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);

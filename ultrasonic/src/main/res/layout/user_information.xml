@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
 	a:layout_width="fill_parent"
 	a:layout_height="fill_parent"
 	a:orientation="vertical"
@@ -21,6 +22,7 @@
 		a:layout_width="match_parent"
 		a:layout_height="wrap_content"
 		a:layout_marginLeft="10dip" />
+
 
 	<LinearLayout
 		a:layout_width="match_parent"
@@ -101,11 +103,12 @@
 			a:layout_height="wrap_content"
 			a:layout_alignParentBottom="true"
 			a:layout_centerHorizontal="true"
-			a:gravity="center"
 			a:layout_weight="1"
+			a:gravity="center"
 			a:text="@string/user_information_button"
 			a:textAppearance="?android:attr/textAppearanceButton"
-			a:textColor="#009688" />
+			a:textColor="#009688"
+			a:textSize="18sp" />
 
 	</RelativeLayout>
 </LinearLayout>

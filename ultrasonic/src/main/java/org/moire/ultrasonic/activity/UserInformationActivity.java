@@ -23,9 +23,12 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.domain.Genre;
@@ -47,9 +50,11 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 	private static final String TAG = UserInformationActivity.class.getSimpleName();
 
-	ImageView imgMale;
-	ImageView imgFemale;
-	Spinner spinnerAge;
+	private ImageView imgMale;
+	private ImageView imgFemale;
+	private Spinner spinnerAge;
+	private Button save;
+	private String sex;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -60,6 +65,8 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		imgMale = (ImageView) findViewById(R.id.image_view_male);
 		imgFemale = (ImageView) findViewById(R.id.image_view_female);
 		spinnerAge = (Spinner) findViewById(R.id.spinner_age);
+		save = (Button) findViewById(R.id.button_save);
+		save.setEnabled(false);
 
 		String UserSex = Util.getUserSex(this);
 
@@ -67,31 +74,19 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			case "M":
 				imgMale.setImageResource(R.drawable.ic_men_white);
 				imgFemale.setImageResource(R.drawable.ic_women_grey);
+				sex = "M";
 				break;
 			case "F":
 				imgMale.setImageResource(R.drawable.ic_men_grey);
 				imgFemale.setImageResource(R.drawable.ic_women_white);
+				sex = "F";
 				break;
 			default:
 				imgMale.setImageResource(R.drawable.ic_men_grey);
 				imgFemale.setImageResource(R.drawable.ic_women_grey);
+				sex = "Undefined";
 				break;
 		}
-
-		imgMale.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				imgMale.setImageResource(R.drawable.ic_men_white);
-				imgFemale.setImageResource(R.drawable.ic_women_grey);
-				Util.setUserSex(UserInformationActivity.this, 1);
-			}
-		});
-		imgFemale.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				imgMale.setImageResource(R.drawable.ic_men_grey);
-				imgFemale.setImageResource(R.drawable.ic_women_white);
-				Util.setUserSex(UserInformationActivity.this, 0);
-			}
-		});
 
 		String[] ageArray = new String[] {
 				String.valueOf(getText(R.string.user_information_age_default)),
@@ -107,7 +102,18 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerAge.setAdapter(adapter);
 
+
+
 		final Spinner spinnerGenres = (Spinner) findViewById(R.id.spinner_genres);
+		//LALANDA SET generos favoritos empty
+		GenreTitleCheckbox genreTitleCheckboxDefault = new GenreTitleCheckbox();
+		genreTitleCheckboxDefault.setTitle("generos favoritos");
+		genreTitleCheckboxDefault.setSelected(true);
+		ArrayList<GenreTitleCheckbox> listGenres = new ArrayList<>();
+		listGenres.add(genreTitleCheckboxDefault);
+		AdapterGenres adapterGenres = new AdapterGenres(UserInformationActivity.this, 0, listGenres);
+		spinnerGenres.setAdapter(adapterGenres);
+		//
 
 		BackgroundTask<List<Genre>> task = new TabActivityBackgroundTask<List<Genre>>(this, true)
 		{
@@ -118,15 +124,25 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 				List<Genre> genres = new ArrayList<Genre>();
 
-				try
-				{
-					genres = musicService.getGenres(UserInformationActivity.this, this);
-				}
-				catch (Exception x)
-				{
-					Log.e(TAG, "Failed to load genres", x);
-					//TODO LALANDA TENTAR DE NOVO OU MANDAR AVISO DE ERRO E FECHAR ???
-				}
+				/*int count = 0;
+				int maxTries = 3;*/
+				//TODO LALANDA FIX THIS BACKGROUND TASK GET GENRES
+				//while (count <= maxTries){
+					try
+					{
+						genres = musicService.getGenres(UserInformationActivity.this, this);
+						/*System.out.println("get genres " + count +".");
+						break;*/
+					}
+					catch (Exception x)
+					{
+						/*System.out.println("failed get genres " + count +".");
+						Thread.sleep(100);
+						if (++count == maxTries) {*/
+							Log.e(TAG, "Failed to load genres ", x);
+						//}
+					}
+				//}
 
 				return genres;
 			}
@@ -161,10 +177,70 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 					AdapterGenres adapterGenres = new AdapterGenres(UserInformationActivity.this, 0, listGenres);
 					spinnerGenres.setAdapter(adapterGenres);
+					updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+
 				}
 			}
 		};
 		task.execute();
 
+		spinnerAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				// your code here
+			}
+		});
+
+		imgMale.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				imgMale.setImageResource(R.drawable.ic_men_white);
+				imgFemale.setImageResource(R.drawable.ic_women_grey);
+				sex = "M";
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+			}
+		});
+		imgFemale.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				imgMale.setImageResource(R.drawable.ic_men_grey);
+				imgFemale.setImageResource(R.drawable.ic_women_white);
+				sex = "F";
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+			}
+		});
+
+		save.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+				if(save.isEnabled()){
+					switch (sex) {
+						case "M":
+								Util.setUserSex(UserInformationActivity.this, 1);
+							break;
+						case "F":
+								Util.setUserSex(UserInformationActivity.this, 0);
+							break;
+					}
+				}
+			}
+		});
+
 	}
+
+	private void updateSendButton (String sex, int spinnerAgeSelected, int spinnerGenresSize)
+	{
+		if (sex != "Undefined" && spinnerAgeSelected != 0 && spinnerGenresSize != 1) {
+			save.setEnabled(true);
+		}else{
+			save.setEnabled(false);
+		}
+	}
+
+
+
 }
