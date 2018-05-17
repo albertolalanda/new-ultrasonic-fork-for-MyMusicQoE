@@ -206,9 +206,9 @@ public class Util extends DownloadActivity
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, instance);
 		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_NAME + 1, "MyMusicQoE Server").apply();
-		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://159.65.29.155:8080/airsonic").apply();
-		preferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "test").apply();
-		preferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "test").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://138.68.145.66:8080/airsonic").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "guest").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "guest").apply();
 		//LALANDA não percebo bem o que acontece com a alteração desta constante
 		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
 		editor.commit();
@@ -227,6 +227,25 @@ public class Util extends DownloadActivity
 //		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
 //		editor.commit();
 //	}
+
+	//0 for female
+	//1 for male
+	public static void setUserSex(Context context, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		if (instance > 0){
+			preferences.edit().putString(Constants.USER_SEX, "M").apply();
+		}else{
+			preferences.edit().putString(Constants.USER_SEX, "F").apply();
+		}
+	}
+
+	public static String getUserSex(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getString(Constants.USER_SEX, "Not Defined");
+	}
+
 
 	public static int getActiveServer(Context context)
 	{
@@ -854,7 +873,7 @@ public class Util extends DownloadActivity
 				dialog.dismiss();
 				//activity.startActivityForResultWithoutTransition(activity, SettingsActivity.class);
 
-				//activity.startActivityForResultWithoutTransition(activity, UserInformationActivity.class);
+				activity.startActivityForResultWithoutTransition(activity, UserInformationActivity.class);
 			}
 		}).show();
 	}

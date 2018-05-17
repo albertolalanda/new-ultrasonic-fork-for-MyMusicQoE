@@ -75,6 +75,10 @@
             a:configChanges="orientation|keyboardHidden"
             a:launchMode="singleTask"/>
         <activity
+            a:name=".activity.UserInformationActivity"
+            a:configChanges="orientation|keyboardHidden"
+            a:launchMode="singleTask"/>
+        <activity
             a:name=".activity.HelpActivity"
             a:configChanges="orientation|keyboardHidden"
             a:launchMode="singleTask"/>

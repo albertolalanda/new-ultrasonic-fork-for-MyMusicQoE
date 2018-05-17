@@ -133,11 +133,13 @@ public class MainActivity extends SubsonicTabActivity
 
 		boolean shouldShowDialog = false;
 
-		if (!getActiveServerEnabled())
+		shouldShowDialog = true;
+		//TODO LALANDA CHANGE TO ALWAYS SHOW DIALOG
+		/*if (!getActiveServerEnabled())
 		{
 			shouldShowDialog = true;
 			Util.setActiveServer(this, 0);
-		}
+		}*/
 
 		int instance = Util.getActiveServer(this);
 		String name = Util.getServerName(this, instance);
@@ -146,12 +148,14 @@ public class MainActivity extends SubsonicTabActivity
 		{
 			shouldShowDialog = true;
 			Util.setActiveServer(this, 1);
+			//LALANDA CREATE A NEW BLANK SERVER ----
+			Util.setMyMusicQoEServer(this, 0);
+			setActiveServer(1);
+			//
 			instance = Util.getActiveServer(this);
 			name = Util.getServerName(this, instance);
 
-//			//LALANDA CREATE A NEW BLANK SERVER ----
-			Util.setMyMusicQoEServer(this, 0);
-			setActiveServer(1);
+
 //			//shared preferences need context ->
 //			System.out.println("PASSEI POR AQUI");
 //			SettingsFragment settingsFragment = new SettingsFragment();
@@ -534,7 +538,8 @@ public class MainActivity extends SubsonicTabActivity
 
 		if (!infoDialogDisplayed)
 		{
-			infoDialogDisplayed = true;
+			//LALANDA change on infoDiaglogBeingDisplayedOrNot
+			//infoDialogDisplayed = true;
 
 			if (show || Util.getRestUrl(this, null).contains("yourhost"))
 			{

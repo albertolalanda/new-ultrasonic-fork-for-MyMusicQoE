@@ -442,4 +442,17 @@
     <string name="api.subsonic.upgrade_client">Incompatible versions. Please upgrade UltraSonic Android app.</string>
     <string name="api.subsonic.upgrade_server">Incompatible versions. Please upgrade Subsonic server.</string>
 
+
+
+    <string name="user_information_age_20" translatable="false">less than 20</string>
+    <string name="user_information_age_20_30" translatable="false">between 20 and 30</string>
+    <string name="user_information_age_30_40" translatable="false">between 30 and 40</string>
+    <string name="user_information_age_40_50" translatable="false">between 40 and 50</string>
+    <string name="user_information_age_50_60" translatable="false">between 50 and 60</string>
+    <string name="user_information_age_60" translatable="false">more than 60</string>
+    <string name="user_information_age_default" translatable="false">age</string>
+    <string name="user_information_inf_text" translatable="false">Please provide you gender, age and favorite genres of music</string>
+    <string name="user_information_gender" translatable="false">gender</string>
+    <string name="user_information_button" translatable="false">SAVE</string>
+
 </resources>
