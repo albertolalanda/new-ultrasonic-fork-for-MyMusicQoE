@@ -74,7 +74,7 @@
 		<Spinner
 			a:id="@+id/spinner_age"
 			a:layout_width="fill_parent"
-			a:layout_height="wrap_content" />
+			a:layout_height="wrap_content"/>
 	</LinearLayout>
 
 	<LinearLayout
@@ -82,12 +82,15 @@
 		a:layout_height="wrap_content"
 		a:orientation="horizontal"
 		a:paddingTop="25dp">
-		<Spinner
-			a:id="@+id/spinner_genres"
+
+		<Button
+			a:id="@+id/button_genres"
 			a:layout_width="wrap_content"
 			a:layout_height="wrap_content"
 			a:layout_centerHorizontal="true"
-			a:layout_marginTop="10dp" />
+			a:layout_marginTop="10dp"
+			a:layout_weight="1"
+			a:text="loading genres ..." />
 	</LinearLayout>
 
 	<RelativeLayout

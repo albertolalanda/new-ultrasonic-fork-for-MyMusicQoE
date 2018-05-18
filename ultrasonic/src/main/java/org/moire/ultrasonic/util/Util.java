@@ -235,9 +235,9 @@ public class Util extends DownloadActivity
 		//1 for male
 		SharedPreferences preferences = getPreferences(context);
 		if (instance > 0){
-			preferences.edit().putString(Constants.USER_AGE, "M").apply();
+			preferences.edit().putString(Constants.USER_SEX, "M").apply();
 		}else{
-			preferences.edit().putString(Constants.USER_AGE, "F").apply();
+			preferences.edit().putString(Constants.USER_SEX, "F").apply();
 		}
 	}
 
@@ -265,6 +265,32 @@ public class Util extends DownloadActivity
 	{
 		SharedPreferences preferences = getPreferences(context);
 		return preferences.getInt(Constants.USER_AGE, 0);
+	}
+
+	public static void setNumberOfFavoriteGenres(Context context, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(Constants.USER_NUMBER_OF_FAVORITE_GENRES, instance);
+		editor.commit();
+	}
+
+	public static int getNumberOfFavoriteGenres(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getInt(Constants.USER_NUMBER_OF_FAVORITE_GENRES, 0);
+	}
+
+	public static void setFavoriteGenre(Context context, String genre, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		preferences.edit().putString(Constants.USER_FAVORITE_GENRES + instance, genre).apply();
+	}
+
+	public static String getFavoriteGenre(Context context, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getString(Constants.USER_FAVORITE_GENRES + instance, null);
 	}
 
 

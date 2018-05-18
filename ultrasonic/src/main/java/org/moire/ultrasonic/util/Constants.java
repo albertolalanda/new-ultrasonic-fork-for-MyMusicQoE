@@ -65,6 +65,7 @@ public final class Constants
 	public static final String USER_SEX = "userSex";
 	public static final String USER_AGE = "userAge";
 	public static final String USER_FAVORITE_GENRES = "userFavoriteGenres";
+	public static final String USER_NUMBER_OF_FAVORITE_GENRES = "userNumberFavoriteGenres";
 
 	// Preferences keys.
 	public static final String PREFERENCES_KEY_SERVER = "server";

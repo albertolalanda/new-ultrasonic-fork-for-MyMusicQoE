@@ -18,9 +18,9 @@
  */
 package org.moire.ultrasonic.activity;
 
-import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,18 +28,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.domain.Genre;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
-import org.moire.ultrasonic.util.AdapterGenres;
 import org.moire.ultrasonic.util.BackgroundTask;
-import org.moire.ultrasonic.util.GenreTitleCheckbox;
 import org.moire.ultrasonic.util.TabActivityBackgroundTask;
 import org.moire.ultrasonic.util.Util;
-import org.moire.ultrasonic.view.GenreAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -53,7 +49,15 @@ public class UserInformationActivity extends SubsonicTabActivity {
 	private ImageView imgMale;
 	private ImageView imgFemale;
 	private Spinner spinnerAge;
-	private Spinner spinnerGenres;
+
+	private Button buttonGenres;
+	private boolean taskIsFinished;
+	private String[] listGenres;
+	private boolean[] checkedGenres;
+	private ArrayList<Integer> userGenres = new ArrayList<>();
+	private int numberOfFavoriteGenres;
+	private ArrayList<String> listPreferenceFavoriteGenres = new ArrayList<>();
+
 	private Button save;
 	private String sex;
 	private int age;
@@ -67,9 +71,11 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		imgMale = (ImageView) findViewById(R.id.image_view_male);
 		imgFemale = (ImageView) findViewById(R.id.image_view_female);
 		spinnerAge = (Spinner) findViewById(R.id.spinner_age);
-		spinnerGenres = (Spinner) findViewById(R.id.spinner_genres);
+		buttonGenres = (Button) findViewById(R.id.button_genres);
 		save = (Button) findViewById(R.id.button_save);
 		save.setEnabled(false);
+		//to check if background task is finished. might exist a better way
+		taskIsFinished = false;
 
 		//get sex from preferences
 		String UserSex = Util.getUserSex(this);
@@ -108,16 +114,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		spinnerAge.setAdapter(adapter);
 		spinnerAge.setSelection(age);
 
-		//LALANDA SET generos favoritos empty
-		GenreTitleCheckbox genreTitleCheckboxDefault = new GenreTitleCheckbox();
-		genreTitleCheckboxDefault.setTitle("loading genres ...");
-		genreTitleCheckboxDefault.setSelected(true);
-		ArrayList<GenreTitleCheckbox> listGenres = new ArrayList<>();
-		listGenres.add(genreTitleCheckboxDefault);
-		AdapterGenres adapterGenres = new AdapterGenres(UserInformationActivity.this, 0, listGenres);
-		spinnerGenres.setAdapter(adapterGenres);
-		//
-
+		//genres
 		BackgroundTask<List<Genre>> task = new TabActivityBackgroundTask<List<Genre>>(this, true)
 		{
 			@Override
@@ -145,15 +142,29 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			@Override
 			protected void done(List<Genre> result)
 			{
-				ArrayList<GenreTitleCheckbox> listGenres = new ArrayList<>();
+				listGenres = new String[result.size()];
+				checkedGenres = new boolean[result.size()];
 
 				Collection<String> sectionSet = new LinkedHashSet<String>(30);
 				List<Integer> positionList = new ArrayList<Integer>(30);
 
-				GenreTitleCheckbox genreTitleCheckboxDefault = new GenreTitleCheckbox();
-				genreTitleCheckboxDefault.setTitle("generos favoritos");
-				genreTitleCheckboxDefault.setSelected(true);
-				listGenres.add(genreTitleCheckboxDefault);
+				//fill shared preference genres list
+				String item = "";
+				numberOfFavoriteGenres = Util.getNumberOfFavoriteGenres(UserInformationActivity.this);
+				for (int i = 0; i < numberOfFavoriteGenres; i++){
+					System.out.println(Util.getNumberOfFavoriteGenres(UserInformationActivity.this));
+					System.out.println("FAVORITE GENRES: "+Util.getFavoriteGenre(UserInformationActivity.this, i));
+					listPreferenceFavoriteGenres.add(Util.getFavoriteGenre(UserInformationActivity.this, i));
+					item = item + Util.getFavoriteGenre(UserInformationActivity.this, i);
+					if (i != numberOfFavoriteGenres - 1) {
+						item = item + ", ";
+					}
+				}
+				if (!item.isEmpty()){
+					buttonGenres.setText(item);
+				}else{
+					buttonGenres.setText("select favorite genres");
+				}
 
 				for (int i = 0; i < result.size(); i++)
 				{
@@ -165,16 +176,68 @@ public class UserInformationActivity extends SubsonicTabActivity {
 						positionList.add(i);
 					}
 
-					GenreTitleCheckbox genreTitleCheckbox = new GenreTitleCheckbox();
-					genreTitleCheckbox.setTitle(genre.getName());
-					genreTitleCheckbox.setSelected(false);
-					listGenres.add(genreTitleCheckbox);
-
-					AdapterGenres adapterGenres = new AdapterGenres(UserInformationActivity.this, 0, listGenres);
-					spinnerGenres.setAdapter(adapterGenres);
-					updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
-
+					listGenres[i] = genre.getName();
+					if (listPreferenceFavoriteGenres.contains(genre.getName())){
+						checkedGenres[i] = true;
+					}else{
+						checkedGenres[i] = false;
+					}
 				}
+
+				buttonGenres.setOnClickListener(new View.OnClickListener() {
+					@Override
+					public void onClick(View view) {
+						AlertDialog.Builder mBuilder = new AlertDialog.Builder(UserInformationActivity.this);
+						mBuilder.setTitle("Select Favorite Genres");
+						mBuilder.setMultiChoiceItems(listGenres, checkedGenres, new DialogInterface.OnMultiChoiceClickListener() {
+						@Override
+						public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
+								if(isChecked){
+									userGenres.add(position);
+								}else{
+									userGenres.remove((Integer.valueOf(position)));
+								}
+							}
+						});
+
+						mBuilder.setCancelable(false);
+						mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int which) {
+								String item = "";
+								for (int i = 0; i < userGenres.size(); i++) {
+									item = item + listGenres[userGenres.get(i)];
+									if (i != userGenres.size() - 1) {
+										item = item + ", ";
+									}
+								}
+								if (!item.isEmpty()){
+									buttonGenres.setText(item);
+								}else{
+									buttonGenres.setText("select favorite genres");
+								}
+
+							}
+						});
+
+						mBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialogInterface, int which) {
+								for (int i = 0; i < checkedGenres.length; i++) {
+									checkedGenres[i] = false;
+									userGenres.clear();
+									buttonGenres.setText("select favorite genres");
+								}
+							}
+						});
+
+						AlertDialog mDialog = mBuilder.create();
+						mDialog.show();
+					}
+				});
+
+				taskIsFinished = true;
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition());
 			}
 		};
 		task.execute();
@@ -182,7 +245,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		spinnerAge.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition());
 			}
 
 			@Override
@@ -196,7 +259,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				imgMale.setImageResource(R.drawable.ic_men_white);
 				imgFemale.setImageResource(R.drawable.ic_women_grey);
 				sex = "M";
-				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition());
 			}
 		});
 		imgFemale.setOnClickListener(new View.OnClickListener() {
@@ -204,14 +267,14 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				imgMale.setImageResource(R.drawable.ic_men_grey);
 				imgFemale.setImageResource(R.drawable.ic_women_white);
 				sex = "F";
-				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition());
 			}
 		});
 
 		save.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
+				updateSendButton (sex, spinnerAge.getSelectedItemPosition());
 				if(save.isEnabled()){
 					//Save user sex
 					switch (sex) {
@@ -224,15 +287,21 @@ public class UserInformationActivity extends SubsonicTabActivity {
 					}
 					//Save user age
 					Util.setUserAge(UserInformationActivity.this, spinnerAge.getSelectedItemPosition());
+					//Save favorite genres
+					Util.setNumberOfFavoriteGenres(UserInformationActivity.this, userGenres.size());
+					System.out.println("NUMBER OF NEW FAVORITE GENRES: " + userGenres.size());
+					for (int i = 0; i < userGenres.size(); i++){
+						System.out.println("SET FAVORITE GENRES: "+ listGenres[userGenres.get(i)]);
+						Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
+					}
 				}
 			}
 		});
-
 	}
 
-	private void updateSendButton (String sex, int spinnerAgeSelected, int spinnerGenresSize)
+	private void updateSendButton (String sex, int spinnerAgeSelected)
 	{
-		if (sex != "Undefined" && spinnerAgeSelected != 0 && spinnerGenresSize != 1) {
+		if (sex != "Undefined" && spinnerAgeSelected != 0 && taskIsFinished) {
 			save.setEnabled(true);
 		}else{
 			save.setEnabled(false);
