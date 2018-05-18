@@ -228,15 +228,16 @@ public class Util extends DownloadActivity
 //		editor.commit();
 //	}
 
-	//0 for female
-	//1 for male
+
 	public static void setUserSex(Context context, int instance)
 	{
+		//0 for female
+		//1 for male
 		SharedPreferences preferences = getPreferences(context);
 		if (instance > 0){
-			preferences.edit().putString(Constants.USER_SEX, "M").apply();
+			preferences.edit().putString(Constants.USER_AGE, "M").apply();
 		}else{
-			preferences.edit().putString(Constants.USER_SEX, "F").apply();
+			preferences.edit().putString(Constants.USER_AGE, "F").apply();
 		}
 	}
 
@@ -246,6 +247,25 @@ public class Util extends DownloadActivity
 		return preferences.getString(Constants.USER_SEX, "Not Defined");
 	}
 
+	public static void setUserAge(Context context, int instance)
+	{
+//		1 -20
+//		2 20-30
+//		3 30-40
+//		4 40-50
+//		5 50-60
+//		6 +60
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(Constants.USER_AGE, instance);
+		editor.commit();
+	}
+
+	public static int getUserAge(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getInt(Constants.USER_AGE, 0);
+	}
 
 
 	public static int getActiveServer(Context context)

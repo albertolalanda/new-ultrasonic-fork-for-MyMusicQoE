@@ -53,8 +53,10 @@ public class UserInformationActivity extends SubsonicTabActivity {
 	private ImageView imgMale;
 	private ImageView imgFemale;
 	private Spinner spinnerAge;
+	private Spinner spinnerGenres;
 	private Button save;
 	private String sex;
+	private int age;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -65,9 +67,11 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		imgMale = (ImageView) findViewById(R.id.image_view_male);
 		imgFemale = (ImageView) findViewById(R.id.image_view_female);
 		spinnerAge = (Spinner) findViewById(R.id.spinner_age);
+		spinnerGenres = (Spinner) findViewById(R.id.spinner_genres);
 		save = (Button) findViewById(R.id.button_save);
 		save.setEnabled(false);
 
+		//get sex from preferences
 		String UserSex = Util.getUserSex(this);
 
 		switch (UserSex) {
@@ -88,6 +92,8 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				break;
 		}
 
+		//get age from preferences
+		age = Util.getUserAge(this);
 		String[] ageArray = new String[] {
 				String.valueOf(getText(R.string.user_information_age_default)),
 				String.valueOf(getText(R.string.user_information_age_20)),
@@ -97,17 +103,14 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				String.valueOf(getText(R.string.user_information_age_50_60)),
 				String.valueOf(getText(R.string.user_information_age_60))
 		};
-
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, ageArray);
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		spinnerAge.setAdapter(adapter);
+		spinnerAge.setSelection(age);
 
-
-
-		final Spinner spinnerGenres = (Spinner) findViewById(R.id.spinner_genres);
 		//LALANDA SET generos favoritos empty
 		GenreTitleCheckbox genreTitleCheckboxDefault = new GenreTitleCheckbox();
-		genreTitleCheckboxDefault.setTitle("generos favoritos");
+		genreTitleCheckboxDefault.setTitle("loading genres ...");
 		genreTitleCheckboxDefault.setSelected(true);
 		ArrayList<GenreTitleCheckbox> listGenres = new ArrayList<>();
 		listGenres.add(genreTitleCheckboxDefault);
@@ -124,25 +127,17 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 				List<Genre> genres = new ArrayList<Genre>();
 
-				/*int count = 0;
-				int maxTries = 3;*/
-				//TODO LALANDA FIX THIS BACKGROUND TASK GET GENRES
-				//while (count <= maxTries){
+				do {
 					try
 					{
 						genres = musicService.getGenres(UserInformationActivity.this, this);
-						/*System.out.println("get genres " + count +".");
-						break;*/
+						break;
 					}
 					catch (Exception x)
 					{
-						/*System.out.println("failed get genres " + count +".");
-						Thread.sleep(100);
-						if (++count == maxTries) {*/
-							Log.e(TAG, "Failed to load genres ", x);
-						//}
+						Log.e(TAG, "Failed to load genres ", x);
 					}
-				//}
+				}while(genres.size() <= 0);
 
 				return genres;
 			}
@@ -218,6 +213,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			public void onClick(View v) {
 				updateSendButton (sex, spinnerAge.getSelectedItemPosition(), spinnerGenres.getAdapter().getCount());
 				if(save.isEnabled()){
+					//Save user sex
 					switch (sex) {
 						case "M":
 								Util.setUserSex(UserInformationActivity.this, 1);
@@ -226,6 +222,8 @@ public class UserInformationActivity extends SubsonicTabActivity {
 								Util.setUserSex(UserInformationActivity.this, 0);
 							break;
 					}
+					//Save user age
+					Util.setUserAge(UserInformationActivity.this, spinnerAge.getSelectedItemPosition());
 				}
 			}
 		});
