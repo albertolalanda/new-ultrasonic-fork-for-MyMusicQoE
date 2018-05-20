@@ -199,6 +199,8 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
+	////-------------------------------------------------------------------------------------///////
+
 	//LALANDA SET MYMUSICQOESERVER
 	public static void setMyMusicQoEServer(Context context, int instance)
 	{
@@ -214,7 +216,7 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
-	//LALANDA DUNNO IF I NEED TO MAKE A CLASS HERE
+	//LALANDA CLASS FOR ALL USER PREFTS? IS TRY CATCH NEEDED?
 //	public static void setUserInformation(Context context, int instance, int id, String sex)
 //	{
 //		SharedPreferences preferences = getPreferences(context);
@@ -293,6 +295,7 @@ public class Util extends DownloadActivity
 		return preferences.getString(Constants.USER_FAVORITE_GENRES + instance, null);
 	}
 
+	////-------------------------------------------------------------------------------------///////
 
 	public static int getActiveServer(Context context)
 	{
@@ -478,7 +481,6 @@ public class Util extends DownloadActivity
 
 		// Slightly obfuscate password
 		password = "enc:" + Util.utf8HexEncode(password);
-		//password = "enc:" + Util.utf8HexEncode("teste");
 
 		builder.append(serverUrl);
 		if (builder.charAt(builder.length() - 1) != '/')
