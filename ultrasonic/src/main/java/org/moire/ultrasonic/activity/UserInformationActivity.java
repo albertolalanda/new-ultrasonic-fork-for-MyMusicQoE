@@ -22,12 +22,14 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.domain.Genre;
@@ -294,9 +296,11 @@ public class UserInformationActivity extends SubsonicTabActivity {
 						System.out.println("SET FAVORITE GENRES: "+ listGenres[userGenres.get(i)]);
 						Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
 					}
+					finish();
 				}
 			}
 		});
+
 	}
 
 	private void updateSendButton (String sex, int spinnerAgeSelected)
@@ -308,6 +312,9 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		}
 	}
 
-
+	@Override
+	public void onBackPressed() {
+		// super.onBackPressed(); commented this line in order to disable back press
+	}
 
 }
