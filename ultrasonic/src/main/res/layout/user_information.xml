@@ -8,7 +8,6 @@
 	a:paddingRight="15dp"
 	a:paddingTop="10dp">
 
-
 	<TextView
 		a:id="@+id/text_view_userInformation_informationText"
 		a:layout_width="match_parent"
@@ -34,9 +33,9 @@
 			a:id="@+id/text_view_userInformation_textGenderSelection"
 			a:layout_width="wrap_content"
 			a:layout_height="match_parent"
-			a:gravity="center"
 			a:layout_marginLeft="10dip"
 			a:layout_marginTop="6dip"
+			a:gravity="center"
 			a:text="@string/user_information_gender"
 			a:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -46,8 +45,7 @@
 			a:layout_height="100dp"
 			a:layout_weight="2"
 			a:adjustViewBounds="true"
-			a:scaleType="fitCenter"
-			/>
+			a:scaleType="fitCenter" />
 
 		<View
 			a:layout_width="2px"
@@ -60,8 +58,7 @@
 			a:layout_height="100dp"
 			a:layout_weight="2"
 			a:adjustViewBounds="true"
-			a:scaleType="fitCenter"
-			/>
+			a:scaleType="fitCenter" />
 
 	</LinearLayout>
 
@@ -74,7 +71,7 @@
 		<Spinner
 			a:id="@+id/spinner_age"
 			a:layout_width="fill_parent"
-			a:layout_height="wrap_content"/>
+			a:layout_height="wrap_content" />
 	</LinearLayout>
 
 	<LinearLayout

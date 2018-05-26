@@ -3,7 +3,8 @@
     a:layout_width="fill_parent"
     a:layout_height="fill_parent"
     a:orientation="vertical" >
-    
+
+    <!--LALANDA LAYOUT OF FLIPPER-->
     <org.moire.ultrasonic.util.MyViewFlipper
         a:id="@+id/download_playlist_flipper"
         a:layout_width="fill_parent"
@@ -41,6 +42,9 @@
         </RelativeLayout>
 
         <include layout="@layout/download_playlist" />
+
+        <!--LALANDA INCLUDE CUSTOM SEEKBAR-->
+
     </org.moire.ultrasonic.util.MyViewFlipper>
 
     <include layout="@layout/media_buttons" />

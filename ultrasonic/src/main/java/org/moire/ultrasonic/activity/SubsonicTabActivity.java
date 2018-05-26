@@ -20,7 +20,6 @@ package org.moire.ultrasonic.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -321,6 +320,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 
 	private void applyTheme()
 	{
+		//THEME LALANDA TODO HERE YOU SHOULD PUT THE DRAWABLES AND COLORS FOR BOTH THEMES
 		String theme = Util.getTheme(this);
 
 		if ("dark".equalsIgnoreCase(theme) || "fullscreen".equalsIgnoreCase(theme))
@@ -1395,18 +1395,21 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 				{
 					downX = event.getX();
 					downY = event.getY();
+					System.out.println("ACTION DOWN");
 					return false;
 				}
 				case MotionEvent.ACTION_UP:
 				{
 					upX = event.getX();
 					upY = event.getY();
+					System.out.println("ACTION UP");
 
 					float deltaX = downX - upX;
 					float deltaY = downY - upY;
 
 					if (Math.abs(deltaX) > MIN_DISTANCE)
 					{
+						System.out.println("ACTION IF");
 						// left or right
 						if (deltaX < 0)
 						{
@@ -1421,6 +1424,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 					}
 					else if (Math.abs(deltaY) > MIN_DISTANCE)
 					{
+						System.out.println("ACTION ELSE IF");
 						if (deltaY < 0)
 						{
 							SubsonicTabActivity.nowPlayingHidden = true;

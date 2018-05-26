@@ -29,7 +29,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.Toast;
+
+import net.simonvt.menudrawer.MenuDrawer;
 
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.domain.Genre;
@@ -43,6 +44,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+
+/**
+ * @author Alberto Lalanda
+ * @author Tiago Martins
+ * Activity to collect user information
+ */
 
 public class UserInformationActivity extends SubsonicTabActivity {
 
@@ -62,22 +69,26 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 	private Button save;
 	private String sex;
-	private int age;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_information);
+		//to disable back button
+		setActionBarDisplayHomeAsUp(false);
 
-		imgMale = (ImageView) findViewById(R.id.image_view_male);
-		imgFemale = (ImageView) findViewById(R.id.image_view_female);
-		spinnerAge = (Spinner) findViewById(R.id.spinner_age);
-		buttonGenres = (Button) findViewById(R.id.button_genres);
-		save = (Button) findViewById(R.id.button_save);
+
+		imgMale = findViewById(R.id.image_view_male);
+		imgFemale = findViewById(R.id.image_view_female);
+		spinnerAge = findViewById(R.id.spinner_age);
+		buttonGenres = findViewById(R.id.button_genres);
+		save = findViewById(R.id.button_save);
 		save.setEnabled(false);
 		//to check if background task is finished. might exist a better way
 		taskIsFinished = false;
+
+
 
 		//get sex from preferences
 		String UserSex = Util.getUserSex(this);
@@ -101,7 +112,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		}
 
 		//get age from preferences
-		age = Util.getUserAge(this);
+		int age = Util.getUserAge(this);
 		String[] ageArray = new String[] {
 				String.valueOf(getText(R.string.user_information_age_default)),
 				String.valueOf(getText(R.string.user_information_age_20)),
@@ -181,6 +192,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 					listGenres[i] = genre.getName();
 					if (listPreferenceFavoriteGenres.contains(genre.getName())){
 						checkedGenres[i] = true;
+						userGenres.add(i);
 					}else{
 						checkedGenres[i] = false;
 					}

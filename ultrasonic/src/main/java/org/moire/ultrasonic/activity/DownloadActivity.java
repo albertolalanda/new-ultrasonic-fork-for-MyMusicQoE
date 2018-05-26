@@ -123,6 +123,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	/**
 	 * Called when the activity is first created.
 	 */
+	//TODO LALANDA ACTIVITY PLAYER
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
@@ -946,6 +947,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().setJukeboxEnabled(jukeboxEnabled);
 				Util.toast(DownloadActivity.this, jukeboxEnabled ? R.string.download_jukebox_on : R.string.download_jukebox_off, false);
 				return true;
+				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
 				toggleFullScreenAlbumArt();
 				return true;
@@ -961,6 +963,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				return true;
 			case R.id.menu_item_star:
+				//LALANDA ITEM STAR
 				if (currentSong == null)
 				{
 					return true;
@@ -1159,6 +1162,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}.execute();
 	}
 
+	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE
 	private void toggleFullScreenAlbumArt()
 	{
 		if (playlistFlipper.getDisplayedChild() == 1)

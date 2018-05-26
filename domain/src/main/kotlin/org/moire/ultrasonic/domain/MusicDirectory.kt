@@ -35,6 +35,7 @@ class MusicDirectory {
         return children.filter { it.isDirectory && includeDirs || !it.isDirectory && includeFiles }
     }
 
+    //LALANDA MUSIC ENTRY AVALABLE VARIABLES TO CALL
     data class Entry(
         var id: String? = null,
         var parent: String? = null,

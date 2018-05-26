@@ -217,20 +217,6 @@ public class Util extends DownloadActivity
 	}
 
 	//LALANDA CLASS FOR ALL USER PREFTS? IS TRY CATCH NEEDED?
-//	public static void setUserInformation(Context context, int instance, int id, String sex)
-//	{
-//		SharedPreferences preferences = getPreferences(context);
-//		SharedPreferences.Editor editor = preferences.edit();
-//		editor.putInt(Constants.USER_ID, id);
-//		preferences.edit().putString(Constants.USER_SEX, sex).apply();
-//		preferences.edit().putString(Constants.USER_AGE, "test").apply();
-//		preferences.edit().putString(Constants.USER_FAVORITE_GENRES, "test").apply();
-//		//LALANDA não percebo bem o que acontece com a alteração desta constante
-//		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
-//		editor.commit();
-//	}
-
-
 	public static void setUserSex(Context context, int instance)
 	{
 		//0 for female
