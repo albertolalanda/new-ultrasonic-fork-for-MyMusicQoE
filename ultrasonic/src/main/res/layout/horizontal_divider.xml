@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<View xmlns:a="http://schemas.android.com/apk/res/android"
+    a:layout_width="2dp"
+    a:layout_height="match_parent"
+    a:background="@android:color/darker_gray"
+    a:orientation="vertical">
+</View>

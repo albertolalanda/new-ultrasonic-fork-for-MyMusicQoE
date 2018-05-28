@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!--LALANDA DRAWABLES FOR THEMES AND COLORS-->
     <style name="UltraSonicTheme" parent="Theme.AppCompat">
         <item name="color_background">@color/background_color_dark</item>
         <item name="star_hollow">@drawable/ic_star_hollow_dark</item>

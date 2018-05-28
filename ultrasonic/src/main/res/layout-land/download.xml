@@ -38,6 +38,7 @@
         </FrameLayout>
 
         <include layout="@layout/download_playlist"/>
+        <include layout="@layout/vertical_seekbar_rating" />
     </org.moire.ultrasonic.util.MyViewFlipper>
 
     <RelativeLayout

@@ -179,7 +179,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onClick(final View view)
 			{
-				toggleFullScreenAlbumArt();
+				toggleFullScreenAlbumArt(2);
 			}
 		});
 
@@ -949,7 +949,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				return true;
 				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
-				toggleFullScreenAlbumArt();
+				toggleFullScreenAlbumArt(1);
 				return true;
 			case R.id.menu_item_clear_playlist:
 				getDownloadService().setShufflePlayEnabled(false);
@@ -963,8 +963,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				return true;
 			case R.id.menu_item_star:
+				toggleFullScreenAlbumArt(2);
 				//LALANDA ITEM STAR
-				if (currentSong == null)
+				/*if (currentSong == null)
 				{
 					return true;
 				}
@@ -1006,8 +1007,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 							Log.e(TAG, e.getMessage(), e);
 						}
 					}
-				}).start();
-
+				}).start();*/
 				return true;
 			case R.id.menu_item_bookmark_set:
 				if (currentSong == null)
@@ -1163,16 +1163,28 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	}
 
 	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE
-	private void toggleFullScreenAlbumArt()
+	private void toggleFullScreenAlbumArt(int index)
 	{
-		if (playlistFlipper.getDisplayedChild() == 1)
+		if (playlistFlipper.getDisplayedChild() == 2 && index == 2)
+		{
+			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
+			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
+			playlistFlipper.setDisplayedChild(0);
+		}
+		else if(playlistFlipper.getDisplayedChild() == 0 && index == 2)
 		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
+			playlistFlipper.setDisplayedChild(2);
+		}else if(playlistFlipper.getDisplayedChild() == 1 && index == 1){
+			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
+			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
 			playlistFlipper.setDisplayedChild(0);
-		}
-		else
-		{
+		}else if (playlistFlipper.getDisplayedChild() == 1 && index == 2){
+			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
+			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
+			playlistFlipper.setDisplayedChild(2);
+		}else{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
 			playlistFlipper.setDisplayedChild(1);
