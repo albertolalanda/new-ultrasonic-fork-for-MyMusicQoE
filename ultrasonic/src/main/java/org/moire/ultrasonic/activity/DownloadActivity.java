@@ -62,6 +62,7 @@ import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.Constants;
 import org.moire.ultrasonic.util.SilentBackgroundTask;
 import org.moire.ultrasonic.util.Util;
+import org.moire.ultrasonic.util.VerticalSeekBar;
 import org.moire.ultrasonic.view.AutoRepeatButton;
 import org.moire.ultrasonic.view.SongListAdapter;
 import org.moire.ultrasonic.view.VisualizerView;
@@ -119,6 +120,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private SilentBackgroundTask<Void> onProgressChangedTask;
 	LinearLayout visualizerViewLayout;
 	private MenuItem starMenuItem;
+
+	private VerticalSeekBar verticalSeekBar;
 
 	/**
 	 * Called when the activity is first created.
@@ -496,6 +499,35 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		{
 			visualizerViewLayout.setVisibility(View.GONE);
 		}
+
+		//LALANDA VERTICAL SEEKBAR COPY PASTE
+
+		verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
+		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+
+			@Override
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				Log.d("Developer", "onStopTrackingTouch: "+seekBar.getProgress());
+
+			}
+
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) {
+				Log.d("Developer", "onStartTrackingTouch: "+seekBar.getProgress());
+
+			}
+
+			@Override
+			public void onProgressChanged(SeekBar seekBar, int progress,
+										  boolean fromUser) {
+
+				Log.d("Developer", "onProgressChanged: "+seekBar.getProgress());
+			}
+		});
+
+		///
+
 	}
 
 	@Override
