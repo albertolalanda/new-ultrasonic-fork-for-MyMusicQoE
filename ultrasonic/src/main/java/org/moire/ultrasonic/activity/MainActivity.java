@@ -19,6 +19,7 @@
 
 package org.moire.ultrasonic.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ import org.moire.ultrasonic.service.DownloadServiceImpl;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.Constants;
+import org.moire.ultrasonic.util.ErrorDialog;
 import org.moire.ultrasonic.util.FileUtil;
 import org.moire.ultrasonic.util.MergeAdapter;
 import org.moire.ultrasonic.util.TabActivityBackgroundTask;
@@ -134,22 +136,22 @@ public class MainActivity extends SubsonicTabActivity
 		boolean shouldShowDialog = false;
 
 		shouldShowDialog = true;
-		//LALANDA CREATE A NEW BLANK SERVER ----
-		Util.setMyMusicQoEServer(this, 0);
-		setActiveServer(1);
-		//
 		//TODO LALANDA CHANGE TO ALWAYS SHOW DIALOG
-		/*if (!getActiveServerEnabled())
+		if (!getActiveServerEnabled())
 		{
 			shouldShowDialog = true;
 			Util.setActiveServer(this, 0);
-		}*/
+		}
 
 		int instance = Util.getActiveServer(this);
 		String name = Util.getServerName(this, instance);
 
 		if (name == null)
 		{
+			//set my music qoe server
+			//Util.setUserAndroidAPILevel(this);
+			Util.setMyMusicQoEServer(this, 0);
+			//
 			shouldShowDialog = true;
 			Util.setActiveServer(this, 1);
 			instance = Util.getActiveServer(this);
@@ -157,6 +159,7 @@ public class MainActivity extends SubsonicTabActivity
 		}
 
 		serverTextView.setText(name);
+
 
 		final ListView list = (ListView) findViewById(R.id.main_list);
 
@@ -501,11 +504,9 @@ public class MainActivity extends SubsonicTabActivity
 	//LALANDA WELCOME TO ULTRASONIC BOX
 	private void showInfoDialog(final boolean show)
 	{
-
 		if (!infoDialogDisplayed)
 		{
-			//LALANDA change on infoDiaglogBeingDisplayedOrNot
-			//infoDialogDisplayed = true;
+			infoDialogDisplayed = true;
 
 			if (show || Util.getRestUrl(this, null).contains("yourhost"))
 			{

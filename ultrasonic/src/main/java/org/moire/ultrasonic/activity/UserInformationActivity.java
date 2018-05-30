@@ -37,6 +37,7 @@ import org.moire.ultrasonic.domain.Genre;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.BackgroundTask;
+import org.moire.ultrasonic.util.ErrorDialog;
 import org.moire.ultrasonic.util.TabActivityBackgroundTask;
 import org.moire.ultrasonic.util.Util;
 
@@ -137,7 +138,11 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 				List<Genre> genres = new ArrayList<Genre>();
 
+				//LALANDA IF NETWORK CONNECTED ELSE ERROR DIALOG
 				do {
+					/*if (!Util.isNetworkConnected(MainActivity.getInstance())){
+						new ErrorDialog(MainActivity.getInstance(), R.string.background_task_network_error, true);
+					}*/
 					try
 					{
 						genres = musicService.getGenres(UserInformationActivity.this, this);

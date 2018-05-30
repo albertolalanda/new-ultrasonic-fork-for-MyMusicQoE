@@ -47,6 +47,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.mobeta.android.dslv.DragSortListView;
@@ -182,7 +183,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onClick(final View view)
 			{
-				toggleFullScreenAlbumArt(2);
+				toggleFullScreenAlbumArt(1);
 			}
 		});
 
@@ -499,35 +500,26 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		{
 			visualizerViewLayout.setVisibility(View.GONE);
 		}
-
 		//LALANDA VERTICAL SEEKBAR COPY PASTE
-
 		verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
 		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-
-
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				Log.d("Developer", "onStopTrackingTouch: "+seekBar.getProgress());
-
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				Log.d("Developer", "onStartTrackingTouch: "+seekBar.getProgress());
-
+				Toast.makeText(DownloadActivity.this, "START TRACKING", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress,
-										  boolean fromUser) {
-
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				Log.d("Developer", "onProgressChanged: "+seekBar.getProgress());
 			}
 		});
-
-		///
-
+		//
 	}
 
 	@Override

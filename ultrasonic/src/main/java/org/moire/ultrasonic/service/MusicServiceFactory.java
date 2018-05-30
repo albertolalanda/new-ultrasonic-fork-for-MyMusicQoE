@@ -96,6 +96,7 @@ public class MusicServiceFactory {
                 .getBoolean(Constants.PREFERENCES_KEY_ALLOW_SELF_SIGNED_CERTIFICATE + instance, false);
         boolean enableLdapUserSupport = preferences
                 .getBoolean(Constants.PREFERENCES_KEY_LDAP_SUPPORT + instance , false);
+        int androidClientSDK = Integer.valueOf(android.os.Build.VERSION.SDK);
 
         if (serverUrl == null ||
                 username == null ||
@@ -103,13 +104,13 @@ public class MusicServiceFactory {
             Log.i("MusicServiceFactory", "Server credentials is not available");
             return new SubsonicAPIClient("http://localhost", "", "",
                     SubsonicAPIVersions.fromApiVersion(Constants.REST_PROTOCOL_VERSION),
-                    Constants.REST_CLIENT_ID, allowSelfSignedCertificate,
+                    Constants.REST_CLIENT_ID+"-API"+androidClientSDK, allowSelfSignedCertificate,
                     enableLdapUserSupport, BuildConfig.DEBUG);
         }
         //LALANDA TODO
         return new SubsonicAPIClient(serverUrl, username, password,
                 SubsonicAPIVersions.fromApiVersion(Constants.REST_PROTOCOL_VERSION),
-                Constants.REST_CLIENT_ID, allowSelfSignedCertificate,
+                Constants.REST_CLIENT_ID+"-API"+androidClientSDK, allowSelfSignedCertificate,
                 enableLdapUserSupport, BuildConfig.DEBUG);
     }
 
