@@ -299,7 +299,7 @@ public class Util extends DownloadActivity
 	public static int getUserPlaylistNumber(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
-		return preferences.getInt(Constants.USER_AGE, 0);
+		return preferences.getInt(Constants.USER_NUMBER_OF_PLAYLIST, 0);
 	}
 
 	////-------------------------------------------------------------------------------------///////

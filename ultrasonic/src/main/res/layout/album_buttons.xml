@@ -62,6 +62,7 @@
         android:src="?attr/downloaded"
         android:visibility="gone" />    
 
+    <!--LALANDA DELETE FROM CACHE-->
     <ImageView
         android:id="@+id/select_album_delete"
         android:layout_width="0dp"

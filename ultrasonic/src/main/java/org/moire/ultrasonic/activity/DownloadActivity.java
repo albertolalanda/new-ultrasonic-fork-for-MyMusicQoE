@@ -125,11 +125,15 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private VerticalSeekBar verticalSeekBar;
 
 	// variables for the user rating
-	private boolean canRate;
-	private boolean hasRated;
+	private boolean canRate = false;
+	private boolean hasRated = false;
+	private boolean changeStar = false;
 	private ArrayList<Boolean> songsRated = new ArrayList<>();
 	private ArrayList<Integer> rateGiven = new ArrayList<>();
 	private int numberOfPlaylistForThisUser;
+	private int secondsPassed = 0;
+	private int offset = 0;
+	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 
 	/**
 	 * Called when the activity is first created.
@@ -278,11 +282,14 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
+
+
 		pauseButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
 			public void onClick(final View view)
 			{
+				System.out.println("LALANDA CURRENT PLAYING NAME: " + currentPlaying.getSong().getTitle() + " BITRATESONG:" + currentPlaying.getSong().getBitRate() +" BITRATEPLAYING:" + currentPlaying.getBitRate() + "TRANCODEDCONTENTTYPE: " + currentPlaying.getSong().getTranscodedContentType());
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
 				{
 					@Override
@@ -352,6 +359,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
+		//LALANDA ISTO FODE TUDO
 		shuffleButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -361,6 +369,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				Util.toast(DownloadActivity.this, R.string.download_menu_shuffle_notification);
 			}
 		});
+
 
 		repeatButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -389,6 +398,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
+		//LALANDA PROGRESS BAR CHANGED
 		progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
 		{
 			@Override
@@ -519,12 +529,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				Log.d("Developer", "onStartTrackingTouch: "+seekBar.getProgress());
-				Toast.makeText(DownloadActivity.this, "START TRACKING", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				Log.d("Developer", "onProgressChanged: "+seekBar.getProgress());
+				hasRated = true;
+				changeStar = true;
 			}
 		});
 		//
@@ -614,6 +625,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
+	//Util.toast(this, R.string.download_menu_shuffle_notification);
+	//timer pause
 	@Override
 	protected void onPause()
 	{
@@ -761,8 +774,16 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 			if (currentSong != null)
 			{
-				//STAR DECLARATION
-				final Drawable starDrawable = currentSong.getStarred() ? Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full) : Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
+				if (changeStar == true) {
+					if (canRate == false){
+						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
+					}else if(canRate == true && hasRated == false) {
+						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
+					}else if(canRate && hasRated){
+						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full);
+					}
+					changeStar = false;
+				}
 
 				if (starMenuItem != null)
 				{
@@ -771,7 +792,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 			else
 			{
-				final Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
+				Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
 
 				if (starMenuItem != null)
 				{
@@ -996,7 +1017,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				return true;
 			case R.id.menu_item_star:
-				toggleFullScreenAlbumArt(2);
+				if (canRate) {
+					toggleFullScreenAlbumArt(2);
+				}else{
+					int aux = (int) ((10000 - getSecondsPassed()) * 0.001);
+					Util.toast(DownloadActivity.this, "ratings disabled. please listen another " + aux + " seconds");
+				}
+
 				//LALANDA ITEM STAR
 				/*if (currentSong == null)
 				{
@@ -1345,6 +1372,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		DownloadService downloadService = getDownloadService();
 		System.out.println("LALANDA ONCURRENTCHANGED()");
+		changeStar = true;
+		canRate = false;
+		hasRated = false;
+		secondsPassed = 0;
+		offset = 0;
 
 		if (downloadService == null)
 		{
@@ -1417,6 +1449,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				millisPlayed = Math.max(0, downloadService.getPlayerPosition());
 				duration = downloadService.getPlayerDuration();
 				playerState = getDownloadService().getPlayerState();
+
 				return null;
 			}
 
@@ -1500,6 +1533,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 						break;
 				}
 
+				setSecondsPassed(millisPlayed, getSecondsPassed());
+
+				if (getSecondsPassed() >= 10000 && canRate == false){
+					canRate = true;
+					changeStar = true;
+				}
+
 				onProgressChangedTask = null;
 			}
 		};
@@ -1508,7 +1548,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	private void changeProgress(final int ms)
 	{
-		System.out.println("LALANDA changeProgress()");
+		setOffset(ms);
 		final DownloadService downloadService = getDownloadService();
 		if (downloadService == null)
 		{
@@ -1640,5 +1680,21 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	public static SeekBar getProgressBar()
 	{
 		return progressBar;
+	}
+
+	private void setSecondsPassed(int newValue, int oldValue)
+	{
+		newValue = newValue - offset;
+		secondsPassed = newValue - oldValue;
+	}
+
+	private int getSecondsPassed(){
+        //System.out.println("LALANDA seconds passed " + secondsPassed);
+		return secondsPassed;
+	}
+
+	private void setOffset(int newOffset){
+        //System.out.println("LALANDA offset " + newOffset);
+		offset = newOffset;
 	}
 }

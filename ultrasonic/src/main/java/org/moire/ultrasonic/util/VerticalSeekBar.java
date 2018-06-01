@@ -1,7 +1,6 @@
 package org.moire.ultrasonic.util;
 
 import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
@@ -10,8 +9,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.SeekBar;
@@ -21,11 +18,8 @@ import org.moire.ultrasonic.R;
 //LALANDA APP COMPAT PROBLEMS
 
 @SuppressLint("AppCompatCustomView")
-public class VerticalSeekBar
-        extends SeekBar
+public class VerticalSeekBar extends SeekBar
 {
-
-
     public VerticalSeekBar( Context context )
     {
         super( context );
@@ -60,7 +54,7 @@ public class VerticalSeekBar
 
         int thumbX = updateThumbPosition();
         super.onDraw( canvas );
-        drawInfoText( canvas, thumbX );
+        //drawInfoText( canvas, thumbX );
 
     }
 
@@ -77,11 +71,11 @@ public class VerticalSeekBar
         //https://stackoverflow.com/questions/32181705/call-requires-api-level-11current-min-is-8-android-app-activityoncreateview?utm_medium=organic&utm_source=google_rich_qa&utm_campaign=google_rich_qa
         //this changes the api level to 16 from 14
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             thumbDrawable = getThumb();
-        }
+        }*/
 
-        //thumbDrawable = res.getDrawable(R.drawable.thumb);
+        thumbDrawable = res.getDrawable(R.drawable.thumb);
 
         //
         int top = getWidth() / 2 - thumbDrawable.getIntrinsicWidth() / 2;

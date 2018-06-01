@@ -4,249 +4,248 @@ a:layout_width="fill_parent"
 a:layout_height="fill_parent"
 a:orientation="horizontal"
 a:gravity="center"
-a:background="@android:color/white"
+a:background="@color/grey_rating_bar_unselected"
 a:clickable="false">
 
 
-<org.moire.ultrasonic.util.VerticalSeekBar
-    a:id="@+id/vertical_Seekbar"
-    a:layout_width="fill_parent"
-    a:layout_height="fill_parent"
-    a:progressDrawable="@drawable/progress"
-    a:layout_centerHorizontal="true"
-    a:max="100"
-    a:progress="0"
-    a:padding="0dp"
-    a:layout_marginLeft="-15dp"
-    a:layout_marginRight="-15dp"/>
+    <org.moire.ultrasonic.util.VerticalSeekBar
+        a:id="@+id/vertical_Seekbar"
+        a:layout_width="match_parent"
+        a:layout_height="match_parent"
+        a:layout_centerHorizontal="true"
+        a:layout_marginLeft="-15dp"
+        a:layout_marginRight="-15dp"
+        a:max="100"
+        a:padding="0dp"
+        a:progress="0"
+        a:progressDrawable="@drawable/progress" />
 
-
-<LinearLayout
-    a:orientation="vertical"
-    a:layout_width="wrap_content"
-    a:layout_height="fill_parent"
-    a:layout_marginLeft="5dp">
 
     <LinearLayout
-        a:orientation="vertical"
         a:layout_width="wrap_content"
         a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+        a:orientation="vertical">
 
-        <include
-            a:layout_height="1dp"
-            a:layout_width="wrap_content"
-            layout="@layout/horizontal_divider" />
-
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="9"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="wrap_content"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="9"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="8"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="8"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="7"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="7"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="6"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="6"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="5"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="5"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="4"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="4"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="3"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="3"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="2"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="2"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="1"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
 
-    </LinearLayout>
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
 
-    <LinearLayout
-        a:orientation="vertical"
-        a:layout_width="wrap_content"
-        a:layout_height="fill_parent"
-        a:layout_marginLeft="5dp"
-        a:layout_weight="1">
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="1"
+                a:textSize="30sp" />
 
-        <include
-            a:layout_width="fill_parent"
-            a:layout_height="1dp"
-            layout="@layout/horizontal_divider" />
+        </LinearLayout>
 
-        <TextView
+        <LinearLayout
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:text="0"
+            a:layout_marginLeft="5dp"
             a:layout_weight="1"
-            a:textSize="30sp"
-            a:gravity="center_vertical" />
+            a:orientation="vertical">
+
+            <include
+                layout="@layout/horizontal_divider"
+                a:layout_width="fill_parent"
+                a:layout_height="1dp" />
+
+            <TextView
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_weight="1"
+                a:gravity="center_vertical"
+                a:text="0"
+                a:textSize="30sp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
 
 </RelativeLayout>
