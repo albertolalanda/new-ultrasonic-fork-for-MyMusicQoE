@@ -124,6 +124,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	private VerticalSeekBar verticalSeekBar;
 
+	// variables for the user rating
+	private boolean canRate;
+	private boolean hasRated;
+	private ArrayList<Boolean> songsRated = new ArrayList<>();
+	private ArrayList<Integer> rateGiven = new ArrayList<>();
+	private int numberOfPlaylistForThisUser;
+
 	/**
 	 * Called when the activity is first created.
 	 */
@@ -166,6 +173,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		repeatButton = (ImageView) findViewById(R.id.download_repeat);
 
 		visualizerViewLayout = (LinearLayout) findViewById(R.id.download_visualizer_view_layout);
+
+		verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
 
 		View.OnTouchListener touchListener = new View.OnTouchListener()
 		{
@@ -501,7 +510,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			visualizerViewLayout.setVisibility(View.GONE);
 		}
 		//LALANDA VERTICAL SEEKBAR COPY PASTE
-		verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
 		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
@@ -753,7 +761,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 			if (currentSong != null)
 			{
-				final Drawable starDrawable = currentSong.getStarred() ? Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full) : Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
+				//STAR DECLARATION
+				final Drawable starDrawable = currentSong.getStarred() ? Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full) : Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 
 				if (starMenuItem != null)
 				{
@@ -1219,6 +1228,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	private void start()
 	{
+		System.out.println("LALANDA start()");
 		final DownloadService service = getDownloadService();
 		final PlayerState state = service.getPlayerState();
 
@@ -1246,12 +1256,15 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private void onDownloadListChanged()
 	{
 		final DownloadService downloadService = getDownloadService();
+		System.out.println("LALANDA ONDOWNLOADLISTCHANGED()");
+		// ALBERTO LALANDA METHOD WHEN DOWNLOAD LIST IS CHANGED IN THE ORDER
 		if (downloadService == null)
 		{
 			return;
 		}
 
 		final List<DownloadFile> list = downloadService.getSongs();
+
 
 		emptyTextView.setText(R.string.download_empty);
 		final SongListAdapter adapter = new SongListAdapter(this, list);
@@ -1327,9 +1340,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
+	//WHEN MUSIC IS CHANGED
 	private void onCurrentChanged()
 	{
 		DownloadService downloadService = getDownloadService();
+		System.out.println("LALANDA ONCURRENTCHANGED()");
 
 		if (downloadService == null)
 		{
@@ -1340,11 +1355,18 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		scrollToCurrent();
 
+		//total duration of list
 		long totalDuration = downloadService.getDownloadListDuration();
+		System.out.println("LALANDA onCurrentChanged: total durantion - " + totalDuration);
+		//number of songs of list
 		long totalSongs = downloadService.getSongs().size();
+		System.out.println("LALANDA onCurrentChanged: number of songs - " + totalSongs);
+		//index of current song
 		int currentSongIndex = downloadService.getCurrentPlayingIndex() + 1;
+		System.out.println("LALANDA onCurrentChanged: current song index - " + currentSongIndex);
 
 		String duration = Util.formatTotalDuration(totalDuration);
+		System.out.println("LALANDA onCurrentChanged: duration formattotalduration util - " + duration);
 
 		String trackFormat = String.format(Locale.getDefault(), "%d / %d", currentSongIndex, totalSongs);
 
@@ -1401,6 +1423,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			protected void done(final Void result)
 			{
+//				ALBERTO LALANDA ENABLE STAR BUTTON IF MORE THAN 10 SECONDS
 				if (currentPlaying != null)
 				{
 					final int millisTotal = duration == null ? 0 : duration;
@@ -1485,6 +1508,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	private void changeProgress(final int ms)
 	{
+		System.out.println("LALANDA changeProgress()");
 		final DownloadService downloadService = getDownloadService();
 		if (downloadService == null)
 		{

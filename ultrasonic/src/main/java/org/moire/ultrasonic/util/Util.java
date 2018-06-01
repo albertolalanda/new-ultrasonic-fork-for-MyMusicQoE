@@ -211,7 +211,6 @@ public class Util extends DownloadActivity
 		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://167.99.82.18:8080").apply();
 		preferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "guest").apply();
 		preferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "guest").apply();
-		//LALANDA não percebo bem o que acontece com a alteração desta constante
 		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);
 		editor.commit();
 	}
@@ -287,6 +286,20 @@ public class Util extends DownloadActivity
 	{
 		SharedPreferences preferences = getPreferences(context);
 		return preferences.getString(Constants.USER_FAVORITE_GENRES + instance, null);
+	}
+
+	public static void setUserPlaylistNumber(Context context, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(Constants.USER_NUMBER_OF_PLAYLIST, instance);
+		editor.commit();
+	}
+
+	public static int getUserPlaylistNumber(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getInt(Constants.USER_AGE, 0);
 	}
 
 	////-------------------------------------------------------------------------------------///////
@@ -487,7 +500,7 @@ public class Util extends DownloadActivity
 		builder.append("&p=").append(password);
 		builder.append("&v=").append(Constants.REST_PROTOCOL_VERSION);
 		builder.append("&c=").append(Constants.REST_CLIENT_ID);
-
+//LALANDA TMB POSSIVEL ENVIAR O API LEVEL AQUI
 		//LALANDA tentar alterar aqui os dados do servidor teste
 //		builder.append("http://159.65.29.155:8080");
 //		if (builder.charAt(builder.length() - 1) != '/')

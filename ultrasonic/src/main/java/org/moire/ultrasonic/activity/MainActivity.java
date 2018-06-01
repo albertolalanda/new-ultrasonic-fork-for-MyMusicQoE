@@ -146,16 +146,18 @@ public class MainActivity extends SubsonicTabActivity
 		int instance = Util.getActiveServer(this);
 		String name = Util.getServerName(this, instance);
 
+		//set my music qoe server
+		//Util.setUserAndroidAPILevel(this);
+		Util.setMyMusicQoEServer(this, 0);
+		//
+
 		if (name == null)
 		{
-			//set my music qoe server
-			//Util.setUserAndroidAPILevel(this);
-			Util.setMyMusicQoEServer(this, 0);
-			//
 			shouldShowDialog = true;
 			Util.setActiveServer(this, 1);
 			instance = Util.getActiveServer(this);
 			name = Util.getServerName(this, instance);
+
 		}
 
 		serverTextView.setText(name);

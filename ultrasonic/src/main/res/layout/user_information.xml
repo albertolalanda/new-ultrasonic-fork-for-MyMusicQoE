@@ -51,7 +51,6 @@
 			a:layout_width="2px"
 			a:layout_height="100dp"
 			a:background="#838383" />
-		<!--LALANDA vertical separator-->
 		<ImageView
 			a:id="@+id/image_view_female"
 			a:layout_width="50dp"

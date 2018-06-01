@@ -17,7 +17,7 @@
  Copyright 2009 (C) Sindre Mehus
  */
 
-package org.moire.ultrasonic.activity;
+/*package org.moire.ultrasonic.activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -385,4 +385,4 @@ public class ShareActivity extends SubsonicTabActivity implements AdapterView.On
 			return null;
 		}
 	}
-}
+}*/

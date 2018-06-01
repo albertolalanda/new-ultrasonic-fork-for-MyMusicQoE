@@ -62,12 +62,15 @@ public final class Constants
 	public static final String INTENT_EXTRA_NAME_IS_ALBUM = "subsonic.isalbum";
 	public static final String INTENT_EXTRA_NAME_VIDEOS = "subsonic.videos";
 
-	// User preferences
+	// User preferences.
 	public static final String USER_ID = "myMusicQoE.userId";
 	public static final String USER_SEX = "myMusicQoE.userSex";
 	public static final String USER_AGE = "myMusicQoE.userAge";
 	public static final String USER_FAVORITE_GENRES = "myMusicQoE.userFavoriteGenres";
 	public static final String USER_NUMBER_OF_FAVORITE_GENRES = "myMusicQoE.userNumberFavoriteGenres";
+
+	// Other user constants.
+	public static final String USER_NUMBER_OF_PLAYLIST = "myMusicQoE.userNumberOfPlaylist";
 
 	// Preferences keys.
 	public static final String PREFERENCES_KEY_SERVER = "server";

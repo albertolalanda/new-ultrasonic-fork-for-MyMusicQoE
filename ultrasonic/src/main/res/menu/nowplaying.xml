@@ -4,10 +4,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <!--LALANDA TOGGLE PLAYLIST BUTTON-->
     <item
         a:id="@+id/menu_item_toggle_list"
-        a:icon="?attr/media_toggle"
+        a:icon="?attr/playlist_toggle"
         app:showAsAction="always"
         a:title="@string/download.toggle_playlist"/>
     <item

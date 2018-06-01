@@ -2,14 +2,18 @@
 <resources>
     <!--LALANDA DRAWABLES FOR THEMES AND COLORS-->
     <style name="UltraSonicTheme" parent="Theme.AppCompat">
+        <item name="android:homeAsUpIndicator">@drawable/media_toggle_list_normal_dark</item>
         <item name="color_background">@color/background_color_dark</item>
         <item name="star_hollow">@drawable/ic_star_hollow_dark</item>
         <item name="star_full">@drawable/ic_star_full_dark</item>
+        <!--disabled star-->
+        <item name="star_disabled">@drawable/ic_star_disabled_dark</item>
         <item name="about">@drawable/ic_menu_about_dark</item>
         <item name="select_all">@drawable/ic_menu_select_all_dark</item>
         <item name="add_to_queue">@drawable/ic_menu_add_to_queue_dark</item>
         <item name="browse">@drawable/ic_menu_browse_dark</item>
         <item name="exit">@drawable/ic_menu_exit_dark</item>
+        <!--return button-->
         <item name="backward">@drawable/ic_menu_backward_dark</item>
         <item name="forward">@drawable/ic_menu_forward_dark</item>
         <item name="stop">@drawable/ic_menu_exit_dark</item>
@@ -39,17 +43,22 @@
         <item name="media_play_next">@drawable/media_play_next</item>
         <item name="media_play_small">@drawable/ic_stat_play_dark</item>
         <item name="media_stop">@drawable/media_stop_normal_dark</item>
+        <!--hamburger button-->
         <item name="media_toggle">@drawable/media_toggle_list_normal_dark</item>
         <item name="chat">@drawable/ic_menu_chat_dark</item>
         <item name="chat_send">@drawable/ic_menu_chat_send_dark</item>
         <item name="bookmark">@drawable/ic_menu_bookmark_dark</item>
         <item name="button_check_custom">@drawable/btn_check_custom_dark</item>
+        <!--playlist toggle-->
+        <item name="playlist_toggle">@drawable/ic_playlist_dark</item>
     </style>
 
     <style name="UltraSonicTheme.Light" parent="Theme.AppCompat.Light">
+        <item name="android:homeAsUpIndicator">@drawable/media_toggle_list_normal_light</item>
         <item name="color_background">@color/background_color_light</item>
         <item name="star_hollow">@drawable/ic_star_hollow_light</item>
         <item name="star_full">@drawable/ic_star_full_light</item>
+        <item name="star_disabled">@drawable/ic_star_disabled_light</item>
         <item name="about">@drawable/ic_menu_about_light</item>
         <item name="select_all">@drawable/ic_menu_select_all_light</item>
         <item name="add_to_queue">@drawable/ic_menu_add_to_queue_light</item>
@@ -89,6 +98,7 @@
         <item name="chat_send">@drawable/ic_menu_chat_send_light</item>
         <item name="bookmark">@drawable/ic_menu_bookmark_light</item>
         <item name="button_check_custom">@drawable/btn_check_custom_light</item>
+        <item name="playlist_toggle">@drawable/ic_playlist_light</item>
     </style>
 
 </resources>

@@ -59,9 +59,9 @@
         <activity
             a:name=".activity.BookmarkActivity"
             a:configChanges="orientation|keyboardHidden"/>
-        <activity
-            a:name=".activity.ShareActivity"
-            a:configChanges="orientation|keyboardHidden"/>
+        <!--<activity-->
+            <!--a:name=".activity.ShareActivity"-->
+            <!--a:configChanges="orientation|keyboardHidden"/>-->
         <!--<activity-->
             <!--a:name=".activity.ChatActivity"-->
             <!--a:configChanges="orientation|keyboardHidden"/>-->

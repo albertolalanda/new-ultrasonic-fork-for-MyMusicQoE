@@ -50,6 +50,7 @@
 
     <attr name="star_hollow" format="reference"/>
     <attr name="star_full" format="reference"/>
+    <attr name="star_disabled" format="reference"/>
     <attr name="about" format="reference"/>
     <attr name="select_all" format="reference"/>
     <attr name="add_to_queue" format="reference"/>
@@ -92,6 +93,7 @@
     <attr name="check_mark_on" format="reference"/>
     <attr name="button_check_custom" format="reference"/>
     <attr name="color_background" format="reference"/>
+    <attr name="playlist_toggle" format="reference"/>
 
 </resources>
 
