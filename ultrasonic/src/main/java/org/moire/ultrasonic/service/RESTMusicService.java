@@ -107,6 +107,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import kotlin.Pair;
@@ -686,8 +687,13 @@ public class RESTMusicService implements MusicService {
             throw new IllegalArgumentException("Song for download is null!");
         }
         long songOffset = offset < 0 ? 0 : offset;
+        /*
+        int transcoderNumIndex = ThreadLocalRandom.current().nextInt(0, applicableTranscodings.size());
+        song.setTranscoderNum(applicableTranscodings[transcoderNumIndex]);
+        */
 
         StreamResponse response = subsonicAPIClient.stream(song.getId(), maxBitrate, songOffset);
+        System.out.println("TIAGO: song.getId() "+song.getId());
         checkStreamResponseError(response);
         if (response.getStream() == null) {
             throw new IOException("Null stream response");

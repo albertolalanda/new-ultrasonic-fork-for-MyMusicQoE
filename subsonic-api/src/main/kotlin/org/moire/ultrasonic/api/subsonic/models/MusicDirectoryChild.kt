@@ -18,6 +18,8 @@ data class MusicDirectoryChild(
     val suffix: String = "",
     val transcodedContentType: String = "",
     val transcodedSuffix: String = "",
+    val applicableTranscodings: String = "",
+    var transcoderNum: Int? = 0,
     val duration: Int = -1,
     val bitRate: Int = -1,
     val path: String = "",

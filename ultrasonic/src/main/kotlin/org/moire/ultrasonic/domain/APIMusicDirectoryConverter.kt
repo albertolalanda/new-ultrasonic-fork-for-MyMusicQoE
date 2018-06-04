@@ -29,6 +29,7 @@ fun MusicDirectoryChild.toDomainEntity(): MusicDirectory.Entry = MusicDirectory.
     suffix = this@toDomainEntity.suffix
     transcodedContentType = this@toDomainEntity.transcodedContentType
     transcodedSuffix = this@toDomainEntity.transcodedSuffix
+    applicableTranscodings = this@toDomainEntity.applicableTranscodings
     coverArt = this@toDomainEntity.coverArt
     size = this@toDomainEntity.size
     duration = this@toDomainEntity.duration

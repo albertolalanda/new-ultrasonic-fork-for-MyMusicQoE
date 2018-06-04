@@ -25,6 +25,7 @@ public class SongListAdapter extends ArrayAdapter<DownloadFile>
 	{
 		DownloadFile downloadFile = getItem(position);
    	MusicDirectory.Entry entry = downloadFile.getSong();
+   	//entry.setTranscoderNum(696969);
 
 		SongView view;
 

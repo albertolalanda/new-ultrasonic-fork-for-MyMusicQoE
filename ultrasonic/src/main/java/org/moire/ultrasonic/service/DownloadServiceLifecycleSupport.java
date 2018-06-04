@@ -43,6 +43,7 @@ import org.moire.ultrasonic.util.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -271,6 +272,16 @@ public class DownloadServiceLifecycleSupport
 		}
 		state.currentPlayingIndex = downloadService.getCurrentPlayingIndex();
 		state.currentPlayingPosition = downloadService.getPlayerPosition();
+
+
+		// TIAGO MARTINS: FIZ ESTA MARAVILHA DE CODIGO
+		for (MusicDirectory.Entry entry : state.songs){
+			//int transcoderNum = ThreadLocalRandom.current().nextInt(0, applicableTranscodings.size());
+			Random r = new Random();
+			int rand = r.nextInt(5 - 0 ) + 0;
+			entry.setTranscoderNum(rand);
+			System.out.println("Random transcoderNum: "+rand+" , for song: "+entry.getTitle());
+		}
 
 		Log.i(TAG, String.format("Serialized currentPlayingIndex: %d, currentPlayingPosition: %d", state.currentPlayingIndex, state.currentPlayingPosition));
 		FileUtil.serialize(downloadService, state, FILENAME_DOWNLOADS_SER);
