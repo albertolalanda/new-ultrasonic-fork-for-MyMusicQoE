@@ -209,6 +209,7 @@ internal class ApiVersionCheckWrapper(
         videoSize: String?,
         estimateContentLength: Boolean?,
         converted: Boolean?,
+        transcoderNum: Int?,
         offset: Long?
     ): Call<ResponseBody> {
         checkParamVersion(maxBitRate, V1_2_0)
@@ -216,8 +217,9 @@ internal class ApiVersionCheckWrapper(
         checkParamVersion(videoSize, V1_6_0)
         checkParamVersion(estimateContentLength, V1_8_0)
         checkParamVersion(converted, V1_14_0)
+        checkParamVersion(transcoderNum, V1_14_0)
         return api.stream(id, maxBitRate, format, timeOffset, videoSize,
-                estimateContentLength, converted)
+                estimateContentLength, converted, transcoderNum)
     }
 
     override fun jukeboxControl(

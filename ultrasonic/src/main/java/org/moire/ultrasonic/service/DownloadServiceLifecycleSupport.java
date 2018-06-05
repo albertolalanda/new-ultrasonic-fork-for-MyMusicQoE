@@ -274,14 +274,16 @@ public class DownloadServiceLifecycleSupport
 		state.currentPlayingPosition = downloadService.getPlayerPosition();
 
 
+		/*
 		// TIAGO MARTINS: FIZ ESTA MARAVILHA DE CODIGO
 		for (MusicDirectory.Entry entry : state.songs){
-			//int transcoderNum = ThreadLocalRandom.current().nextInt(0, applicableTranscodings.size());
+			String[] applicableTranscodings = entry.getApplicableTranscodings().split("/");
 			Random r = new Random();
-			int rand = r.nextInt(5 - 0 ) + 0;
-			entry.setTranscoderNum(rand);
-			System.out.println("Random transcoderNum: "+rand+" , for song: "+entry.getTitle());
+			int rand = r.nextInt(applicableTranscodings.length);
+			entry.setTranscoderNum(Integer.parseInt(applicableTranscodings[rand]));
+			System.out.println("Random transcoderNum: "+applicableTranscodings[rand]+" , for song: "+entry.getTitle());
 		}
+		*/
 
 		Log.i(TAG, String.format("Serialized currentPlayingIndex: %d, currentPlayingPosition: %d", state.currentPlayingIndex, state.currentPlayingPosition));
 		FileUtil.serialize(downloadService, state, FILENAME_DOWNLOADS_SER);

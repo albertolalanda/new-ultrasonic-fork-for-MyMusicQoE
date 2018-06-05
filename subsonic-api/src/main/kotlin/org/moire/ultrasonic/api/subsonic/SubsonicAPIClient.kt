@@ -121,9 +121,9 @@ class SubsonicAPIClient(
      *
      * Prefer this method over [SubsonicAPIDefinition.stream] as this handles error cases.
      */
-    fun stream(id: String, maxBitrate: Int? = null, offset: Long? = null): StreamResponse =
+    fun stream(id: String, maxBitrate: Int? = null, transcoderNum: Int? = null, offset: Long? = null): StreamResponse =
             handleStreamResponse {
-                api.stream(id, maxBitrate, offset = offset).execute()
+                api.stream(id, maxBitrate, offset = offset, transcoderNum = transcoderNum).execute()
             }
 
     /**

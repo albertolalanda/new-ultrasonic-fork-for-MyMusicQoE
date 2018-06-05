@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
+import java.util.Random;
 
 import kotlin.Pair;
 
@@ -72,6 +73,11 @@ public class DownloadFile
 		this.context = context;
 		this.song = song;
 		this.save = save;
+
+		String[] applicableTranscodings = song.getApplicableTranscodings().split("/");
+		Random r = new Random();
+		int rand = r.nextInt(applicableTranscodings.length);
+		song.setTranscoderNum(Integer.parseInt(applicableTranscodings[rand]));
 
 		saveFile = FileUtil.getSongFile(context, song);
 		bitRate = Util.getMaxBitRate(context);

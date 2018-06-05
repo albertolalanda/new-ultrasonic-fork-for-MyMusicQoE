@@ -692,7 +692,7 @@ public class RESTMusicService implements MusicService {
         song.setTranscoderNum(applicableTranscodings[transcoderNumIndex]);
         */
 
-        StreamResponse response = subsonicAPIClient.stream(song.getId(), maxBitrate, songOffset);
+        StreamResponse response = subsonicAPIClient.stream(song.getId(), maxBitrate, song.getTranscoderNum(),songOffset);
         System.out.println("TIAGO: song.getId() "+song.getId());
         checkStreamResponseError(response);
         if (response.getStream() == null) {

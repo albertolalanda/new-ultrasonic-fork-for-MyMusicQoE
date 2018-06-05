@@ -220,6 +220,7 @@ interface SubsonicAPIDefinition {
         @Query("size") videoSize: String? = null,
         @Query("estimateContentLength") estimateContentLength: Boolean? = null,
         @Query("converted") converted: Boolean? = null,
+        @Query("transcoderNum") transcoderNum: Int? = null,
         @Header("Range") offset: Long? = null
     ): Call<ResponseBody>
 
