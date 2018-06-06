@@ -959,6 +959,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				return true;
 			case R.id.menu_remove:
 				getDownloadService().remove(song);
+				//lalanda delete song !!!!!!!!!!!!!!!!!!!!
+				deleteFromPlaylist(song);
 				onDownloadListChanged();
 				return true;
 			case R.id.menu_item_screen_on_off:
@@ -1007,6 +1009,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				return true;
 			case R.id.menu_item_clear_playlist:
 				getDownloadService().setShufflePlayEnabled(false);
+				//lalanda playlist
+				deletePlaylist();
 				getDownloadService().clear();
 				onDownloadListChanged();
 				return true;
@@ -1280,9 +1284,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
+	//LALANDA when this happens might need to delete the cache
 	private void onDownloadListChanged()
 	{
 		final DownloadService downloadService = getDownloadService();
+
 		System.out.println("LALANDA ONDOWNLOADLISTCHANGED()");
 		// ALBERTO LALANDA METHOD WHEN DOWNLOAD LIST IS CHANGED IN THE ORDER
 		if (downloadService == null)
@@ -1696,5 +1702,40 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private void setOffset(int newOffset){
         //System.out.println("LALANDA offset " + newOffset);
 		offset = newOffset;
+	}
+
+	//LALANDA DELETE
+	private void deletePlaylist()
+	{
+		final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
+		for (final DownloadFile downloadFile : getDownloadService().getSongs())
+		{
+			songs.add(downloadFile.getSong());
+		}
+
+		if (songs.isEmpty())
+		{
+			return;
+		}
+
+		if (getDownloadService() != null)
+		{
+			getDownloadService().delete(songs);
+		}
+	}
+	private void deleteFromPlaylist(DownloadFile song)
+	{
+		final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
+		songs.add(song.getSong());
+
+		if (songs.isEmpty())
+		{
+			return;
+		}
+
+		if (getDownloadService() != null)
+		{
+			getDownloadService().delete(songs);
+		}
 	}
 }
