@@ -71,6 +71,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.moire.ultrasonic.domain.PlayerState.COMPLETED;
@@ -340,6 +341,16 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		if (newPlaylist)
 		{
+			//ALBERTO LALANDA CLEAR OLD PLAYLIST IF NEW PLAYLIST IS GOING TO PLAY
+			//DOES NOT WORK
+			final List<MusicDirectory.Entry> oldPlaylistSong = new LinkedList<Entry>();
+			for (final DownloadFile downloadFile : downloadList)
+			{
+				oldPlaylistSong.add(downloadFile.getSong());
+			}
+			delete(oldPlaylistSong);
+			downloadFileCache.clear();
+			/////////////////////////////////////////////////////////////////////
 			downloadList.clear();
 		}
 
