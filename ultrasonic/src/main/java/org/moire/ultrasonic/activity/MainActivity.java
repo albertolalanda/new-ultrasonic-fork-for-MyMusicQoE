@@ -135,7 +135,7 @@ public class MainActivity extends SubsonicTabActivity
 
 		boolean shouldShowDialog = false;
 
-		shouldShowDialog = true;
+		//shouldShowDialog = true;
 		//TODO LALANDA CHANGE TO ALWAYS SHOW DIALOG
 		if (!getActiveServerEnabled())
 		{

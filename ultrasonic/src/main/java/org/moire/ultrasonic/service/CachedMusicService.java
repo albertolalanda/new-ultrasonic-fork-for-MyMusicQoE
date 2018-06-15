@@ -21,6 +21,7 @@ package org.moire.ultrasonic.service;
 import android.content.Context;
 import android.graphics.Bitmap;
 
+import org.moire.ultrasonic.api.subsonic.models.LastIdUser;
 import org.moire.ultrasonic.domain.Bookmark;
 import org.moire.ultrasonic.domain.ChatMessage;
 import org.moire.ultrasonic.domain.Genre;
@@ -233,7 +234,6 @@ public class CachedMusicService implements MusicService
 	public MusicDirectory getPodcastEpisodes(String podcastChannelId, Context context, ProgressListener progressListener) throws Exception {
 		return musicService.getPodcastEpisodes(podcastChannelId,context,progressListener);
 	}
-
 
 	@Override
 	public List<Playlist> getPlaylists(boolean refresh, Context context, ProgressListener progressListener) throws Exception
@@ -524,4 +524,13 @@ public class CachedMusicService implements MusicService
 		return musicService.getAvatar(context, username, size, saveToFile, highQuality, progressListener);
 	}
 
+	@Override
+	public LastIdUser getLastIdUserQoE(Context context, ProgressListener progressListener) throws Exception {
+		 return musicService.getLastIdUserQoE(context, progressListener);
+	}
+
+	@Override
+	public void setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
+		musicService.setUserInformation(context, id, age, gender, genres, progressListener);
+	}
 }

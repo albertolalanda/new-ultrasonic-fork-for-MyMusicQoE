@@ -8,10 +8,10 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
+import org.jetbrains.annotations.Nullable;
 import org.moire.ultrasonic.BuildConfig;
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.cache.PermanentFileStorage;

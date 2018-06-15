@@ -21,16 +21,17 @@ package org.moire.ultrasonic.service;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 import android.util.Log;
 
+import org.jetbrains.annotations.Nullable;
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.api.subsonic.ApiNotSupportedException;
 import org.moire.ultrasonic.api.subsonic.SubsonicAPIClient;
 import org.moire.ultrasonic.api.subsonic.models.AlbumListType;
 import org.moire.ultrasonic.api.subsonic.models.JukeboxAction;
+import org.moire.ultrasonic.api.subsonic.models.LastIdUser;
 import org.moire.ultrasonic.api.subsonic.models.MusicDirectoryChild;
 import org.moire.ultrasonic.api.subsonic.response.BookmarksResponse;
 import org.moire.ultrasonic.api.subsonic.response.ChatMessagesResponse;
@@ -50,6 +51,7 @@ import org.moire.ultrasonic.api.subsonic.response.GetRandomSongsResponse;
 import org.moire.ultrasonic.api.subsonic.response.GetSongsByGenreResponse;
 import org.moire.ultrasonic.api.subsonic.response.GetStarredResponse;
 import org.moire.ultrasonic.api.subsonic.response.GetStarredTwoResponse;
+import org.moire.ultrasonic.api.subsonic.response.GetUserLastIdResponse;
 import org.moire.ultrasonic.api.subsonic.response.GetUserResponse;
 import org.moire.ultrasonic.api.subsonic.response.JukeboxResponse;
 import org.moire.ultrasonic.api.subsonic.response.LicenseResponse;
@@ -107,7 +109,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 import kotlin.Pair;
@@ -1066,5 +1067,23 @@ public class RESTMusicService implements MusicService {
         } else {
             throw new IOException("Failed to perform request: " + response.code());
         }
+    }
+
+    //LALANDA TIAGO
+    public LastIdUser getLastIdUserQoE(Context context,
+                                       ProgressListener progressListener) throws Exception {
+        updateProgressListener(progressListener, R.string.parser_reading);
+        Response<GetUserLastIdResponse> response = subsonicAPIClient.getApi().getLastIdUserQoE().execute();
+        checkResponseSuccessful(response);
+        System.out.println("LALANDA GET LAST USER ID : "+ response.body().getLastIdUser());
+        System.out.println("LALANDA GET LAST USER ID : "+ response.body().getLastIdUser().getValue());
+        System.out.println("LALANDA GET LAST USER ID : "+ response.body().getLastIdUser().component2());
+        return response.body().getLastIdUser();
+    }
+
+    public void setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
+        updateProgressListener(progressListener, R.string.parser_reading);
+        Response<SubsonicResponse> response = subsonicAPIClient.getApi().createUserQoE(id, age, gender,genres).execute();
+        checkResponseSuccessful(response);
     }
 }

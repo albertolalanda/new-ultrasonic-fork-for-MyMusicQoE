@@ -224,6 +224,20 @@ public class Util extends DownloadActivity
 	}*/
 
 	//LALANDA CLASS FOR ALL USER PREFTS? IS TRY CATCH NEEDED?
+	public static void setUserId(Context context, int instance)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putInt(Constants.USER_ID, instance);
+		editor.commit();
+	}
+
+	public static int getUserId(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getInt(Constants.USER_ID, 0);
+	}
+
 	public static void setUserSex(Context context, int instance)
 	{
 		//0 for female
@@ -500,19 +514,6 @@ public class Util extends DownloadActivity
 		builder.append("&p=").append(password);
 		builder.append("&v=").append(Constants.REST_PROTOCOL_VERSION);
 		builder.append("&c=").append(Constants.REST_CLIENT_ID);
-//LALANDA TMB POSSIVEL ENVIAR O API LEVEL AQUI
-		//LALANDA tentar alterar aqui os dados do servidor teste
-//		builder.append("http://159.65.29.155:8080");
-//		if (builder.charAt(builder.length() - 1) != '/')
-//		{
-//			builder.append('/');
-//		}
-//
-//		builder.append("rest/").append(method).append(".view");
-//		builder.append("?u=").append("test");
-//		builder.append("&p=").append(password);
-//		builder.append("&v=").append(Constants.REST_PROTOCOL_VERSION);
-//		builder.append("&c=").append(Constants.REST_CLIENT_ID);
 
 		return builder.toString();
 	}

@@ -2,12 +2,11 @@ package org.moire.ultrasonic.api.subsonic.response
 
 import org.moire.ultrasonic.api.subsonic.SubsonicAPIVersions
 import org.moire.ultrasonic.api.subsonic.SubsonicError
-import org.moire.ultrasonic.api.subsonic.models.LastUserId
-import org.moire.ultrasonic.api.subsonic.models.License
+import org.moire.ultrasonic.api.subsonic.models.LastIdUser
 
-class getUserLastIdResponse(
-    val lastUserId: LastUserId = LastUserId(),
-    status: Status,
-    version: SubsonicAPIVersions,
-    error: SubsonicError?
+class GetUserLastIdResponse(
+        val lastIdUser: LastIdUser = LastIdUser(),
+        status: Status,
+        version: SubsonicAPIVersions,
+        error: SubsonicError?
 ) : SubsonicResponse(status, version, error)

@@ -18,11 +18,11 @@
  */
 package org.moire.ultrasonic.activity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,14 +30,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import net.simonvt.menudrawer.MenuDrawer;
-
 import org.moire.ultrasonic.R;
+import org.moire.ultrasonic.api.subsonic.models.LastIdUser;
 import org.moire.ultrasonic.domain.Genre;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.BackgroundTask;
 import org.moire.ultrasonic.util.ErrorDialog;
+import org.moire.ultrasonic.util.ModalBackgroundTask;
 import org.moire.ultrasonic.util.TabActivityBackgroundTask;
 import org.moire.ultrasonic.util.Util;
 
@@ -70,6 +70,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 	private Button save;
 	private String sex;
+	private int lastIdUser;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -294,14 +295,48 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			@Override
 			public void onClick(View v) {
 				updateSendButton (sex, spinnerAge.getSelectedItemPosition());
+				Context context = UserInformationActivity.getInstance();
+				/*MusicService musicService = MusicServiceFactory.getMusicService(context);
+				musicService.getLastIdUserQoE(context, this);*/
 				if(save.isEnabled()){
+					setUserInformationRest();
+					finish();
+				}
+			}
+		});
+
+	}
+
+	private void setUserInformationRest() {
+		ModalBackgroundTask<Boolean> task = new ModalBackgroundTask<Boolean>(this, false) {
+			@Override
+			protected Boolean doInBackground() throws Throwable {
+
+				final Context context = getActivity();
+				try {
+					MusicService musicService = MusicServiceFactory.getMusicService(context);
+					LastIdUser lastIdUserResponse = musicService.getLastIdUserQoE(context, this);
+					lastIdUser = lastIdUserResponse.getValue() + 1;
+					String stringUserGenres = "";
+					for (int i = 0; i < userGenres.size(); i++){
+						if (i==0){
+							stringUserGenres = listGenres[userGenres.get(i)];
+						}else{
+							stringUserGenres = stringUserGenres + "," + listGenres[userGenres.get(i)];
+						}
+					}
+					musicService.setUserInformation(context, lastIdUser, spinnerAge.getSelectedItemPosition(), sex, stringUserGenres, this);
+
+				} finally {
+					//Save user id
+					Util.setUserId(UserInformationActivity.this, lastIdUser);
 					//Save user sex
 					switch (sex) {
 						case "M":
-								Util.setUserSex(UserInformationActivity.this, 1);
+							Util.setUserSex(UserInformationActivity.this, 1);
 							break;
 						case "F":
-								Util.setUserSex(UserInformationActivity.this, 0);
+							Util.setUserSex(UserInformationActivity.this, 0);
 							break;
 					}
 					//Save user age
@@ -313,11 +348,26 @@ public class UserInformationActivity extends SubsonicTabActivity {
 						System.out.println("SET FAVORITE GENRES: "+ listGenres[userGenres.get(i)]);
 						Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
 					}
-					finish();
+					return true;
 				}
 			}
-		});
 
+			@Override
+			protected void done(Boolean licenseValid) {
+				if (licenseValid) {
+					Util.toast(getActivity(), R.string.settings_testing_ok);
+				} else {
+					Util.toast(getActivity(), R.string.settings_testing_unlicensed);
+				}
+			}
+
+			@Override
+			protected void error(Throwable error) {
+				Log.w(TAG, error.toString(), error);
+				new ErrorDialog(getActivity(), String.format("%s %s", getResources().getString(R.string.settings_connection_failure), getErrorMessage(error)), false);
+			}
+		};
+		task.execute();
 	}
 
 	private void updateSendButton (String sex, int spinnerAgeSelected)
@@ -333,5 +383,4 @@ public class UserInformationActivity extends SubsonicTabActivity {
 	public void onBackPressed() {
 		// super.onBackPressed(); commented this line in order to disable back press
 	}
-
 }

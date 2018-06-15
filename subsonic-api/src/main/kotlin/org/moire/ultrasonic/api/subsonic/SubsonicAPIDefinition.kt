@@ -3,34 +3,7 @@ package org.moire.ultrasonic.api.subsonic
 import okhttp3.ResponseBody
 import org.moire.ultrasonic.api.subsonic.models.AlbumListType
 import org.moire.ultrasonic.api.subsonic.models.JukeboxAction
-import org.moire.ultrasonic.api.subsonic.response.BookmarksResponse
-import org.moire.ultrasonic.api.subsonic.response.ChatMessagesResponse
-import org.moire.ultrasonic.api.subsonic.response.GenresResponse
-import org.moire.ultrasonic.api.subsonic.response.GetAlbumList2Response
-import org.moire.ultrasonic.api.subsonic.response.GetAlbumListResponse
-import org.moire.ultrasonic.api.subsonic.response.GetAlbumResponse
-import org.moire.ultrasonic.api.subsonic.response.GetArtistResponse
-import org.moire.ultrasonic.api.subsonic.response.GetArtistsResponse
-import org.moire.ultrasonic.api.subsonic.response.GetIndexesResponse
-import org.moire.ultrasonic.api.subsonic.response.GetLyricsResponse
-import org.moire.ultrasonic.api.subsonic.response.GetMusicDirectoryResponse
-import org.moire.ultrasonic.api.subsonic.response.GetPlaylistResponse
-import org.moire.ultrasonic.api.subsonic.response.GetPlaylistsResponse
-import org.moire.ultrasonic.api.subsonic.response.GetPodcastsResponse
-import org.moire.ultrasonic.api.subsonic.response.GetRandomSongsResponse
-import org.moire.ultrasonic.api.subsonic.response.GetSongsByGenreResponse
-import org.moire.ultrasonic.api.subsonic.response.GetStarredResponse
-import org.moire.ultrasonic.api.subsonic.response.GetStarredTwoResponse
-import org.moire.ultrasonic.api.subsonic.response.GetUserResponse
-import org.moire.ultrasonic.api.subsonic.response.JukeboxResponse
-import org.moire.ultrasonic.api.subsonic.response.LicenseResponse
-import org.moire.ultrasonic.api.subsonic.response.MusicFoldersResponse
-import org.moire.ultrasonic.api.subsonic.response.SearchResponse
-import org.moire.ultrasonic.api.subsonic.response.SearchThreeResponse
-import org.moire.ultrasonic.api.subsonic.response.SearchTwoResponse
-import org.moire.ultrasonic.api.subsonic.response.SharesResponse
-import org.moire.ultrasonic.api.subsonic.response.SubsonicResponse
-import org.moire.ultrasonic.api.subsonic.response.VideosResponse
+import org.moire.ultrasonic.api.subsonic.response.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -291,4 +264,17 @@ interface SubsonicAPIDefinition {
 
     @GET("getAvatar.view")
     fun getAvatar(@Query("username") username: String): Call<ResponseBody>
+
+    //LALANDA TIAGO
+
+    @GET("getLastIdUserQoE.view")
+    fun getLastIdUserQoE(): Call<GetUserLastIdResponse>
+
+    @GET("createUserQoE.view")
+    fun createUserQoE(
+         @Query("id") id: Int,
+         @Query("age") age: Int,
+         @Query("gender") gender: String,
+         @Query("genres") genres: String
+    ): Call<SubsonicResponse>
 }
