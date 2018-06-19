@@ -454,5 +454,7 @@
     <string name="user_information_inf_text" translatable="false">Please provide you gender, age and favorite genres of music</string>
     <string name="user_information_gender" translatable="false">gender</string>
     <string name="user_information_button" translatable="false">SAVE</string>
+    <string name="user_information_saved_message" translatable="false">saved successfully</string>
+    <string name="user_information_error_message" translatable="false">there was a problem saving the data</string>
 
 </resources>

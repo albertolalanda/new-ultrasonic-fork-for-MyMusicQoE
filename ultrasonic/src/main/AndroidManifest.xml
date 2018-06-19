@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:a="http://schemas.android.com/apk/res/android"
-          package="org.moire.ultrasonic"
-          a:installLocation="auto">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="org.moire.ultrasonic"
+    a:installLocation="auto">
 
     <uses-permission a:name="android.permission.INTERNET"/>
     <uses-permission a:name="android.permission.ACCESS_NETWORK_STATE"/>
@@ -17,8 +18,9 @@
         a:normalScreens="true"
         a:smallScreens="true"
         a:xlargeScreens="true"/>
-
+    <!--LALANDA ADICIONEI A LINHA SEGUINTE-->
     <application
+        tools:replace="android:allowBackup"
         a:allowBackup="false"
         a:icon="@mipmap/ic_launcher"
         a:roundIcon="@mipmap/ic_launcher_round"

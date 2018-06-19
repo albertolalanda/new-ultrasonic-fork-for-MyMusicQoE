@@ -135,8 +135,9 @@ public class MainActivity extends SubsonicTabActivity
 
 		boolean shouldShowDialog = false;
 
-		//shouldShowDialog = true;
 		//TODO LALANDA CHANGE TO ALWAYS SHOW DIALOG
+		//shouldShowDialog = true;
+
 		if (!getActiveServerEnabled())
 		{
 			shouldShowDialog = true;
@@ -377,7 +378,12 @@ public class MainActivity extends SubsonicTabActivity
 			}
 		}
 
-		return activeServerEnabled;
+		if (activeServerEnabled && Util.getUserId(this) != 0){
+			return activeServerEnabled;
+		}else{
+			activeServerEnabled = false;
+			return activeServerEnabled;
+		}
 	}
 
 	private static int getMenuItem(final int serverInstance)

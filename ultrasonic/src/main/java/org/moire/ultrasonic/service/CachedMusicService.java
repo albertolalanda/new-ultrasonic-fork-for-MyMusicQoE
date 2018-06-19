@@ -530,7 +530,7 @@ public class CachedMusicService implements MusicService
 	}
 
 	@Override
-	public void setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
-		musicService.setUserInformation(context, id, age, gender, genres, progressListener);
+	public boolean setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
+		return musicService.setUserInformation(context, id, age, gender, genres, progressListener);
 	}
 }

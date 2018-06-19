@@ -311,8 +311,8 @@ public class UserInformationActivity extends SubsonicTabActivity {
 		ModalBackgroundTask<Boolean> task = new ModalBackgroundTask<Boolean>(this, false) {
 			@Override
 			protected Boolean doInBackground() throws Throwable {
-
 				final Context context = getActivity();
+				boolean responseSucesseful = false;
 				try {
 					MusicService musicService = MusicServiceFactory.getMusicService(context);
 					LastIdUser lastIdUserResponse = musicService.getLastIdUserQoE(context, this);
@@ -325,39 +325,44 @@ public class UserInformationActivity extends SubsonicTabActivity {
 							stringUserGenres = stringUserGenres + "," + listGenres[userGenres.get(i)];
 						}
 					}
-					musicService.setUserInformation(context, lastIdUser, spinnerAge.getSelectedItemPosition(), sex, stringUserGenres, this);
-
+					responseSucesseful = musicService.setUserInformation(context, lastIdUser, spinnerAge.getSelectedItemPosition(), sex, stringUserGenres, this);
 				} finally {
-					//Save user id
-					Util.setUserId(UserInformationActivity.this, lastIdUser);
-					//Save user sex
-					switch (sex) {
-						case "M":
-							Util.setUserSex(UserInformationActivity.this, 1);
-							break;
-						case "F":
-							Util.setUserSex(UserInformationActivity.this, 0);
-							break;
+					if (responseSucesseful){
+						//Save user id
+						Util.setUserId(UserInformationActivity.this, lastIdUser);
+						//Save user sex
+						switch (sex) {
+							case "M":
+								Util.setUserSex(UserInformationActivity.this, 1);
+								break;
+							case "F":
+								Util.setUserSex(UserInformationActivity.this, 0);
+								break;
+						}
+						//Save user age
+						Util.setUserAge(UserInformationActivity.this, spinnerAge.getSelectedItemPosition());
+						//Save favorite genres
+						Util.setNumberOfFavoriteGenres(UserInformationActivity.this, userGenres.size());
+						System.out.println("NUMBER OF NEW FAVORITE GENRES: " + userGenres.size());
+						for (int i = 0; i < userGenres.size(); i++){
+							System.out.println("SET FAVORITE GENRES: "+ listGenres[userGenres.get(i)]);
+							Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
+						}
+					}else{
+						//TODO LALANDA THIS IS NOT WORKING AS EXPECTED
+						throw new java.lang.Error(String.valueOf(R.string.user_information_error_message));
 					}
-					//Save user age
-					Util.setUserAge(UserInformationActivity.this, spinnerAge.getSelectedItemPosition());
-					//Save favorite genres
-					Util.setNumberOfFavoriteGenres(UserInformationActivity.this, userGenres.size());
-					System.out.println("NUMBER OF NEW FAVORITE GENRES: " + userGenres.size());
-					for (int i = 0; i < userGenres.size(); i++){
-						System.out.println("SET FAVORITE GENRES: "+ listGenres[userGenres.get(i)]);
-						Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
-					}
-					return true;
+
+					return responseSucesseful;
 				}
 			}
 
 			@Override
-			protected void done(Boolean licenseValid) {
-				if (licenseValid) {
-					Util.toast(getActivity(), R.string.settings_testing_ok);
+			protected void done(Boolean response) {
+				if (response) {
+					Util.toast(getActivity(), R.string.user_information_saved_message);
 				} else {
-					Util.toast(getActivity(), R.string.settings_testing_unlicensed);
+					Util.toast(getActivity(), R.string.user_information_error_message);
 				}
 			}
 

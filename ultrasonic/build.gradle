@@ -56,6 +56,8 @@ dependencies {
     implementation project(':domain')
     implementation project(':subsonic-api')
     implementation project(':cache')
+    //implementation project(':supertooltips')
+    implementation 'com.nhaarman.supertooltips:library:3.0.+'
 
     implementation androidSupport.support
     implementation androidSupport.design
@@ -68,8 +70,6 @@ dependencies {
     testImplementation testing.mockitoKotlin
     testImplementation testing.kluent
 
-    //compile 'android.support.v7.widget.AppCompatSeekBar'
-    //implementation 'com.android.support:appcompat-v7:27.1.1'
 }
 
 // Excluding all non-kotlin classes

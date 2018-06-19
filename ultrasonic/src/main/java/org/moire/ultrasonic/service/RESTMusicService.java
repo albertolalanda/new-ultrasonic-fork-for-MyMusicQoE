@@ -1075,15 +1075,17 @@ public class RESTMusicService implements MusicService {
         updateProgressListener(progressListener, R.string.parser_reading);
         Response<GetUserLastIdResponse> response = subsonicAPIClient.getApi().getLastIdUserQoE().execute();
         checkResponseSuccessful(response);
-        System.out.println("LALANDA GET LAST USER ID : "+ response.body().getLastIdUser());
-        System.out.println("LALANDA GET LAST USER ID : "+ response.body().getLastIdUser().getValue());
-        System.out.println("LALANDA GET LAST USER ID : "+ response.body().getLastIdUser().component2());
         return response.body().getLastIdUser();
     }
 
-    public void setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
+    public boolean setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
         updateProgressListener(progressListener, R.string.parser_reading);
         Response<SubsonicResponse> response = subsonicAPIClient.getApi().createUserQoE(id, age, gender,genres).execute();
         checkResponseSuccessful(response);
+        if (response.body().getStatus() == SubsonicResponse.Status.OK && response.isSuccessful()){
+            return true;
+        }else{
+            return false;
+        }
     }
 }

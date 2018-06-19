@@ -153,5 +153,5 @@ public interface MusicService
 	//LALANDA
 	LastIdUser getLastIdUserQoE(Context context, ProgressListener progressListener) throws Exception;
 
-	void setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception;
+	boolean setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception;
 }
