@@ -18,9 +18,7 @@
         a:normalScreens="true"
         a:smallScreens="true"
         a:xlargeScreens="true"/>
-    <!--LALANDA ADICIONEI A LINHA SEGUINTE-->
     <application
-        tools:replace="android:allowBackup"
         a:allowBackup="false"
         a:icon="@mipmap/ic_launcher"
         a:roundIcon="@mipmap/ic_launcher_round"

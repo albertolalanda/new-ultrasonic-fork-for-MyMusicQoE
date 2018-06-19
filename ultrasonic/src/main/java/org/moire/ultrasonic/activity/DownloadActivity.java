@@ -52,9 +52,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.mobeta.android.dslv.DragSortListView;
-import com.nhaarman.supertooltips.ToolTip;
-import com.nhaarman.supertooltips.ToolTipRelativeLayout;
-import com.nhaarman.supertooltips.ToolTipView;
 
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.domain.MusicDirectory;
@@ -126,9 +123,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private SilentBackgroundTask<Void> onProgressChangedTask;
 	LinearLayout visualizerViewLayout;
 	private MenuItem starMenuItem;
-
-	private ToolTipView ToolTipView;
-	private ToolTipRelativeLayout ToolTipFrameLayout;
 
 	private VerticalSeekBar verticalSeekBar;
 
