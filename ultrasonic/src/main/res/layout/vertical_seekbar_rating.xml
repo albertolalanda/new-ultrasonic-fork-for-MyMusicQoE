@@ -1,251 +1,206 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:a="http://schemas.android.com/apk/res/android"
-a:layout_width="fill_parent"
-a:layout_height="fill_parent"
-a:orientation="horizontal"
-a:gravity="center"
-a:background="@color/grey_rating_bar_unselected"
-a:clickable="false">
+<LinearLayout xmlns:a="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    a:layout_width="fill_parent"
+    a:layout_height="fill_parent"
+    a:orientation="vertical">
 
-
-    <org.moire.ultrasonic.util.VerticalSeekBar
-        a:id="@+id/vertical_Seekbar"
+    <TextView
+        a:id="@+id/text_view_rating_questiontext"
         a:layout_width="match_parent"
-        a:layout_height="match_parent"
-        a:layout_centerHorizontal="true"
-        a:layout_marginLeft="-15dp"
-        a:layout_marginRight="-15dp"
-        a:max="100"
-        a:padding="0dp"
-        a:progress="0"
-        a:progressDrawable="@drawable/progress" />
+        a:layout_height="wrap_content"
+        a:layout_marginBottom="15dp"
+        a:layout_marginTop="15dp"
+        a:gravity="center"
+        a:text="como foi a qualidade de áudio ?"
+        a:textAppearance="?android:attr/textAppearanceLarge" />
 
-
-    <LinearLayout
-        a:layout_width="wrap_content"
+    <RelativeLayout
+        a:layout_width="fill_parent"
         a:layout_height="fill_parent"
-        a:orientation="vertical">
+        a:background="@color/grey_rating_bar_unselected"
+        a:clickable="false"
+        a:orientation="horizontal">
 
         <LinearLayout
+            a:id="@+id/rating_separators"
             a:layout_width="wrap_content"
             a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
+            a:layout_alignParentLeft="true"
             a:layout_weight="1"
-            a:orientation="vertical">
+            a:orientation="vertical"
+            a:paddingBottom="8dp"
+            a:paddingTop="8dp">
 
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="wrap_content"
-                a:layout_height="1dp" />
-
-            <TextView
+            <LinearLayout
                 a:layout_width="wrap_content"
                 a:layout_height="fill_parent"
+                a:layout_marginLeft="5dp"
                 a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="9"
-                a:textSize="30sp" />
+                a:orientation="vertical">
+
+                <include
+                    layout="@layout/horizontal_divider"
+                    a:layout_width="130dp"
+                    a:layout_height="1dp" />
+
+                <TextView
+                    a:layout_width="wrap_content"
+                    a:layout_height="fill_parent"
+                    a:layout_weight="1"
+                    a:gravity="center_vertical"
+                    a:text="Excellent"
+                    a:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_marginLeft="5dp"
+                a:layout_weight="1"
+                a:orientation="vertical">
+
+                <include
+                    layout="@layout/horizontal_divider"
+                    a:layout_width="130dp"
+                    a:layout_height="1dp" />
+
+                <TextView
+                    a:layout_width="wrap_content"
+                    a:layout_height="fill_parent"
+                    a:layout_weight="1"
+                    a:gravity="center_vertical"
+                    a:text="Good"
+                    a:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_marginLeft="5dp"
+                a:layout_weight="1"
+                a:orientation="vertical">
+
+                <include
+                    layout="@layout/horizontal_divider"
+                    a:layout_width="130dp"
+                    a:layout_height="1dp" />
+
+                <TextView
+                    a:layout_width="wrap_content"
+                    a:layout_height="fill_parent"
+                    a:layout_weight="1"
+                    a:gravity="center_vertical"
+                    a:text="Fair"
+                    a:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_marginLeft="5dp"
+                a:layout_weight="1"
+                a:orientation="vertical">
+
+                <include
+                    layout="@layout/horizontal_divider"
+                    a:layout_width="130dp"
+                    a:layout_height="1dp" />
+
+                <TextView
+                    a:layout_width="wrap_content"
+                    a:layout_height="fill_parent"
+                    a:layout_weight="1"
+                    a:gravity="center_vertical"
+                    a:text="Poor"
+                    a:textSize="30sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                a:layout_width="wrap_content"
+                a:layout_height="fill_parent"
+                a:layout_marginLeft="5dp"
+                a:layout_weight="1"
+                a:orientation="vertical">
+
+                <include
+                    layout="@layout/horizontal_divider"
+                    a:layout_width="130dp"
+                    a:layout_height="1dp" />
+
+                <TextView
+                    a:layout_width="wrap_content"
+                    a:layout_height="fill_parent"
+                    a:layout_weight="1"
+                    a:gravity="center_vertical"
+                    a:text="Bad"
+                    a:textSize="30sp" />
+
+                <include
+                    layout="@layout/horizontal_divider"
+                    a:layout_width="130dp"
+                    a:layout_height="1dp" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
         <LinearLayout
-            a:layout_width="wrap_content"
+            a:layout_width="match_parent"
             a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
             a:layout_weight="1"
             a:orientation="vertical">
 
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
+            <View
+                a:id="@+id/text_view_seekbar_space_top"
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:layout_weight="1" />
 
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="8"
-                a:textSize="30sp" />
 
+            <!--app:tsb_thumb_drawable="@drawable/thumb_drawable"-->
+            <com.warkiz.tickseekbar.TickSeekBar
+                a:id="@+id/listener"
+                a:layout_width="match_parent"
+                a:scaleType="fitXY"
+                a:layout_height="match_parent"
+                a:padding="0dp"
+                a:paddingEnd="0dp"
+                a:paddingStart="0dp"
+
+
+
+                a:rotation="270"
+
+
+                app:tsb_clear_default_padding="true"
+
+                app:tsb_max="100"
+                app:tsb_min="0"
+                app:tsb_seek_smoothly="true"
+                app:tsb_show_tick_marks_type="divider"
+
+                app:tsb_tick_marks_color="@color/accent_material_dark"
+                app:tsb_tick_marks_size="2dp"
+                app:tsb_ticks_count="6"
+
+                app:tsb_track_background_color="@color/cyan"
+                app:tsb_track_background_size="15dp"
+                app:tsb_track_progress_color="@color/error_color"
+                app:tsb_track_progress_size="15dp" />
+
+            <!--app:tsb_thumb_color="@color/accent_material_light"-->
+            <!--app:tsb_thumb_size="30dp"-->
+            <View
+                a:id="@+id/text_view_seekbar_space_bottom"
+                a:layout_width="match_parent"
+                a:layout_height="wrap_content"
+                a:layout_weight="1" />
         </LinearLayout>
+    </RelativeLayout>
 
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="7"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="6"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="5"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="4"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="3"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="2"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="1"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            a:layout_width="wrap_content"
-            a:layout_height="fill_parent"
-            a:layout_marginLeft="5dp"
-            a:layout_weight="1"
-            a:orientation="vertical">
-
-            <include
-                layout="@layout/horizontal_divider"
-                a:layout_width="fill_parent"
-                a:layout_height="1dp" />
-
-            <TextView
-                a:layout_width="wrap_content"
-                a:layout_height="fill_parent"
-                a:layout_weight="1"
-                a:gravity="center_vertical"
-                a:text="0"
-                a:textSize="30sp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

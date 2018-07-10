@@ -22,7 +22,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -48,7 +47,6 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.mobeta.android.dslv.DragSortListView;
@@ -65,7 +63,6 @@ import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.Constants;
 import org.moire.ultrasonic.util.SilentBackgroundTask;
 import org.moire.ultrasonic.util.Util;
-import org.moire.ultrasonic.util.VerticalSeekBar;
 import org.moire.ultrasonic.view.AutoRepeatButton;
 import org.moire.ultrasonic.view.SongListAdapter;
 import org.moire.ultrasonic.view.VisualizerView;
@@ -86,7 +83,7 @@ import static org.moire.ultrasonic.domain.PlayerState.IDLE;
 import static org.moire.ultrasonic.domain.PlayerState.PAUSED;
 import static org.moire.ultrasonic.domain.PlayerState.STOPPED;
 
-public class DownloadActivity extends SubsonicTabActivity implements OnGestureListener//, ToolTipView.OnToolTipViewClickedListener
+public class DownloadActivity extends SubsonicTabActivity implements OnGestureListener
 {
 	private static final String TAG = DownloadActivity.class.getSimpleName();
 	private static final int DIALOG_SAVE_PLAYLIST = 100;
@@ -124,12 +121,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	LinearLayout visualizerViewLayout;
 	private MenuItem starMenuItem;
 
-	private VerticalSeekBar verticalSeekBar;
-
 	// variables for the user rating
-	/*private boolean canRate = false;
+	private boolean canRate = true; //LALANDA CHANGE LATER
 	private boolean hasRated = false;
-	private boolean changeStar = false;*/
+	private boolean changeStar = false;
 	private ArrayList<Boolean> songsRated = new ArrayList<>();
 	private ArrayList<Integer> rateGiven = new ArrayList<>();
 	private int numberOfPlaylistForThisUser;
@@ -180,7 +175,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		visualizerViewLayout = (LinearLayout) findViewById(R.id.download_visualizer_view_layout);
 
-		verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
+		//verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
 
 
 		View.OnTouchListener touchListener = new View.OnTouchListener()
@@ -524,7 +519,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 
 		//LALANDA VERTICAL SEEKBAR COPY PASTE
-		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+		/*verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				Log.d("Developer", "onStopTrackingTouch: "+seekBar.getProgress());
@@ -538,10 +533,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				Log.d("Developer", "onProgressChanged: "+seekBar.getProgress());
-				/*hasRated = true;
-				changeStar = true;*/
+				hasRated = true;
+				changeStar = true;
 			}
-		});
+		});*/
 		//
 	}
 
@@ -1025,11 +1020,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				return true;
 			case R.id.menu_item_star:
-				/*if (canRate) {
+				if (canRate) {
 					toggleFullScreenAlbumArt(2);
 				}else{
-					Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + getSecondsPassed() + " seconds");
-				}*/
+					//Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + getSecondsPassed() + " seconds");
+				}
 
 				//LALANDA ITEM STAR
 				/*if (currentSong == null)
