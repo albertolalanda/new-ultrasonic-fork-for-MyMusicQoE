@@ -9,8 +9,8 @@
         a:id="@+id/text_view_rating_questiontext"
         a:layout_width="match_parent"
         a:layout_height="wrap_content"
-        a:layout_marginBottom="15dp"
-        a:layout_marginTop="15dp"
+        a:layout_marginBottom="7dp"
+        a:layout_marginTop="7dp"
         a:gravity="center"
         a:text="como foi a qualidade de áudio ?"
         a:textAppearance="?android:attr/textAppearanceLarge" />
@@ -217,26 +217,38 @@
         <!--</LinearLayout>-->
 
 
+        <android.support.constraint.ConstraintLayout
+            a:layout_width="match_parent"
+            a:layout_height="match_parent"
+            a:layout_weight="1"
+            >
 
-
-
-        <LinearLayout
-            a:layout_width="300dp"
-            a:layout_height="370dp"
-            a:layout_centerVertical="true"
-            a:layout_gravity="right"
-            a:orientation="vertical"
-            a:layout_alignParentRight="true">
-
-            <TextView
-                a:layout_width="match_parent"
+            <LinearLayout
+                a:layout_width="0dp"
                 a:layout_height="match_parent"
+                app:layout_constraintDimensionRatio="1:1"
                 a:layout_weight="1"
-                a:gravity="center_horizontal"
-                a:text="100"
-                a:textSize="30sp"
-                a:background="@drawable/rating_seekbar_text_background"/>
-        </LinearLayout>
+                a:orientation="vertical">
+
+
+                <TextView
+                    a:layout_width="match_parent"
+                    a:layout_height="match_parent"
+                    a:layout_gravity="end"
+                    a:paddingLeft="150dp"
+                    a:layout_weight="1"
+                    a:background="@drawable/rating_seekbar_text_background"
+                    a:gravity="center_vertical|center_horizontal"
+                    a:text="100"
+                    a:textSize="50dp" />
+
+
+            </LinearLayout>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+
     </RelativeLayout>
 
 </LinearLayout>
