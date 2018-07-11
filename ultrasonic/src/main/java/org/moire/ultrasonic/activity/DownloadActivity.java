@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -121,6 +122,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	LinearLayout visualizerViewLayout;
 	private MenuItem starMenuItem;
 
+	private SeekBar verticalSeekBar;
+	private LinearLayout ratingSeparatorsLayout;
+	private View mView;
+
 	// variables for the user rating
 	private boolean canRate = true; //LALANDA CHANGE LATER
 	private boolean hasRated = false;
@@ -172,6 +177,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		startButton = findViewById(R.id.download_start);
 		final View shuffleButton = findViewById(R.id.download_shuffle);
 		repeatButton = (ImageView) findViewById(R.id.download_repeat);
+
+
+
 
 		visualizerViewLayout = (LinearLayout) findViewById(R.id.download_visualizer_view_layout);
 
@@ -538,6 +546,23 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});*/
 		//
+		verticalSeekBar = findViewById(R.id.tickSeekBar);
+
+		ratingSeparatorsLayout = (LinearLayout) findViewById(R.id.rating_separators);
+		mView = findViewById(R.id.rating_separators);
+		mView.getViewTreeObserver().addOnGlobalLayoutListener(
+		new ViewTreeObserver.OnGlobalLayoutListener(){
+			@Override
+			public void onGlobalLayout() {
+				int sizeOfRatingSeparatorsLayout = mView.getHeight();
+				verticalSeekBar.setMinimumHeight(sizeOfRatingSeparatorsLayout);
+				System.out.println("SIZE LALANDA " + sizeOfRatingSeparatorsLayout);
+				mView.getViewTreeObserver().removeGlobalOnLayoutListener( this );
+			}
+
+		});
+
+
 	}
 
 	@Override

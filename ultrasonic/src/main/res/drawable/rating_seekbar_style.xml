@@ -1,24 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:a="http://schemas.android.com/apk/res/android">
-    <item a:id="@android:id/background">
-        <shape>
-            <gradient
-                a:startColor="#ffe9e9e9"
-                a:centerColor="#ffc6c6c6"
-                a:centerY="0.75"
-                a:endColor="#ffe9e9e9"
-                a:angle="270"/>
-
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@android:id/background" android:gravity="center_vertical|fill_horizontal">
+        <shape android:shape="rectangle"
+            android:tint="#ffd600">
+            <corners android:radius="1dp"/>
+            <size android:height="20dp" />
+            <solid android:color="#ffd600" />
         </shape>
     </item>
-    <item a:id="@android:id/progress">
-        <clip>
-            <shape>
-                <gradient
-                    a:startColor="#ffe9e9e9"
-                    a:endColor="#ff2165ca"
-                    a:angle="270" />
-            </shape>
-        </clip>
+    <item android:id="@android:id/progress" android:gravity="center_vertical|fill_horizontal">
+        <scale android:scaleWidth="100%">
+            <selector>
+                <item android:state_enabled="false"
+                    android:drawable="@android:color/transparent" />
+                <item>
+                    <shape android:shape="rectangle" android:tint="#f50057">
+                        <corners android:radius="1dp"/>
+                        <size android:height="20dp" />
+                        <solid android:color="#f50057" />
+                    </shape>
+                </item>
+            </selector>
+        </scale>
     </item>
 </layer-list>
+
