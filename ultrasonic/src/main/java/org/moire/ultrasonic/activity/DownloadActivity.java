@@ -20,12 +20,16 @@ package org.moire.ultrasonic.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Vibrator;
+import android.text.Layout;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Display;
@@ -48,6 +52,7 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.mobeta.android.dslv.DragSortListView;
@@ -123,8 +128,19 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private MenuItem starMenuItem;
 
 	private SeekBar verticalSeekBar;
-	private LinearLayout ratingSeparatorsLayout;
-	private View mView;
+	private TextView seekbarRatingText;
+	private TextView separatorRatingExcellentText;
+	private TextView separatorRatingGoodText;
+	private TextView separatorRatingFairText;
+	private TextView separatorRatingPoorText;
+	private TextView separatorRatingBadText;
+	private LinearLayout separatorRatingExcellentButton;
+	private LinearLayout separatorRatingGoodButton;
+	private LinearLayout separatorRatingFairButton;
+	private LinearLayout separatorRatingPoorButton;
+	private LinearLayout separatorRatingBadButton;
+
+	private Vibrator vibrator;
 
 	// variables for the user rating
 	private boolean canRate = true; //LALANDA CHANGE LATER
@@ -183,8 +199,19 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		visualizerViewLayout = (LinearLayout) findViewById(R.id.download_visualizer_view_layout);
 
-		//verticalSeekBar=(VerticalSeekBar)findViewById(R.id.vertical_Seekbar);
-
+		verticalSeekBar = findViewById(R.id.tickSeekBar);
+		seekbarRatingText = findViewById(R.id.seekbar_current_rating);
+		separatorRatingExcellentText = findViewById(R.id.rating_separator_excellent_text);
+		separatorRatingGoodText = findViewById(R.id.rating_separator_good_text);
+		separatorRatingFairText = findViewById(R.id.rating_separator_fair_text);
+		separatorRatingPoorText = findViewById(R.id.rating_separator_poor_text);
+		separatorRatingBadText = findViewById(R.id.rating_separator_bad_text);
+		separatorRatingExcellentButton = findViewById(R.id.rating_separator_excellent_button);
+		separatorRatingGoodButton = findViewById(R.id.rating_separator_good_button);
+		separatorRatingFairButton = findViewById(R.id.rating_separator_fair_button);
+		separatorRatingPoorButton = findViewById(R.id.rating_separator_poor_button);
+		separatorRatingBadButton = findViewById(R.id.rating_separator_bad_button);
+		vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
 		View.OnTouchListener touchListener = new View.OnTouchListener()
 		{
@@ -526,40 +553,76 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			visualizerViewLayout.setVisibility(View.GONE);
 		}
 
-		//LALANDA VERTICAL SEEKBAR COPY PASTE
-		/*verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				Log.d("Developer", "onStopTrackingTouch: "+seekBar.getProgress());
+			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+				seekbarRatingText.setText((""+i));
+				hasRated = true;
+				changeStar = true;
+				switch (i) {
+					case 80:
+					case 60:
+					case 40:
+					case 20: vibrator.vibrate(15); break;
+				}
+
+				if (i > 80){
+					separatorRatingExcellentText.setTextColor(Color.CYAN);
+				}else{
+					separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+				}
+				if (i > 60){
+					separatorRatingGoodText.setTextColor(Color.CYAN);
+				}else{
+					separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+				}
+				if (i > 40){
+					separatorRatingFairText.setTextColor(Color.CYAN);
+				}else{
+					separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+				}
+				if (i > 20){
+					separatorRatingPoorText.setTextColor(Color.CYAN);
+				}else{
+					separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+				}
+				if (i > 0){
+					separatorRatingBadText.setTextColor(Color.CYAN);
+				}else{
+					separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+				}
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
-				Log.d("Developer", "onStartTrackingTouch: "+seekBar.getProgress());
+				Toast.makeText(DownloadActivity.this, "Seekbar touch started", Toast.LENGTH_SHORT).show();
 			}
 
 			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				Log.d("Developer", "onProgressChanged: "+seekBar.getProgress());
-				hasRated = true;
-				changeStar = true;
+			public void onStopTrackingTouch(SeekBar seekBar) {
+				Toast.makeText(DownloadActivity.this, "Seekbar touch stopped", Toast.LENGTH_SHORT).show();
 			}
-		});*/
-		//
-		verticalSeekBar = findViewById(R.id.tickSeekBar);
-
-		ratingSeparatorsLayout = (LinearLayout) findViewById(R.id.rating_separators);
-		mView = findViewById(R.id.rating_separators);
-		mView.getViewTreeObserver().addOnGlobalLayoutListener(
-		new ViewTreeObserver.OnGlobalLayoutListener(){
-			@Override
-			public void onGlobalLayout() {
-				int sizeOfRatingSeparatorsLayout = mView.getHeight();
-				verticalSeekBar.setMinimumHeight(sizeOfRatingSeparatorsLayout);
-				System.out.println("SIZE LALANDA " + sizeOfRatingSeparatorsLayout);
-				mView.getViewTreeObserver().removeGlobalOnLayoutListener( this );
-			}
-
 		});
 
 
