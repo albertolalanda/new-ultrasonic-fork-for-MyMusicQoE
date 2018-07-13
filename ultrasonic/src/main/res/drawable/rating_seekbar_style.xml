@@ -2,10 +2,10 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/background" android:gravity="center_vertical|fill_horizontal">
         <shape android:shape="rectangle"
-            android:tint="#ffd600">
+            android:tint="@color/grey_rating_bar_selected">
             <corners android:radius="1dp"/>
-            <size android:height="20dp" />
-            <solid android:color="#ffd600" />
+            <size android:height="35dp" />
+            <solid android:color="@color/grey_rating_bar_selected" />
         </shape>
     </item>
     <item android:id="@android:id/progress" android:gravity="center_vertical|fill_horizontal">
@@ -14,10 +14,14 @@
                 <item android:state_enabled="false"
                     android:drawable="@android:color/transparent" />
                 <item>
-                    <shape android:shape="rectangle" android:tint="#f50057">
+                    <shape android:shape="rectangle" ><!--android:tint="@color/grey_rating_bar_selected"-->
                         <corners android:radius="1dp"/>
-                        <size android:height="20dp" />
-                        <solid android:color="#f50057" />
+                        <size android:height="35dp" />
+                        <!--<gradient android:startColor="#00FF00"-->
+                            <!--android:endColor="#FF0000"-->
+                            <!--android:centerColor="#FFA500"-->
+                            <!--android:angle="0"/>-->
+                        <solid android:color="#4e93aa" />
                     </shape>
                 </item>
             </selector>

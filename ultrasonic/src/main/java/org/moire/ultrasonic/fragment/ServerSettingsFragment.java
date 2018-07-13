@@ -28,6 +28,7 @@ import java.net.URL;
  * Settings for Subsonic server.
  */
 //LALANDA EDITING OF A SPECIFIC SERVER
+//THIS WILL BE UNUSED
 public class ServerSettingsFragment extends PreferenceFragment implements Preference.OnPreferenceChangeListener, Preference.OnPreferenceClickListener {
     private static final String LOG_TAG = ServerSettingsFragment.class.getSimpleName();
     private static final String ARG_SERVER_ID = "serverId";

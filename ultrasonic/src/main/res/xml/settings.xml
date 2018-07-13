@@ -2,10 +2,10 @@
 <PreferenceScreen xmlns:a="http://schemas.android.com/apk/res/android"
                   a:title="@string/common.appname">
 
-    <PreferenceCategory
-        a:key="serversKey"
-        a:title="@string/settings.servers_title">
-    </PreferenceCategory>
+    <!--<PreferenceCategory-->
+        <!--a:key="serversKey"-->
+        <!--a:title="@string/settings.servers_title">-->
+    <!--</PreferenceCategory>-->
     <PreferenceCategory a:title="@string/settings.appearance_title">
         <ListPreference
             a:defaultValue="dark"
@@ -14,66 +14,66 @@
             a:key="theme"
             a:title="@string/settings.theme_title"/>
         <CheckBoxPreference
-            a:defaultValue="true"
+            a:defaultValue="false"
             a:key="serverScaling"
             a:summary="@string/settings.server_scaling_summary"
             a:title="@string/settings.server_scaling_title"/>
-        <CheckBoxPreference
-            a:defaultValue="true"
-            a:key="displayBitrateWithArtist"
-            a:summary="@string/settings.display_bitrate_summary"
-            a:title="@string/settings.display_bitrate"/>
-        <CheckBoxPreference
-            a:defaultValue="false"
-            a:key="useFolderForAlbumArtist"
-            a:summary="@string/settings.use_folder_for_album_artist_summary"
-            a:title="@string/settings.use_folder_for_album_artist"/>
-        <CheckBoxPreference
-            a:defaultValue="false"
-            a:key="showAllSongsByArtist"
-            a:summary="@string/settings.show_all_songs_by_artist_summary"
-            a:title="@string/settings.show_all_songs_by_artist"/>
-        <CheckBoxPreference
-            a:defaultValue="true"
-            a:key="showTrackNumber"
-            a:summary="@string/settings.show_track_number_summary"
-            a:title="@string/settings.show_track_number"/>
-        <CheckBoxPreference
-            a:defaultValue="false"
-            a:key="discAndTrackSort"
-            a:summary="@string/settings.disc_sort_summary"
-            a:title="@string/settings.disc_sort"/>
-        <ListPreference
-            a:defaultValue="1000"
-            a:entries="@array/viewRefreshNames"
-            a:entryValues="@array/viewRefreshValues"
-            a:key="viewRefresh"
-            a:title="@string/settings.view_refresh"/>
-        <ListPreference
-            a:defaultValue="5"
-            a:entries="@array/imageConcurrencyNames"
-            a:entryValues="@array/imageConcurrencyValues"
-            a:key="imageLoaderConcurrency"
-            a:title="@string/settings.image_loader_concurrency"/>
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="true"-->
+            <!--a:key="displayBitrateWithArtist"-->
+            <!--a:summary="@string/settings.display_bitrate_summary"-->
+            <!--a:title="@string/settings.display_bitrate"/>-->
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="false"-->
+            <!--a:key="useFolderForAlbumArtist"-->
+            <!--a:summary="@string/settings.use_folder_for_album_artist_summary"-->
+            <!--a:title="@string/settings.use_folder_for_album_artist"/>-->
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="false"-->
+            <!--a:key="showAllSongsByArtist"-->
+            <!--a:summary="@string/settings.show_all_songs_by_artist_summary"-->
+            <!--a:title="@string/settings.show_all_songs_by_artist"/>-->
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="true"-->
+            <!--a:key="showTrackNumber"-->
+            <!--a:summary="@string/settings.show_track_number_summary"-->
+            <!--a:title="@string/settings.show_track_number"/>-->
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="false"-->
+            <!--a:key="discAndTrackSort"-->
+            <!--a:summary="@string/settings.disc_sort_summary"-->
+            <!--a:title="@string/settings.disc_sort"/>-->
+        <!--<ListPreference-->
+            <!--a:defaultValue="1000"-->
+            <!--a:entries="@array/viewRefreshNames"-->
+            <!--a:entryValues="@array/viewRefreshValues"-->
+            <!--a:key="viewRefresh"-->
+            <!--a:title="@string/settings.view_refresh"/>-->
+        <!--<ListPreference-->
+            <!--a:defaultValue="5"-->
+            <!--a:entries="@array/imageConcurrencyNames"-->
+            <!--a:entryValues="@array/imageConcurrencyValues"-->
+            <!--a:key="imageLoaderConcurrency"-->
+            <!--a:title="@string/settings.image_loader_concurrency"/>-->
     </PreferenceCategory>
     <PreferenceCategory
         a:title="@string/settings.playback_control_title"
         a:key="playbackControlSettings">
-        <CheckBoxPreference
-            a:defaultValue="false"
-            a:key="useId3Tags"
-            a:summary="@string/settings.use_id3_summary"
-            a:title="@string/settings.use_id3"/>
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="false"-->
+            <!--a:key="useId3Tags"-->
+            <!--a:summary="@string/settings.use_id3_summary"-->
+            <!--a:title="@string/settings.use_id3"/>-->
         <CheckBoxPreference
             a:defaultValue="true"
             a:key="mediaButtons"
             a:summary="@string/settings.media_button_summary"
             a:title="@string/settings.media_button_title"/>
-        <CheckBoxPreference
-            a:defaultValue="true"
-            a:key="transitionToDownloadOnPlay"
-            a:summary="@string/settings.download_transition_summary"
-            a:title="@string/settings.download_transition"/>
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="true"-->
+            <!--a:key="transitionToDownloadOnPlay"-->
+            <!--a:summary="@string/settings.download_transition_summary"-->
+            <!--a:title="@string/settings.download_transition"/>-->
         <CheckBoxPreference
             a:defaultValue="false"
             a:key="gaplessPlayback"
@@ -139,49 +139,49 @@
             a:summary="@string/settings.send_bluetooth_album_art_summary"
             a:title="@string/settings.send_bluetooth_album_art"/>
     </PreferenceCategory>
-    <PreferenceCategory a:title="@string/settings.video_title">
-        <ListPreference
-            a:defaultValue="default"
-            a:entries="@array/videoPlayerNames"
-            a:entryValues="@array/videoPlayerValues"
-            a:key="videoPlayer"
-            a:title="@string/settings.video_player"/>
-    </PreferenceCategory>
-    <PreferenceCategory a:title="@string/settings.sharing_title">
-        <EditTextPreference
-            a:key="sharingDefaultDescription"
-            a:title="@string/settings.share_description_default"/>
-        <EditTextPreference
-            a:key="sharingDefaultGreeting"
-            a:title="@string/settings.share_greeting_default"/>
-        <org.moire.ultrasonic.util.TimeSpanPreference
-            a:defaultValue="0"
-            a:key="sharingDefaultExpiration"
-            a:title="@string/settings.share_expiration_default"/>
-        <CheckBoxPreference
-            a:defaultValue="true"
-            a:key="sharingAlwaysAskForDetails"
-            a:summary="@string/settings.sharing_always_ask_for_details_summary"
-            a:title="@string/settings.sharing_always_ask_for_details"/>
-    </PreferenceCategory>
+    <!--<PreferenceCategory a:title="@string/settings.video_title">-->
+        <!--<ListPreference-->
+            <!--a:defaultValue="default"-->
+            <!--a:entries="@array/videoPlayerNames"-->
+            <!--a:entryValues="@array/videoPlayerValues"-->
+            <!--a:key="videoPlayer"-->
+            <!--a:title="@string/settings.video_player"/>-->
+    <!--</PreferenceCategory>-->
+    <!--<PreferenceCategory a:title="@string/settings.sharing_title">-->
+        <!--<EditTextPreference-->
+            <!--a:key="sharingDefaultDescription"-->
+            <!--a:title="@string/settings.share_description_default"/>-->
+        <!--<EditTextPreference-->
+            <!--a:key="sharingDefaultGreeting"-->
+            <!--a:title="@string/settings.share_greeting_default"/>-->
+        <!--<org.moire.ultrasonic.util.TimeSpanPreference-->
+            <!--a:defaultValue="0"-->
+            <!--a:key="sharingDefaultExpiration"-->
+            <!--a:title="@string/settings.share_expiration_default"/>-->
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="true"-->
+            <!--a:key="sharingAlwaysAskForDetails"-->
+            <!--a:summary="@string/settings.sharing_always_ask_for_details_summary"-->
+            <!--a:title="@string/settings.sharing_always_ask_for_details"/>-->
+    <!--</PreferenceCategory>-->
     <PreferenceCategory a:title="@string/settings.network_title">
-        <ListPreference
-            a:defaultValue="0"
-            a:entries="@array/maxBitrateNames"
-            a:entryValues="@array/maxBitrateValues"
-            a:key="maxBitrateWifi"
-            a:title="@string/settings.max_bitrate_wifi"/>
-        <ListPreference
-            a:defaultValue="0"
-            a:entries="@array/maxBitrateNames"
-            a:entryValues="@array/maxBitrateValues"
-            a:key="maxBitrateMobile"
-            a:title="@string/settings.max_bitrate_mobile"/>
-        <CheckBoxPreference
-            a:defaultValue="false"
-            a:key="wifiRequiredForDownload"
-            a:summary="@string/settings.wifi_required_summary"
-            a:title="@string/settings.wifi_required_title"/>
+        <!--<ListPreference-->
+            <!--a:defaultValue="0"-->
+            <!--a:entries="@array/maxBitrateNames"-->
+            <!--a:entryValues="@array/maxBitrateValues"-->
+            <!--a:key="maxBitrateWifi"-->
+            <!--a:title="@string/settings.max_bitrate_wifi"/>-->
+        <!--<ListPreference-->
+            <!--a:defaultValue="0"-->
+            <!--a:entries="@array/maxBitrateNames"-->
+            <!--a:entryValues="@array/maxBitrateValues"-->
+            <!--a:key="maxBitrateMobile"-->
+            <!--a:title="@string/settings.max_bitrate_mobile"/>-->
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="false"-->
+            <!--a:key="wifiRequiredForDownload"-->
+            <!--a:summary="@string/settings.wifi_required_summary"-->
+            <!--a:title="@string/settings.wifi_required_title"/>-->
         <ListPreference
             a:defaultValue="5"
             a:entries="@array/bufferLengthNames"
@@ -194,12 +194,12 @@
             a:entryValues="@array/networkTimeoutValues"
             a:key="networkTimeout"
             a:title="@string/settings.network_timeout"/>
-        <ListPreference
-            a:defaultValue="5000"
-            a:entries="@array/chatRefreshNames"
-            a:entryValues="@array/chatRefreshValues"
-            a:key="chatRefreshInterval"
-            a:title="@string/settings.chat_refresh"/>
+        <!--<ListPreference-->
+            <!--a:defaultValue="5000"-->
+            <!--a:entries="@array/chatRefreshNames"-->
+            <!--a:entryValues="@array/chatRefreshValues"-->
+            <!--a:key="chatRefreshInterval"-->
+            <!--a:title="@string/settings.chat_refresh"/>-->
     </PreferenceCategory>
     <PreferenceCategory a:title="@string/settings.cache_title">
         <ListPreference
@@ -268,11 +268,11 @@
             a:title="@string/settings.clear_search_history"/>
     </PreferenceCategory>
     <PreferenceCategory a:title="@string/settings.other_title">
-        <CheckBoxPreference
-            a:defaultValue="false"
-            a:key="scrobble"
-            a:summary="@string/settings.scrobble_summary"
-            a:title="@string/settings.scrobble_title"/>
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="false"-->
+            <!--a:key="scrobble"-->
+            <!--a:summary="@string/settings.scrobble_summary"-->
+            <!--a:title="@string/settings.scrobble_title"/>-->
         <CheckBoxPreference
             a:defaultValue="false"
             a:key="hideMedia"

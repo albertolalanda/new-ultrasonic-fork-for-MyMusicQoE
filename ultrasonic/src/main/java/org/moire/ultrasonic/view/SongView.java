@@ -158,12 +158,13 @@ public class SongView extends UpdateView implements Checkable
 
 		StringBuilder artist = new StringBuilder(60);
 
-		String bitRate = null;
+		//LALANDA not needed bitrate
+		/*String bitRate = null;
 
 		if (song.getBitRate() != null)
 		{
 			bitRate = String.format(this.context.getString(R.string.song_details_kbps), song.getBitRate());
-		}
+		}*/
 
 		String fileFormat;
 		String suffix = song.getSuffix();
@@ -178,14 +179,15 @@ public class SongView extends UpdateView implements Checkable
 
 		if (artistName != null)
 		{
-			if (Util.shouldDisplayBitrateWithArtist(this.context))
-			{
-				artist.append(artistName).append(" (").append(String.format(this.context.getString(R.string.song_details_all), bitRate == null ? "" : String.format("%s ", bitRate), fileFormat)).append(')');
-			}
-			else
-			{
+			//LALANDA TO NEVER DISPLAY BITRATE. THE VALUES WERE WRONG ANYWAY
+//			if (Util.shouldDisplayBitrateWithArtist(this.context))
+//			{
+//				artist.append(artistName).append(" (").append(String.format(this.context.getString(R.string.song_details_all), bitRate == null ? "" : String.format("%s ", bitRate), fileFormat)).append(')');
+//			}
+//			else
+//			{
 				artist.append(artistName);
-			}
+//			}
 		}
 
 		int trackNumber = (song.getTrack() == null) ? 0 : song.getTrack();
@@ -205,10 +207,10 @@ public class SongView extends UpdateView implements Checkable
 		StringBuilder title = new StringBuilder(60);
 		title.append(song.getTitle());
 
-		if (song.isVideo() && Util.shouldDisplayBitrateWithArtist(this.context))
+		/*if (song.isVideo() && Util.shouldDisplayBitrateWithArtist(this.context))
 		{
 			title.append(" (").append(String.format(this.context.getString(R.string.song_details_all), bitRate == null ? "" : String.format("%s ", bitRate), fileFormat)).append(')');
-		}
+		}*/
 
 		viewHolder.title.setText(title);
 

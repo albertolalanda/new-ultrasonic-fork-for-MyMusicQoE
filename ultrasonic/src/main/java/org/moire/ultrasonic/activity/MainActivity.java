@@ -56,7 +56,6 @@ import static java.util.Arrays.asList;
 
 public class MainActivity extends SubsonicTabActivity
 {
-
 	private static final int MENU_GROUP_SERVER = 10;
 	private static final int MENU_ITEM_OFFLINE = 111;
 	private static final int MENU_ITEM_SERVER_1 = 101;

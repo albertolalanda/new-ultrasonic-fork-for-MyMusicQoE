@@ -141,9 +141,9 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 				//LALANDA IF NETWORK CONNECTED ELSE ERROR DIALOG
 				do {
-					/*if (!Util.isNetworkConnected(MainActivity.getInstance())){
-						new ErrorDialog(MainActivity.getInstance(), R.string.background_task_network_error, true);
-					}*/
+//					if (!Util.isNetworkConnected(UserInformationActivity.getInstance())){
+//						new ErrorDialog(UserInformationActivity.getInstance(), "teste de erro", true);
+//					}
 					try
 					{
 						genres = musicService.getGenres(UserInformationActivity.this, this);

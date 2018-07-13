@@ -911,8 +911,9 @@ public class Util extends DownloadActivity
 
 	public static boolean shouldShowTrackNumber(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_TRACK_NUMBER, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_TRACK_NUMBER, false);
+		return true;
 	}
 
 	public static void info(Context context, int titleId, int messageId)
@@ -1498,6 +1499,7 @@ public class Util extends DownloadActivity
 		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_BUFFER_LENGTH, "5"));
 	}
 
+	//skip interval
 	public static int getIncrementTime(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
@@ -1524,14 +1526,17 @@ public class Util extends DownloadActivity
 
 	public static boolean getShouldTransitionOnPlaybackPreference(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_DOWNLOAD_TRANSITION, true);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_DOWNLOAD_TRANSITION, true);
+		return true;
 	}
 
+	//LALANDA NEVER USE ID3 ALWAYS FILE SYSTEM BASED METHODS
 	public static boolean getShouldUseId3Tags(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_ID3_TAGS, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_ID3_TAGS, false);
+		return false;
 	}
 
 	public static int getChatRefreshInterval(Context context)
@@ -1562,10 +1567,12 @@ public class Util extends DownloadActivity
 		return preferences.getBoolean(Constants.PREFERENCES_KEY_CLEAR_PLAYLIST, false);
 	}
 
+	//always sort by disc number and track number. dont know for sure what this does
 	public static boolean getShouldSortByDisc(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_DISC_SORT, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_DISC_SORT, false);
+		return true;
 	}
 
 	public static boolean getShouldClearBookmark(Context context)
@@ -1691,10 +1698,12 @@ public class Util extends DownloadActivity
 		return preferences.getBoolean(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART, true);
 	}
 
+	//LALANDA refresh interval for views always 1sec
 	public static int getViewRefreshInterval(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_VIEW_REFRESH, "1000"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_VIEW_REFRESH, "1000"));
+		return 1000;
 	}
 
 	public static boolean getShouldAskForShareDetails(Context context)
@@ -1765,10 +1774,13 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
+
+	//LALANDA always show all songs by artist
 	public static boolean getShouldShowAllSongsByArtist(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_ALL_SONGS_BY_ARTIST, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_ALL_SONGS_BY_ARTIST, false);
+		return true;
 	}
 
 	public static boolean getShouldScanMedia(Context context)
@@ -1784,9 +1796,11 @@ public class Util extends DownloadActivity
 		context.sendBroadcast(scanFileIntent);
 	}
 
+	//LALANDA SETTINGS IMAGE LOADER CONCURRENCY LETS MAKE IT 5
 	public static int getImageLoaderConcurrency(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_IMAGE_LOADER_CONCURRENCY, "5"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_IMAGE_LOADER_CONCURRENCY, "5"));
+		return 5;
 	}
 }

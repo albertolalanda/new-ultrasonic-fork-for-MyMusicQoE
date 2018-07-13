@@ -38,8 +38,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
 
     private ListPreference theme;
     private ListPreference videoPlayer;
-    private ListPreference maxBitrateWifi;
-    private ListPreference maxBitrateMobile;
+//    private ListPreference maxBitrateWifi;
+//    private ListPreference maxBitrateMobile;
     private ListPreference cacheSize;
     private EditTextPreference cacheLocation;
     private ListPreference preloadCount;
@@ -52,18 +52,19 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private ListPreference defaultAlbums;
     private ListPreference defaultSongs;
     private ListPreference defaultArtists;
-    private ListPreference chatRefreshInterval;
+    //private ListPreference chatRefreshInterval;
     private ListPreference directoryCacheTime;
     private CheckBoxPreference mediaButtonsEnabled;
     private CheckBoxPreference lockScreenEnabled;
     private CheckBoxPreference sendBluetoothNotifications;
     private CheckBoxPreference sendBluetoothAlbumArt;
-    private ListPreference viewRefresh;
-    private ListPreference imageLoaderConcurrency;
-    private EditTextPreference sharingDefaultDescription;
-    private EditTextPreference sharingDefaultGreeting;
-    private TimeSpanPreference sharingDefaultExpiration;
-    private PreferenceCategory serversCategory;
+    //private ListPreference viewRefresh;
+    //private ListPreference imageLoaderConcurrency;
+//    private EditTextPreference sharingDefaultDescription;
+//    private EditTextPreference sharingDefaultGreeting;
+//    private TimeSpanPreference sharingDefaultExpiration;
+
+    //private PreferenceCategory serversCategory;
 
     private int maxServerCount = 10;
     private SharedPreferences settings;
@@ -83,9 +84,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         super.onViewCreated(view, savedInstanceState);
 
         theme = (ListPreference) findPreference(Constants.PREFERENCES_KEY_THEME);
-        videoPlayer = (ListPreference) findPreference(Constants.PREFERENCES_KEY_VIDEO_PLAYER);
-        maxBitrateWifi = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_BITRATE_WIFI);
-        maxBitrateMobile = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_BITRATE_MOBILE);
+        //videoPlayer = (ListPreference) findPreference(Constants.PREFERENCES_KEY_VIDEO_PLAYER);
+//        maxBitrateWifi = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_BITRATE_WIFI);
+//        maxBitrateMobile = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_BITRATE_MOBILE);
         cacheSize = (ListPreference) findPreference(Constants.PREFERENCES_KEY_CACHE_SIZE);
         cacheLocation = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_CACHE_LOCATION);
         preloadCount = (ListPreference) findPreference(Constants.PREFERENCES_KEY_PRELOAD_COUNT);
@@ -98,20 +99,20 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         defaultArtists = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ARTISTS);
         defaultSongs = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SONGS);
         defaultAlbums = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ALBUMS);
-        chatRefreshInterval = (ListPreference) findPreference(Constants.PREFERENCES_KEY_CHAT_REFRESH_INTERVAL);
+        //chatRefreshInterval = (ListPreference) findPreference(Constants.PREFERENCES_KEY_CHAT_REFRESH_INTERVAL);
         directoryCacheTime = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DIRECTORY_CACHE_TIME);
         mediaButtonsEnabled = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_MEDIA_BUTTONS);
         lockScreenEnabled = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SHOW_LOCK_SCREEN_CONTROLS);
         sendBluetoothAlbumArt = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART);
         sendBluetoothNotifications = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_NOTIFICATIONS);
-        viewRefresh = (ListPreference) findPreference(Constants.PREFERENCES_KEY_VIEW_REFRESH);
-        imageLoaderConcurrency = (ListPreference) findPreference(Constants.PREFERENCES_KEY_IMAGE_LOADER_CONCURRENCY);
-        sharingDefaultDescription = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_DESCRIPTION);
-        sharingDefaultGreeting = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_GREETING);
-        sharingDefaultExpiration = (TimeSpanPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_EXPIRATION);
-        serversCategory = (PreferenceCategory) findPreference(Constants.PREFERENCES_KEY_SERVERS_KEY);
+        //viewRefresh = (ListPreference) findPreference(Constants.PREFERENCES_KEY_VIEW_REFRESH);
+        //imageLoaderConcurrency = (ListPreference) findPreference(Constants.PREFERENCES_KEY_IMAGE_LOADER_CONCURRENCY);
+//        sharingDefaultDescription = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_DESCRIPTION);
+//        sharingDefaultGreeting = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_GREETING);
+//        sharingDefaultExpiration = (TimeSpanPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_EXPIRATION);
+        //serversCategory = (PreferenceCategory) findPreference(Constants.PREFERENCES_KEY_SERVERS_KEY);
 
-        sharingDefaultGreeting.setText(Util.getShareGreeting(getActivity()));
+        //sharingDefaultGreeting.setText(Util.getShareGreeting(getActivity()));
         setupClearSearchPreference();
         setupGaplessControlSettingsV14();
     }
@@ -127,7 +128,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     public void onResume() {
         super.onResume();
 
-        setupServersCategory();
+        //setupServersCategory();
         SharedPreferences preferences = Util.getPreferences(getActivity());
         preferences.registerOnSharedPreferenceChangeListener(this);
     }
@@ -195,7 +196,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }
     }
 
-    private void setupServersCategory() {
+    //this was to setup a list of saved servers and to enable their editing
+    /*private void setupServersCategory() {
         activeServers = settings.getInt(Constants.PREFERENCES_KEY_ACTIVE_SERVERS, 0);
         final Preference addServerPreference = new Preference(getActivity());
         addServerPreference.setKey(Constants.PREFERENCES_KEY_ADD_SERVER);
@@ -270,13 +272,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 return true;
             }
         });
-    }
+    }*/
 
     private void update() {
         theme.setSummary(theme.getEntry());
-        videoPlayer.setSummary(videoPlayer.getEntry());
-        maxBitrateWifi.setSummary(maxBitrateWifi.getEntry());
-        maxBitrateMobile.setSummary(maxBitrateMobile.getEntry());
+        //videoPlayer.setSummary(videoPlayer.getEntry());
+//        maxBitrateWifi.setSummary(maxBitrateWifi.getEntry());
+//        maxBitrateMobile.setSummary(maxBitrateMobile.getEntry());
         cacheSize.setSummary(cacheSize.getEntry());
         cacheLocation.setSummary(cacheLocation.getText());
         preloadCount.setSummary(preloadCount.getEntry());
@@ -289,13 +291,13 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         defaultAlbums.setSummary(defaultAlbums.getEntry());
         defaultArtists.setSummary(defaultArtists.getEntry());
         defaultSongs.setSummary(defaultSongs.getEntry());
-        chatRefreshInterval.setSummary(chatRefreshInterval.getEntry());
+        //chatRefreshInterval.setSummary(chatRefreshInterval.getEntry());
         directoryCacheTime.setSummary(directoryCacheTime.getEntry());
-        viewRefresh.setSummary(viewRefresh.getEntry());
-        imageLoaderConcurrency.setSummary(imageLoaderConcurrency.getEntry());
-        sharingDefaultExpiration.setSummary(sharingDefaultExpiration.getText());
-        sharingDefaultDescription.setSummary(sharingDefaultDescription.getText());
-        sharingDefaultGreeting.setSummary(sharingDefaultGreeting.getText());
+        //viewRefresh.setSummary(viewRefresh.getEntry());
+        //imageLoaderConcurrency.setSummary(imageLoaderConcurrency.getEntry());
+//        sharingDefaultExpiration.setSummary(sharingDefaultExpiration.getText());
+//        sharingDefaultDescription.setSummary(sharingDefaultDescription.getText());
+//        sharingDefaultGreeting.setSummary(sharingDefaultGreeting.getText());
 
         if (!mediaButtonsEnabled.isChecked()) {
             lockScreenEnabled.setChecked(false);

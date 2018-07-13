@@ -4,10 +4,17 @@
     android:shape="rectangle"
     android:thickness="5dp"
     android:useLevel="false"
-    android:tint="#ad1457">
+    android:tint="#995b46">
     <solid
-        android:color="#ad1457" />
+        android:color="#995b46" />
     <size
         android:width="10dp"
-        android:height="20dp" />
+        android:height="30dp" />
 </shape>
+
+<!--<selector xmlns:android="http://schemas.android.com/apk/res/android">-->
+    <!--<item android:drawable="@drawable/thumb" android:state_pressed="true"/>-->
+    <!--<item android:drawable="@drawable/thumb" android:state_selected="true"/>-->
+    <!--<item android:drawable="@drawable/thumb" android:state_pressed="false"/>-->
+    <!--<item android:drawable="@drawable/thumb"/>-->
+<!--</selector>-->
