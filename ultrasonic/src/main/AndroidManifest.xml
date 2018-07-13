@@ -10,6 +10,8 @@
     <uses-permission a:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission a:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
     <uses-permission a:name="android.permission.BLUETOOTH"/>
+    <uses-permission a:name="android.permission.VIBRATE"/>
+
 
     <supports-screens
         a:anyDensity="true"
