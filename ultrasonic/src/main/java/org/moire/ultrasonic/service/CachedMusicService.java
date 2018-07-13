@@ -524,6 +524,8 @@ public class CachedMusicService implements MusicService
 		return musicService.getAvatar(context, username, size, saveToFile, highQuality, progressListener);
 	}
 
+	//LALANDA TIAGO REST
+
 	@Override
 	public LastIdUser getLastIdUserQoE(Context context, ProgressListener progressListener) throws Exception {
 		 return musicService.getLastIdUserQoE(context, progressListener);
@@ -532,5 +534,15 @@ public class CachedMusicService implements MusicService
 	@Override
 	public boolean setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
 		return musicService.setUserInformation(context, id, age, gender, genres, progressListener);
+	}
+
+	@Override
+	public boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
+		return musicService.setCreateRatingQoE(context, numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating, progressListener);
+	}
+
+	@Override
+	public boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
+		return musicService.setUpdateRatingQoE(context, numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating, progressListener);
 	}
 }

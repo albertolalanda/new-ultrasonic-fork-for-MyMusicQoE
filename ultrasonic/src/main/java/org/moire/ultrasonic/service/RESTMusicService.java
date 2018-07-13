@@ -1069,9 +1069,9 @@ public class RESTMusicService implements MusicService {
         }
     }
 
-    //LALANDA TIAGO
-    public LastIdUser getLastIdUserQoE(Context context,
-                                       ProgressListener progressListener) throws Exception {
+    //LALANDA TIAGO REST
+
+    public LastIdUser getLastIdUserQoE(Context context, ProgressListener progressListener) throws Exception {
         updateProgressListener(progressListener, R.string.parser_reading);
         Response<GetUserLastIdResponse> response = subsonicAPIClient.getApi().getLastIdUserQoE().execute();
         checkResponseSuccessful(response);
@@ -1081,6 +1081,28 @@ public class RESTMusicService implements MusicService {
     public boolean setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception {
         updateProgressListener(progressListener, R.string.parser_reading);
         Response<SubsonicResponse> response = subsonicAPIClient.getApi().createUserQoE(id, age, gender,genres).execute();
+        checkResponseSuccessful(response);
+        if (response.body().getStatus() == SubsonicResponse.Status.OK && response.isSuccessful()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
+        updateProgressListener(progressListener, R.string.parser_reading);
+        Response<SubsonicResponse> response = subsonicAPIClient.getApi().createRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating).execute();
+        checkResponseSuccessful(response);
+        if (response.body().getStatus() == SubsonicResponse.Status.OK && response.isSuccessful()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
+        updateProgressListener(progressListener, R.string.parser_reading);
+        Response<SubsonicResponse> response = subsonicAPIClient.getApi().updateRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating).execute();
         checkResponseSuccessful(response);
         if (response.body().getStatus() == SubsonicResponse.Status.OK && response.isSuccessful()){
             return true;

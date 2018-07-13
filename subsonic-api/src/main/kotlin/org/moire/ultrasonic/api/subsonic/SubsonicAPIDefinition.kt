@@ -265,7 +265,7 @@ interface SubsonicAPIDefinition {
     @GET("getAvatar.view")
     fun getAvatar(@Query("username") username: String): Call<ResponseBody>
 
-    //LALANDA TIAGO
+    //LALANDA TIAGO REST
 
     @GET("getLastIdUserQoE.view")
     fun getLastIdUserQoE(): Call<GetUserLastIdResponse>
@@ -276,5 +276,23 @@ interface SubsonicAPIDefinition {
          @Query("age") age: Int,
          @Query("gender") gender: String,
          @Query("genres") genres: String
+    ): Call<SubsonicResponse>
+
+    @GET("createRatingQoE.view")
+    fun createRatingQoE(
+            @Query("numberOfPlaylist") numberOfPlaylist: Int,
+            @Query("idUser_MyMusicQoE") idUser_MyMusicQoE: Int,
+            @Query("idMediaFile") idMediaFile: Int,
+            @Query("idTranscoding") idTranscoding: Int,
+            @Query("rating") rating: Int
+    ): Call<SubsonicResponse>
+
+    @GET("updateRatingQoE.view")
+    fun updateRatingQoE(
+            @Query("numberOfPlaylist") numberOfPlaylist: Int,
+            @Query("idUser_MyMusicQoE") idUser_MyMusicQoE: Int,
+            @Query("idMediaFile") idMediaFile: Int,
+            @Query("idTranscoding") idTranscoding: Int,
+            @Query("rating") rating: Int
     ): Call<SubsonicResponse>
 }

@@ -10,7 +10,7 @@
     <string name="background_task.ssl_error">Exceção de conexão SSL. Verifique o certificado do servidor.</string>
     <string name="background_task.wait">Por favor aguarde&#8230;</string>
     <string name="button_bar.bookmarks">Favoritos</string>
-    <string name="button_bar.browse">Biblioteca de Mídia</string>
+    <string name="button_bar.browse">Biblioteca de Média</string>
     <string name="button_bar.chat">Chat</string>
     <string name="button_bar.home">Menu Principal</string>
     <string name="button_bar.now_playing">Tocando Agora</string>

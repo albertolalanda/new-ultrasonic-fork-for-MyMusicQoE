@@ -40,6 +40,7 @@
                 a:layout_height="fill_parent"
                 a:layout_marginLeft="5dp"
                 a:layout_weight="1"
+                a:onClick="excellentButton"
                 a:orientation="vertical">
 
                 <include
@@ -64,6 +65,7 @@
                 a:layout_height="fill_parent"
                 a:layout_marginLeft="5dp"
                 a:layout_weight="1"
+                a:onClick="goodButton"
                 a:orientation="vertical">
 
                 <include
@@ -88,6 +90,7 @@
                 a:layout_height="fill_parent"
                 a:layout_marginLeft="5dp"
                 a:layout_weight="1"
+                a:onClick="fairButton"
                 a:orientation="vertical">
 
                 <include
@@ -112,6 +115,7 @@
                 a:layout_height="fill_parent"
                 a:layout_marginLeft="5dp"
                 a:layout_weight="1"
+                a:onClick="poorButton"
                 a:orientation="vertical">
 
                 <include
@@ -136,6 +140,7 @@
                 a:layout_height="fill_parent"
                 a:layout_marginLeft="5dp"
                 a:layout_weight="1"
+                a:onClick="badButton"
                 a:orientation="vertical">
 
                 <include
@@ -181,11 +186,12 @@
             a:layout_weight="1">
 
             <LinearLayout
+                a:id="@+id/tickSeekBarParent"
                 a:layout_width="0dp"
                 a:layout_height="match_parent"
-                app:layout_constraintDimensionRatio="1:1"
                 a:layout_weight="1"
-                a:orientation="vertical">
+                a:orientation="vertical"
+                app:layout_constraintDimensionRatio="1:1">
 
                 <View
                     a:id="@+id/text_view_seekbar_space_top"
@@ -215,17 +221,11 @@
 
         </android.support.constraint.ConstraintLayout>
 
-
-
-
-
         <!--tick makes it discrete. no good-->
         <!--a:tickMark="@drawable/rating_seekbar_tick"-->
         <!--a:max="5"-->
 
-
         <!--</LinearLayout>-->
-
 
         <android.support.constraint.ConstraintLayout
             a:layout_width="match_parent"

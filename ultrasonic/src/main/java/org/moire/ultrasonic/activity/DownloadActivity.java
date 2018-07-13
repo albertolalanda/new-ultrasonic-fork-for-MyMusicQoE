@@ -25,6 +25,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,6 +42,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -76,6 +79,8 @@ import org.moire.ultrasonic.view.VisualizerView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -128,17 +133,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private MenuItem starMenuItem;
 
 	private SeekBar verticalSeekBar;
+	private LinearLayout verticalSeekBarParent;
 	private TextView seekbarRatingText;
 	private TextView separatorRatingExcellentText;
 	private TextView separatorRatingGoodText;
 	private TextView separatorRatingFairText;
 	private TextView separatorRatingPoorText;
 	private TextView separatorRatingBadText;
-	private LinearLayout separatorRatingExcellentButton;
-	private LinearLayout separatorRatingGoodButton;
-	private LinearLayout separatorRatingFairButton;
-	private LinearLayout separatorRatingPoorButton;
-	private LinearLayout separatorRatingBadButton;
 
 	private Vibrator vibrator;
 
@@ -149,8 +150,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private ArrayList<Boolean> songsRated = new ArrayList<>();
 	private ArrayList<Integer> rateGiven = new ArrayList<>();
 	private int numberOfPlaylistForThisUser;
+
+	//Tiago to use for timer
 	private int secondsPassed = 0;
 	private int offset = 0;
+
 	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 
 	/**
@@ -194,23 +198,16 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		final View shuffleButton = findViewById(R.id.download_shuffle);
 		repeatButton = (ImageView) findViewById(R.id.download_repeat);
 
-
-
-
 		visualizerViewLayout = (LinearLayout) findViewById(R.id.download_visualizer_view_layout);
 
 		verticalSeekBar = findViewById(R.id.tickSeekBar);
+		verticalSeekBarParent = findViewById(R.id.tickSeekBarParent);
 		seekbarRatingText = findViewById(R.id.seekbar_current_rating);
 		separatorRatingExcellentText = findViewById(R.id.rating_separator_excellent_text);
 		separatorRatingGoodText = findViewById(R.id.rating_separator_good_text);
 		separatorRatingFairText = findViewById(R.id.rating_separator_fair_text);
 		separatorRatingPoorText = findViewById(R.id.rating_separator_poor_text);
 		separatorRatingBadText = findViewById(R.id.rating_separator_bad_text);
-		separatorRatingExcellentButton = findViewById(R.id.rating_separator_excellent_button);
-		separatorRatingGoodButton = findViewById(R.id.rating_separator_good_button);
-		separatorRatingFairButton = findViewById(R.id.rating_separator_fair_button);
-		separatorRatingPoorButton = findViewById(R.id.rating_separator_poor_button);
-		separatorRatingBadButton = findViewById(R.id.rating_separator_bad_button);
 		vibrator = (Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
 
 		View.OnTouchListener touchListener = new View.OnTouchListener()
@@ -322,7 +319,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onClick(final View view)
 			{
-				System.out.println("LALANDA CURRENT PLAYING NAME: " + currentPlaying.getSong().getTitle() + " BITRATESONG:" + currentPlaying.getSong().getBitRate() +" BITRATEPLAYING:" + currentPlaying.getBitRate() + "TRANCODEDCONTENTTYPE: " + currentPlaying.getSong().getTranscodedContentType());
+
+				System.out.println("LALANDA user id:"+ Util.getUserId(DownloadActivity.getInstance()) +" CURRENT PLAYING NAME: " + currentPlaying.getSong().getId() + "GET ID TRANSCODING "+ currentPlaying.getSong().getTranscoderNum()  + " BITRATESONG: " + currentPlaying.getSong().getBitRate() +" BITRATEPLAYING: " + currentPlaying.getBitRate() + " TRANCODEDCONTENTTYPE: " + currentPlaying.getSong().getTranscodedContentType());
+
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
 				{
 					@Override
@@ -392,7 +391,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
-		//LALANDA ISTO FODE TUDO
+		//LALANDA ISTO FODE TUDO TALVEZ REMOVER A FEATURE SEJA A MELHOR SOLUÇÃO
+		// maybe this is the answer https://stackoverflow.com/questions/13532919/how-do-i-shuffle-two-arrays-in-same-order-in-java
 		shuffleButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -500,6 +500,15 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			downloadService.setShufflePlayEnabled(true);
 		}
 
+		//LALANDA populate lists
+		if (downloadService != null && !downloadService.getSongs().isEmpty()){
+			List<DownloadFile> list = downloadService.getSongs();
+
+			List<Boolean> songsRated =new ArrayList<Boolean>(Arrays.asList(new Boolean[list.size()]));
+			Collections.fill(songsRated, Boolean.FALSE);
+		}
+
+
 		visualizerAvailable = (downloadService != null) && (downloadService.getVisualizerController() != null);
 		equalizerAvailable = (downloadService != null) && (downloadService.getEqualizerController() != null);
 
@@ -558,72 +567,103 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 				seekbarRatingText.setText((""+i));
 				hasRated = true;
 				changeStar = true;
-				switch (i) {
-					case 80:
-					case 60:
-					case 40:
-					case 20: vibrator.vibrate(15); break;
-				}
 
 				if (i > 80){
 					separatorRatingExcellentText.setTextColor(Color.CYAN);
-				}else{
-					separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
-				}
-				if (i > 60){
-					separatorRatingGoodText.setTextColor(Color.CYAN);
-				}else{
+					separatorRatingExcellentText.setTypeface(Typeface.DEFAULT_BOLD);
+					separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
 					separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
-				}
-				if (i > 40){
-					separatorRatingFairText.setTextColor(Color.CYAN);
+                    separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+                    separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+                    separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
 				}else{
-					separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+                    if (i > 60){
+						separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+						separatorRatingExcellentText.setTypeface(Typeface.DEFAULT);
+                        separatorRatingGoodText.setTextColor(Color.CYAN);
+                        separatorRatingGoodText.setTypeface(Typeface.DEFAULT_BOLD);
+						separatorRatingFairText.setTypeface(Typeface.DEFAULT);
+                        separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+                        separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+                        separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+                    }else{
+                        if (i > 40){
+							separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+							separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+                            separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
+                            separatorRatingFairText.setTextColor(Color.CYAN);
+                            separatorRatingFairText.setTypeface(Typeface.DEFAULT_BOLD);
+							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
+                            separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+                            separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+                        }else{
+                            if (i > 20){
+								separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+								separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+								separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+                                separatorRatingFairText.setTypeface(Typeface.DEFAULT);
+                                separatorRatingPoorText.setTextColor(Color.CYAN);
+                                separatorRatingPoorText.setTypeface(Typeface.DEFAULT_BOLD);
+								separatorRatingBadText.setTypeface(Typeface.DEFAULT);
+                                separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+                            }else{
+                                if (i > 0){
+									separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+									separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+									separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+									separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+                                    separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
+                                    separatorRatingBadText.setTextColor(Color.CYAN);
+                                    separatorRatingBadText.setTypeface(Typeface.DEFAULT_BOLD);
+                                }
+                            }
+                        }
+                    }
 				}
-				if (i > 20){
-					separatorRatingPoorText.setTextColor(Color.CYAN);
-				}else{
-					separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
-				}
-				if (i > 0){
-					separatorRatingBadText.setTextColor(Color.CYAN);
-				}else{
-					separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
-				}
+
 			}
 
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				Toast.makeText(DownloadActivity.this, "Seekbar touch started", Toast.LENGTH_SHORT).show();
+				vibrator.vibrate(25);
 			}
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				Toast.makeText(DownloadActivity.this, "Seekbar touch stopped", Toast.LENGTH_SHORT).show();
+				vibrator.vibrate(25);
 			}
 		});
+
+
+
+//LALANDA DOENST WORK TO INVESTIGATE LATER
+//		final View child = verticalSeekBar;
+//		verticalSeekBarParent.post(new Runnable() {
+//			public void run() {
+//				// Post in the parent's message queue to make sure the
+//				// parent
+//				// lays out its children before we call getHitRect()
+//				Rect delegateArea = new Rect();
+//				View delegate = child;
+//				delegate.getHitRect(delegateArea);
+//				delegateArea.right += 3000;
+//				TouchDelegate expandedArea = new TouchDelegate(delegateArea, delegate);
+//				// give the delegate to an ancestor of the view we're
+//				// delegating the
+//				// area to
+//				if (View.class.isInstance(delegate.getParent())) {
+//					((View) delegate.getParent()).setTouchDelegate(expandedArea);
+//				}
+//			}
+//		});
 
 
 	}
@@ -861,7 +901,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 			if (currentSong != null)
 			{
-				/*if (changeStar == true) {
+				if (changeStar == true) {
 					if (canRate == false){
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 					}else if(canRate == true && hasRated == false) {
@@ -870,7 +910,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full);
 					}
 					changeStar = false;
-				}*/
+				}
 
 				if (starMenuItem != null)
 				{
@@ -1098,6 +1138,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().setShufflePlayEnabled(false);
 				//lalanda playlist
 				deletePlaylist();
+
 				getDownloadService().clear();
 				onDownloadListChanged();
 				return true;
@@ -1371,6 +1412,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	}
 
 	//LALANDA when this happens might need to delete the cache
+	//UPDATE. THIS CAN BE ON
+
+	//REPEAT
+	//REMOVE A SONG FROM PLAYLIST
+	//CLEAR PLAYLIST
+	//
+	//REMOVE FROM PLAYLIST
 	private void onDownloadListChanged()
 	{
 		final DownloadService downloadService = getDownloadService();
@@ -1459,16 +1507,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
-	//WHEN MUSIC IS CHANGED
+	//WHEN MUSIC IS CHANGED LALANDA
 	private void onCurrentChanged()
 	{
 		DownloadService downloadService = getDownloadService();
 		System.out.println("LALANDA ONCURRENTCHANGED()");
-		/*changeStar = true;
-		canRate = false;
-		hasRated = false;
-		secondsPassed = 0;
-		offset = 0;*/
 
 		if (downloadService == null)
 		{
@@ -1481,13 +1524,34 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		//total duration of list
 		long totalDuration = downloadService.getDownloadListDuration();
-		System.out.println("LALANDA onCurrentChanged: total durantion - " + totalDuration);
 		//number of songs of list
 		long totalSongs = downloadService.getSongs().size();
-		System.out.println("LALANDA onCurrentChanged: number of songs - " + totalSongs);
 		//index of current song
+		//ATENÇÃO O SEGUINTE VALOR DE INDEX IRÁ COMERÇAR NO 1
 		int currentSongIndex = downloadService.getCurrentPlayingIndex() + 1;
 		System.out.println("LALANDA onCurrentChanged: current song index - " + currentSongIndex);
+
+		//LALANDA WHEN CURRENT MUSIC IS CHANGED MODIFICATIONS
+		//this will get information of the music the user changed to and change rating button and rating bar
+//		if (songsRated.get(currentSongIndex-1))
+//		{
+//			hasRated = true;
+//			verticalSeekBar.setProgress(rateGiven.get(currentSongIndex-1));
+//			canRate = true;
+//			changeStar = true;
+//		}else{
+//			verticalSeekBar.setProgress(0);
+//			seekbarRatingText.setText("");
+//			hasRated = false;
+//			canRate = true; // change later
+//			changeStar = true;
+//		}
+
+
+
+		//TIAGO TIMER
+		//secondsPassed = 0;
+		//offset = 0;
 
 		String duration = Util.formatTotalDuration(totalDuration);
 		System.out.println("LALANDA onCurrentChanged: duration formattotalduration util - " + duration);
@@ -1838,5 +1902,26 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		{
 			getDownloadService().delete(songs);
 		}
+	}
+
+	public void excellentButton(View view){
+		verticalSeekBar.setProgress(100);
+		vibrator.vibrate(15);
+	}
+	public void goodButton(View view){
+		verticalSeekBar.setProgress(80);
+		vibrator.vibrate(15);
+	}
+	public void fairButton(View view){
+		verticalSeekBar.setProgress(60);
+		vibrator.vibrate(15);
+	}
+	public void poorButton(View view){
+		verticalSeekBar.setProgress(40);
+		vibrator.vibrate(15);
+	}
+	public void badButton(View view){
+		verticalSeekBar.setProgress(20);
+		vibrator.vibrate(15);
 	}
 }

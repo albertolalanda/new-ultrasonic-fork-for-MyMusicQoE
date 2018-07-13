@@ -215,14 +215,6 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
-	//LALANDA SET ANDROID API LEVEL ON REST_CLIENT_ID CONSTANT
-	/*public static void setUserAndroidAPILevel(Context context)
-	{
-		SharedPreferences preferences = getPreferences(context);
-		int apiLevel = Integer.valueOf(android.os.Build.VERSION.SDK);
-		preferences.edit().putString(Constants.REST_CLIENT_ID, "MyMusicQoE-API" + apiLevel+"").apply();
-	}*/
-
 	//LALANDA CLASS FOR ALL USER PREFTS? IS TRY CATCH NEEDED?
 	public static void setUserId(Context context, int instance)
 	{

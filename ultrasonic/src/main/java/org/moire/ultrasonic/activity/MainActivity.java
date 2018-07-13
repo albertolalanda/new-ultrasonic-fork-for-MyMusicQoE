@@ -110,13 +110,13 @@ public class MainActivity extends SubsonicTabActivity
 		loadSettings();
 
 		final View buttons = LayoutInflater.from(this).inflate(R.layout.main_buttons, null);
-		final View serverButton = buttons.findViewById(R.id.main_select_server);
-		final TextView serverTextView = (TextView) serverButton.findViewById(R.id.main_select_server_2);
+		//final View serverButton = buttons.findViewById(R.id.main_select_server);
+		//final TextView serverTextView = (TextView) serverButton.findViewById(R.id.main_select_server_2);
 		final View musicTitle = buttons.findViewById(R.id.main_music);
 		final View artistsButton = buttons.findViewById(R.id.main_artists_button);
 		final View albumsButton = buttons.findViewById(R.id.main_albums_button);
 		final View genresButton = buttons.findViewById(R.id.main_genres_button);
-		final View videosTitle = buttons.findViewById(R.id.main_videos_title);
+		//final View videosTitle = buttons.findViewById(R.id.main_videos_title);
 		final View songsTitle = buttons.findViewById(R.id.main_songs);
 		final View randomSongsButton = buttons.findViewById(R.id.main_songs_button);
 		final View songsStarredButton = buttons.findViewById(R.id.main_songs_starred);
@@ -129,7 +129,7 @@ public class MainActivity extends SubsonicTabActivity
 		final View albumsFrequentButton = buttons.findViewById(R.id.main_albums_frequent);
 		final View albumsAlphaByNameButton = buttons.findViewById(R.id.main_albums_alphaByName);
 		final View albumsAlphaByArtistButton = buttons.findViewById(R.id.main_albums_alphaByArtist);
-		final View videosButton = buttons.findViewById(R.id.main_videos);
+		//final View videosButton = buttons.findViewById(R.id.main_videos);
 		final View dummyView = findViewById(R.id.main_dummy);
 
 		boolean shouldShowDialog = false;
@@ -156,17 +156,17 @@ public class MainActivity extends SubsonicTabActivity
 			shouldShowDialog = true;
 			Util.setActiveServer(this, 1);
 			instance = Util.getActiveServer(this);
-			name = Util.getServerName(this, instance);
+			//name = Util.getServerName(this, instance);
 
 		}
 
-		serverTextView.setText(name);
+		//serverTextView.setText(name);
 
 
 		final ListView list = (ListView) findViewById(R.id.main_list);
 
 		final MergeAdapter adapter = new MergeAdapter();
-		adapter.addViews(Collections.singletonList(serverButton), true);
+		//adapter.addViews(Collections.singletonList(serverButton), true);
 
 		if (!Util.isOffline(this))
 		{
@@ -187,8 +187,8 @@ public class MainActivity extends SubsonicTabActivity
 				adapter.addViews(asList(albumsNewestButton, albumsRecentButton, albumsFrequentButton, albumsHighestButton, albumsRandomButton, albumsStarredButton, albumsAlphaByNameButton, albumsAlphaByArtistButton), true);
 			}
 
-			adapter.addView(videosTitle, false);
-			adapter.addViews(Collections.singletonList(videosButton), true);
+			//adapter.addView(videosTitle, false);
+			//adapter.addViews(Collections.singletonList(videosButton), true);
 
             if (Util.isNetworkConnected(this)) {
                 new PingTask(this, false).execute();
@@ -203,11 +203,12 @@ public class MainActivity extends SubsonicTabActivity
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				if (view == serverButton)
-				{
-					dummyView.showContextMenu();
-				}
-				else if (view == albumsNewestButton)
+//				if (view == serverButton)
+//				{
+//					dummyView.showContextMenu();
+//				}
+//				else
+				if (view == albumsNewestButton)
 				{
 					showAlbumList("newest", R.string.main_albums_newest);
 				}
@@ -259,10 +260,10 @@ public class MainActivity extends SubsonicTabActivity
 				{
 					showGenres();
 				}
-				else if (view == videosButton)
+				/*else if (view == videosButton)
 				{
 					showVideos();
-				}
+				}*/
 			}
 		});
 
@@ -562,12 +563,12 @@ public class MainActivity extends SubsonicTabActivity
 		startActivityForResultWithoutTransition(this, intent);
 	}
 
-	private void showVideos()
+	/*private void showVideos()
 	{
 		final Intent intent = new Intent(this, SelectAlbumActivity.class);
 		intent.putExtra(Constants.INTENT_EXTRA_NAME_VIDEOS, 1);
 		startActivityForResultWithoutTransition(this, intent);
-	}
+	}*/
 
     /**
      * Temporary task to make a ping to server to get it supported api version.

@@ -216,23 +216,23 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 				playNow(false, false);
 			}
 		});
-		playNextButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				download(true, false, false, true, false, getSelectedSongs(albumListView));
-				selectAll(false, false);
-			}
-		});
-		playLastButton.setOnClickListener(new View.OnClickListener()
-		{
-			@Override
-			public void onClick(View view)
-			{
-				playNow(false, true);
-			}
-		});
+//		playNextButton.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View view)
+//			{
+//				download(true, false, false, true, false, getSelectedSongs(albumListView));
+//				selectAll(false, false);
+//			}
+//		});
+//		playLastButton.setOnClickListener(new View.OnClickListener()
+//		{
+//			@Override
+//			public void onClick(View view)
+//			{
+//				playNow(false, true);
+//			}
+//		});
 		pinButton.setOnClickListener(new View.OnClickListener()
 		{
 			@Override
@@ -1038,8 +1038,12 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 		}
 
 		playNowButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
-		playNextButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
-		playLastButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
+		//LALANDA REMOVE THE BUTTONS
+//		playNextButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
+//		playLastButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
+		playNextButton.setVisibility(View.GONE);
+		playLastButton.setVisibility(View.GONE);
+
 		pinButton.setVisibility((enabled && !Util.isOffline(this) && selection.size() > pinnedCount) ? View.VISIBLE : View.GONE);
 		unpinButton.setVisibility(enabled && unpinEnabled ? View.VISIBLE : View.GONE);
 		downloadButton.setVisibility(enabled && !deleteEnabled && !Util.isOffline(this) ? View.VISIBLE : View.GONE);
@@ -1182,8 +1186,9 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 				deleteButton.setVisibility(View.VISIBLE);
 				selectButton.setVisibility(allVideos ? View.GONE : View.VISIBLE);
 				playNowButton.setVisibility(View.VISIBLE);
-				playNextButton.setVisibility(View.VISIBLE);
-				playLastButton.setVisibility(View.VISIBLE);
+				//LALANDA REMOVE BUTTONS
+				playNextButton.setVisibility(View.GONE);
+				playLastButton.setVisibility(View.GONE);
 
 				if (listSize == 0 || songCount < listSize)
 				{
