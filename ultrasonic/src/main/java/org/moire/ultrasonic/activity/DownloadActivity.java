@@ -632,19 +632,19 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onStartTrackingTouch(SeekBar seekBar) {
 				Toast.makeText(DownloadActivity.this, "Seekbar touch started", Toast.LENGTH_SHORT).show();
-				vibrator.vibrate(25);
+				vibrator.vibrate(15);
 			}
 
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
 				Toast.makeText(DownloadActivity.this, "Seekbar touch stopped", Toast.LENGTH_SHORT).show();
-				vibrator.vibrate(25);
+				vibrator.vibrate(15);
 			}
 		});
 
 
 
-//LALANDA DOENST WORK TO INVESTIGATE LATER
+//LALANDA DOENST WORK TO INVESTIGATE LATER TOUCH ON THE RIGHT
 //		final View child = verticalSeekBar;
 //		verticalSeekBarParent.post(new Runnable() {
 //			public void run() {
@@ -1353,7 +1353,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}.execute();
 	}
 
-	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE
+	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE AND RATING BAR
 	private void toggleFullScreenAlbumArt(int index)
 	{
 		if (playlistFlipper.getDisplayedChild() == 2 && index == 2)
@@ -1546,7 +1546,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //			canRate = true; // change later
 //			changeStar = true;
 //		}
-
 
 
 		//TIAGO TIMER

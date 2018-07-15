@@ -85,6 +85,9 @@ import static org.moire.ultrasonic.domain.PlayerState.STOPPED;
 
 /**
  * @author Sindre Mehus, Joshua Bahnsen
+ * @version 2.4.0
+ *
+ * @author Alberto Lalanda, Tiago Martins
  * @version $Id$
  */
 public class DownloadServiceImpl extends Service implements DownloadService
@@ -343,12 +346,12 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		{
 			//ALBERTO LALANDA CLEAR OLD PLAYLIST IF NEW PLAYLIST IS GOING TO PLAY
 			//DOES NOT WORK
-			final List<MusicDirectory.Entry> oldPlaylistSong = new LinkedList<Entry>();
-			for (final DownloadFile downloadFile : downloadList)
-			{
-				oldPlaylistSong.add(downloadFile.getSong());
-			}
-			delete(oldPlaylistSong);
+//			final List<MusicDirectory.Entry> oldPlaylistSong = new LinkedList<Entry>();
+//			for (final DownloadFile downloadFile : downloadList)
+//			{
+//				oldPlaylistSong.add(downloadFile.getSong());
+//			}
+//			delete(oldPlaylistSong);
 			downloadFileCache.clear();
 			/////////////////////////////////////////////////////////////////////
 			downloadList.clear();
@@ -1012,8 +1015,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 	}
 
+	//LALANDA ON SONG COMPLETED
 	private void onSongCompleted()
 	{
+		System.out.println("LALANDA ON SONG COMPLETED");
+
 		int index = getCurrentPlayingIndex();
 
 		if (currentPlaying != null)

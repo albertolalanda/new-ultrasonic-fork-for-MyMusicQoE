@@ -247,7 +247,6 @@
                     a:layout_height="match_parent"
                     a:layout_gravity="end"
                     a:layout_weight="1"
-                    a:background="@drawable/rating_seekbar_text_background"
                     a:gravity="center_vertical|center_horizontal"
                     a:paddingLeft="150dp"
                     a:textSize="50dp" />
