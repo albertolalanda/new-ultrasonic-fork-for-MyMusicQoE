@@ -45,6 +45,7 @@ import android.widget.SeekBar;
 import org.moire.ultrasonic.R;
 import org.moire.ultrasonic.activity.DownloadActivity;
 import org.moire.ultrasonic.activity.SubsonicTabActivity;
+import org.moire.ultrasonic.activity.UserInformationActivity;
 import org.moire.ultrasonic.audiofx.EqualizerController;
 import org.moire.ultrasonic.audiofx.VisualizerController;
 import org.moire.ultrasonic.domain.MusicDirectory;
@@ -57,13 +58,17 @@ import org.moire.ultrasonic.provider.UltraSonicAppWidgetProvider4x2;
 import org.moire.ultrasonic.provider.UltraSonicAppWidgetProvider4x3;
 import org.moire.ultrasonic.provider.UltraSonicAppWidgetProvider4x4;
 import org.moire.ultrasonic.receiver.MediaButtonIntentReceiver;
+import org.moire.ultrasonic.util.BackgroundTask;
 import org.moire.ultrasonic.util.CancellableTask;
 import org.moire.ultrasonic.util.Constants;
+import org.moire.ultrasonic.util.ErrorDialog;
 import org.moire.ultrasonic.util.FileUtil;
 import org.moire.ultrasonic.util.LRUCache;
+import org.moire.ultrasonic.util.ModalBackgroundTask;
 import org.moire.ultrasonic.util.ShufflePlayBuffer;
 import org.moire.ultrasonic.util.SimpleServiceBinder;
 import org.moire.ultrasonic.util.StreamProxy;
+import org.moire.ultrasonic.util.TabActivityBackgroundTask;
 import org.moire.ultrasonic.util.Util;
 
 import java.io.File;
@@ -85,7 +90,7 @@ import static org.moire.ultrasonic.domain.PlayerState.STOPPED;
 
 /**
  * @author Sindre Mehus, Joshua Bahnsen
- * @version 2.4.0
+ * @version ultrasonic 2.4.0
  *
  * @author Alberto Lalanda, Tiago Martins
  * @version $Id$
@@ -148,6 +153,14 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	private int secondaryProgress = -1;
 	private boolean autoPlayStart;
 	private final static int lockScreenBitmapSize = 500;
+
+	//--------------------------------------------------------------------------------------------//
+	//LALANDA RATING FOR MyMusicQoE variables
+
+	//SONG RATED ?, RATING GIVEN, NUMBER OF RATING FOR THIS PLAYLIST NUMBER (TO IMPLEMENT LATER)
+	List<int[]> songsRatingInfo = new ArrayList<int[]>();
+	private int numberOfPlaylistForThisUser;
+	//--------------------------------------------------------------------------------------------//
 
 	static
 	{
@@ -923,11 +936,16 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		lifecycleSupport.serializeDownloadQueue();
 	}
 
+	//LALANDA PLAYNEXT SONG
 	private synchronized void playNext()
 	{
 		MediaPlayer tmp = mediaPlayer;
 		mediaPlayer = nextMediaPlayer;
 		nextMediaPlayer = tmp;
+
+//		mediaPlayer.pause();
+//		System.out.println("LALANDA MEDIA PLAYER PAUSE");
+
 		setCurrentPlaying(nextPlaying);
 		setPlayerState(PlayerState.STARTED);
 		setupHandlers(currentPlaying, false);
@@ -1015,7 +1033,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 	}
 
-	//LALANDA ON SONG COMPLETED
+	//LALANDA ON SONG COMPLETED DOWNLOAD!!!
 	private void onSongCompleted()
 	{
 		System.out.println("LALANDA ON SONG COMPLETED");
@@ -1297,6 +1315,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 	private void setPlayerStateCompleted()
 	{
+		System.out.println("LALANDA setPlayerStateCompleted");
 		Log.i(TAG, String.format("%s -> %s (%s)", this.playerState.name(), PlayerState.COMPLETED, currentPlaying));
 		this.playerState = PlayerState.COMPLETED;
 
@@ -1785,6 +1804,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		final int duration = downloadFile.getSong().getDuration() == null ? 0 : downloadFile.getSong().getDuration() * 1000;
 
+		//LALANDA ON COMPLETION OF SONG MEDIAPLAYER
 		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 		{
 			@Override
@@ -1797,6 +1817,20 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 				int pos = cachedPosition;
 				Log.i(TAG, String.format("Ending position %d of %d", pos, duration));
+
+
+				System.out.println("LALANDA MEDIA PLAYER ON COMPLETION");
+				//IF RATING WAS NOT GIVEN NEED TO GIVE IT
+				System.out.println("PROGRESS: "+ DownloadActivity.getVerticaSeekBar().getProgress());
+                System.out.println("HAS RATED: "+ DownloadActivity.isRated());
+//                if(DownloadActivity.isRated()){
+//					DownloadActivity.getVerticaSeekBar().getProgress()
+//				}
+
+				int songId = Integer.parseInt(downloadFile.getSong().getId());
+				int transcoderNum = downloadFile.getSong().getTranscoderNum();
+
+				setNewRatingRestRest(songId, transcoderNum);
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
@@ -2310,5 +2344,37 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		{
 			return String.format("CheckCompletionTask (%s)", downloadFile);
 		}
+	}
+
+	//MyMusicQoE SEND RATING RELATED METHODS
+	private void setNewRatingRestRest(final int songId, final int transcoderNum) {
+		BackgroundTask<Boolean> task = new TabActivityBackgroundTask<Boolean>(DownloadActivity.getInstance(), true)
+		{
+			final Context context = DownloadActivity.getInstance().getApplicationContext();
+			boolean responseSuccessful = false;
+			int playlistNumber;
+			@Override
+			protected Boolean doInBackground() throws Throwable
+			{
+				MusicService musicService = MusicServiceFactory.getMusicService(context);
+				playlistNumber = Util.getUserPlaylistNumber(context);
+				responseSuccessful = musicService.setCreateRatingQoE(context, playlistNumber,
+						Util.getUserId(context), songId, transcoderNum,
+						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+
+				return responseSuccessful;
+			}
+
+			@Override
+			protected void done(Boolean result)
+			{
+				if (!result) {
+					Util.toast(DownloadActivity.getInstance(), R.string.user_information_error_message);
+				}else {
+					Util.toast(DownloadActivity.getInstance(), R.string.user_information_saved_message);
+				}
+			}
+		};
+		task.execute();
 	}
 }

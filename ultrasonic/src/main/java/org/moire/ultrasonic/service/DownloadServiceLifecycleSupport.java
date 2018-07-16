@@ -54,6 +54,7 @@ import java.util.concurrent.locks.ReentrantLock;
 /**
  * @author Sindre Mehus
  */
+//LALANDA INFO ON GETTING CALLS TO INVESTIGATE
 public class DownloadServiceLifecycleSupport
 {
 

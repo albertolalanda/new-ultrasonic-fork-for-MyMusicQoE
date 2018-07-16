@@ -132,7 +132,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	LinearLayout visualizerViewLayout;
 	private MenuItem starMenuItem;
 
-	private SeekBar verticalSeekBar;
+	private static SeekBar verticalSeekBar;
 	private LinearLayout verticalSeekBarParent;
 	private TextView seekbarRatingText;
 	private TextView separatorRatingExcellentText;
@@ -145,11 +145,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	// variables for the user rating
 	private boolean canRate = true; //LALANDA CHANGE LATER
-	private boolean hasRated = false;
+	private static boolean hasRated = false;
 	private boolean changeStar = false;
-	private ArrayList<Boolean> songsRated = new ArrayList<>();
-	private ArrayList<Integer> rateGiven = new ArrayList<>();
-	private int numberOfPlaylistForThisUser;
 
 	//Tiago to use for timer
 	private int secondsPassed = 0;
@@ -562,11 +559,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			visualizerViewLayout.setVisibility(View.GONE);
 		}
 
-
-
-
-
-
 		verticalSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -644,7 +636,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 
 
-//LALANDA DOENST WORK TO INVESTIGATE LATER TOUCH ON THE RIGHT
+//LALANDA TOUCH ON THE RIGHT SEEKBAR DOENST WORK TO INVESTIGATE LATER
 //		final View child = verticalSeekBar;
 //		verticalSeekBarParent.post(new Runnable() {
 //			public void run() {
@@ -1850,6 +1842,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		return progressBar;
 	}
 
+	public static SeekBar getVerticaSeekBar()
+	{
+		return verticalSeekBar;
+	}
+
 	/*private void setSecondsPassed(int newValue, int oldValue)
 	{
 		newValue = newValue - offset;
@@ -1923,4 +1920,16 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		verticalSeekBar.setProgress(20);
 		vibrator.vibrate(15);
 	}
+
+	//FUNCTIONS FOR MyMusicQoE
+
+	public int getVerticalSeekBarProgress() {
+		return verticalSeekBar.getProgress();
+	}
+
+	public static boolean isRated() {
+		return hasRated;
+	}
+
+
 }
