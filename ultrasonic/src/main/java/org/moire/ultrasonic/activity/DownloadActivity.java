@@ -20,6 +20,7 @@ package org.moire.ultrasonic.activity;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.text.Layout;
@@ -67,6 +69,7 @@ import org.moire.ultrasonic.domain.PlayerState;
 import org.moire.ultrasonic.domain.RepeatMode;
 import org.moire.ultrasonic.service.DownloadFile;
 import org.moire.ultrasonic.service.DownloadService;
+import org.moire.ultrasonic.service.DownloadServiceImpl;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.Constants;
@@ -144,13 +147,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private Vibrator vibrator;
 
 	// variables for the user rating
-	private boolean canRate = true; //LALANDA CHANGE LATER
+	private boolean canRate = false;
 	private static boolean hasRated = false;
 	private boolean changeStar = false;
 
-	//Tiago to use for timer
-	private int secondsPassed = 0;
-	private int offset = 0;
+	//use for timer
+	private int secondsLeftForRate = 0;
+	private boolean newSong = true;
 
 	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 
@@ -1144,7 +1147,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				if (canRate) {
 					toggleFullScreenAlbumArt(2);
 				}else{
-					//Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + getSecondsPassed() + " seconds");
+					Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + secondsLeftForRate + " seconds");
 				}
 
 				//LALANDA ITEM STAR
@@ -1504,6 +1507,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		DownloadService downloadService = getDownloadService();
 		System.out.println("LALANDA ONCURRENTCHANGED()");
+		newSong = true;
+		canRate = false;
+		hasRated = false;
+		changeStar = true;
 
 		if (downloadService == null)
 		{
@@ -1654,6 +1661,22 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 						break;
 					case STARTED:
 						final DownloadService downloadService = getDownloadService();
+
+						if (newSong){
+							System.out.println("COUNTDOWN LALALALALA");
+							new CountDownTimer(10000, 1000) {
+								public void onTick(long millisUntilFinished) {
+									secondsLeftForRate = (int) (millisUntilFinished * 0.001);
+									System.out.println("COUNTDOWN LALALALALA seconds" + secondsLeftForRate);
+								}
+
+								public void onFinish() {
+									canRate = true;
+									changeStar = true;
+									newSong = false;
+								}
+							}.start();
+						}
 
 						if (downloadService != null && downloadService.isShufflePlayEnabled())
 						{

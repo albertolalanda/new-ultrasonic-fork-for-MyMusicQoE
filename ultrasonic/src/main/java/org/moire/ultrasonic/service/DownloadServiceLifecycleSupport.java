@@ -34,6 +34,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 import org.moire.ultrasonic.R;
+import org.moire.ultrasonic.activity.DownloadActivity;
 import org.moire.ultrasonic.domain.MusicDirectory;
 import org.moire.ultrasonic.domain.PlayerState;
 import org.moire.ultrasonic.util.CacheCleaner;
@@ -105,6 +106,7 @@ public class DownloadServiceLifecycleSupport
 				downloadService.pause();
 				downloadService.seekTo(0);
 			}
+
 		}
 	};
 

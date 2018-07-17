@@ -32,6 +32,7 @@ import android.media.MediaPlayer;
 import android.media.RemoteControlClient;
 import android.media.audiofx.AudioEffect;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
@@ -160,6 +161,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	//SONG RATED ?, RATING GIVEN, NUMBER OF RATING FOR THIS PLAYLIST NUMBER (TO IMPLEMENT LATER)
 	List<int[]> songsRatingInfo = new ArrayList<int[]>();
 	private int numberOfPlaylistForThisUser;
+	private boolean canRate = false;
+	private double secondsLeftForRate = 10;
 	//--------------------------------------------------------------------------------------------//
 
 	static
@@ -1803,6 +1806,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		});
 
 		final int duration = downloadFile.getSong().getDuration() == null ? 0 : downloadFile.getSong().getDuration() * 1000;
+
 
 		//LALANDA ON COMPLETION OF SONG MEDIAPLAYER
 		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
