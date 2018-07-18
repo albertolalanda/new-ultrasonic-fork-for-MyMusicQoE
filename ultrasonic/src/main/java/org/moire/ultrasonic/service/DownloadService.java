@@ -144,4 +144,9 @@ public interface DownloadService
 	void stopJukeboxService();
 
 	void startJukeboxService();
+
+	//MyMusicQoE
+	int getSongsRatingInfo(int index, int yesOrRating);
+
+	//void setSongsRatingInfo(int index, int hasRated, int rating);
 }

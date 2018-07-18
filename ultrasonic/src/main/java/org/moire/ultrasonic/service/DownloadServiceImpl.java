@@ -80,6 +80,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 
 import static org.moire.ultrasonic.domain.PlayerState.COMPLETED;
 import static org.moire.ultrasonic.domain.PlayerState.DOWNLOADING;
@@ -438,6 +439,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		lifecycleSupport.serializeDownloadQueue();
 	}
 
+	//LALANDA ACHO QUE ISTO É QUANDO FAZEMOS O DOWNLOAD DE MUSICAS PARA OUVIR DEPOIS
 	@Override
 	public synchronized void downloadBackground(List<MusicDirectory.Entry> songs, boolean save)
 	{
@@ -526,12 +528,19 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	@Override
 	public synchronized void shuffle()
 	{
-		Collections.shuffle(downloadList);
+	    //MyMusicQoE to shuffle in same order
+        long seed = System.nanoTime();
+		Collections.shuffle(downloadList, new Random(seed));
+        Collections.shuffle(songsRatingInfo, new Random(seed));
+
 		if (currentPlaying != null)
 		{
+			songsRatingInfo.add(0, songsRatingInfo.get(getCurrentPlayingIndex()));
 			downloadList.remove(getCurrentPlayingIndex());
+			songsRatingInfo.remove(getCurrentPlayingIndex());
 			downloadList.add(0, currentPlaying);
 		}
+
 		revision++;
 		lifecycleSupport.serializeDownloadQueue();
 		updateJukeboxPlaylist();
@@ -1849,6 +1858,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					setSongsRatingInfo(getCurrentPlayingIndex(), 1, DownloadActivity.getVerticaSeekBar().getProgress());
 				}else{
 					setUpdateRatingRest(songId, transcoderNum);
+					setSongsRatingInfo(getCurrentPlayingIndex(), 1, DownloadActivity.getVerticaSeekBar().getProgress());
 				}
 
 
@@ -2429,11 +2439,13 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	}
 
 	//LALANDA GET SONG RATING INFO
+	@Override
 	public int getSongsRatingInfo(int index, int yesOrRating) {
 		int response = songsRatingInfo.get(index)[yesOrRating];
 		return response;
 	}
 
+	//@Override
 	public void setSongsRatingInfo(int index, int hasRated, int rating) {
 		int[] x = (int[]) songsRatingInfo.get(index);
 		x[0] = hasRated;

@@ -19,23 +19,19 @@
 package org.moire.ultrasonic.activity;
 
 import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Vibrator;
-import android.text.Layout;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Display;
@@ -46,10 +42,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
@@ -72,7 +66,6 @@ import org.moire.ultrasonic.domain.PlayerState;
 import org.moire.ultrasonic.domain.RepeatMode;
 import org.moire.ultrasonic.service.DownloadFile;
 import org.moire.ultrasonic.service.DownloadService;
-import org.moire.ultrasonic.service.DownloadServiceImpl;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.Constants;
@@ -338,6 +331,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected void done(final Void result)
 					{
+						if (!canRate){
+							countDownTimer.cancel();
+						}
 						onCurrentChanged();
 						onSliderProgressChanged();
 					}
@@ -570,61 +566,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 				seekbarRatingText.setText((""+i));
-				hasRated = true;
-				changeStar = true;
-
-				if (i > 80){
-					separatorRatingExcellentText.setTextColor(Color.CYAN);
-					separatorRatingExcellentText.setTypeface(Typeface.DEFAULT_BOLD);
-					separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
-					separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
-                    separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
-                    separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
-                    separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
-				}else{
-                    if (i > 60){
-						separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
-						separatorRatingExcellentText.setTypeface(Typeface.DEFAULT);
-                        separatorRatingGoodText.setTextColor(Color.CYAN);
-                        separatorRatingGoodText.setTypeface(Typeface.DEFAULT_BOLD);
-						separatorRatingFairText.setTypeface(Typeface.DEFAULT);
-                        separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
-                        separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
-                        separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
-                    }else{
-                        if (i > 40){
-							separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
-							separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
-                            separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
-                            separatorRatingFairText.setTextColor(Color.CYAN);
-                            separatorRatingFairText.setTypeface(Typeface.DEFAULT_BOLD);
-							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
-                            separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
-                            separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
-                        }else{
-                            if (i > 20){
-								separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
-								separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
-								separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
-                                separatorRatingFairText.setTypeface(Typeface.DEFAULT);
-                                separatorRatingPoorText.setTextColor(Color.CYAN);
-                                separatorRatingPoorText.setTypeface(Typeface.DEFAULT_BOLD);
-								separatorRatingBadText.setTypeface(Typeface.DEFAULT);
-                                separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
-                            }else{
-                                if (i > 0){
-									separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
-									separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
-									separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
-									separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
-                                    separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
-                                    separatorRatingBadText.setTextColor(Color.CYAN);
-                                    separatorRatingBadText.setTypeface(Typeface.DEFAULT_BOLD);
-                                }
-                            }
-                        }
-                    }
+				if (!hasRated){
+					hasRated = true;
+					changeStar = true;
 				}
+
+				verticalSeekBarChangeText(i);
+
 
 			}
 
@@ -1512,11 +1460,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		DownloadService downloadService = getDownloadService();
 		System.out.println("LALANDA ONCURRENTCHANGED()");
-		newSong = true;
-		canRate = false;
-		hasRated = false;
-		changeStar = true;
-		secondsLeftForRate = 10;
 
 		if (downloadService == null)
 		{
@@ -1538,22 +1481,32 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		//LALANDA WHEN CURRENT MUSIC IS CHANGED MODIFICATIONS
 		//this will get information of the music the user changed to and change rating button and rating bar
-//		if (songsRated.get(currentSongIndex-1))
-//		{
-//			hasRated = true;
-//			verticalSeekBar.setProgress(rateGiven.get(currentSongIndex-1));
-//			canRate = true;
-//			changeStar = true;
-//		}else{
-//			verticalSeekBar.setProgress(0);
-//			seekbarRatingText.setText("");
-//			hasRated = false;
-//			canRate = true; // change later
-//			changeStar = true;
-//		}
 
 
-		//TIAGO TIMER
+
+
+
+		if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
+			newSong = true;
+			canRate = false;
+			hasRated = false;
+			changeStar = true;
+			secondsLeftForRate = 10;
+			verticalSeekBar.setProgress(0);
+			seekbarRatingText.setText("");
+			verticalSeekBarChangeText(0);
+		}else{
+			newSong = false;
+			canRate = true;
+			hasRated = true;
+			changeStar = true;
+			int progress = downloadService.getSongsRatingInfo(currentSongIndex-1, 1);
+			verticalSeekBar.setProgress(progress);
+			seekbarRatingText.setText(""+progress);
+			verticalSeekBarChangeText(progress);
+		}
+
+		//TIMER
 		//secondsPassed = 0;
 		//offset = 0;
 
@@ -1703,9 +1656,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STOPPED:
 						break;
 					case PAUSED:
-						if (!canRate){
-							countDownTimer.cancel();
-						}
 						break;
 					case COMPLETED:
 						break;
@@ -1916,6 +1866,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			getDownloadService().delete(songs);
 		}
 	}
+
 	private void deleteFromPlaylist(DownloadFile song)
 	{
 		final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
@@ -1960,9 +1911,64 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		vibrator.vibrate(15);
 	}
 
+	private void verticalSeekBarChangeText(int i){
+		if (i > 80){
+			separatorRatingExcellentText.setTextColor(Color.CYAN);
+			separatorRatingExcellentText.setTypeface(Typeface.DEFAULT_BOLD);
+			separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
+			separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+			separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+			separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+			separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+		}else{
+			if (i > 60){
+				separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+				separatorRatingExcellentText.setTypeface(Typeface.DEFAULT);
+				separatorRatingGoodText.setTextColor(Color.CYAN);
+				separatorRatingGoodText.setTypeface(Typeface.DEFAULT_BOLD);
+				separatorRatingFairText.setTypeface(Typeface.DEFAULT);
+				separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+				separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+				separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+			}else{
+				if (i > 40){
+					separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+					separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+					separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
+					separatorRatingFairText.setTextColor(Color.CYAN);
+					separatorRatingFairText.setTypeface(Typeface.DEFAULT_BOLD);
+					separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
+					separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+					separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+				}else{
+					if (i > 20){
+						separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+						separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+						separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+						separatorRatingFairText.setTypeface(Typeface.DEFAULT);
+						separatorRatingPoorText.setTextColor(Color.CYAN);
+						separatorRatingPoorText.setTypeface(Typeface.DEFAULT_BOLD);
+						separatorRatingBadText.setTypeface(Typeface.DEFAULT);
+						separatorRatingBadText.setTextColor(Color.parseColor("#ffffff"));
+					}else{
+						if (i > 0){
+							separatorRatingExcellentText.setTextColor(Color.parseColor("#ffffff"));
+							separatorRatingGoodText.setTextColor(Color.parseColor("#ffffff"));
+							separatorRatingFairText.setTextColor(Color.parseColor("#ffffff"));
+							separatorRatingPoorText.setTextColor(Color.parseColor("#ffffff"));
+							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
+							separatorRatingBadText.setTextColor(Color.CYAN);
+							separatorRatingBadText.setTypeface(Typeface.DEFAULT_BOLD);
+						}
+					}
+				}
+			}
+		}
+	}
+
 	private void animateProgression(int progress) {
 		ObjectAnimator animation = ObjectAnimator.ofInt(verticalSeekBar, "progress", verticalSeekBar.getProgress(), progress);
-		animation.setDuration(3000);
+		animation.setDuration(500);
 		animation.setInterpolator(new DecelerateInterpolator());
 		animation.start();
 		verticalSeekBar.clearAnimation();
