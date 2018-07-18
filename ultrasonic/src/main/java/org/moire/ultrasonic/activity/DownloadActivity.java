@@ -18,6 +18,8 @@
  */
 package org.moire.ultrasonic.activity;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -50,6 +52,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -152,8 +155,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private boolean changeStar = false;
 
 	//use for timer
-	private int secondsLeftForRate = 0;
+	private int secondsLeftForRate = 10;
 	private boolean newSong = true;
+	private CountDownTimer countDownTimer;
 
 	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 
@@ -661,6 +665,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //		});
 
 
+
 	}
 
 	@Override
@@ -896,12 +901,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 			if (currentSong != null)
 			{
-				if (changeStar == true) {
-					if (canRate == false){
+				if (changeStar) {
+					if (!canRate){
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
-					}else if(canRate == true && hasRated == false) {
+					}else if(!hasRated) {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
-					}else if(canRate && hasRated){
+					}else {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full);
 					}
 					changeStar = false;
@@ -1511,6 +1516,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		canRate = false;
 		hasRated = false;
 		changeStar = true;
+		secondsLeftForRate = 10;
 
 		if (downloadService == null)
 		{
@@ -1664,9 +1670,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 						if (newSong){
 							System.out.println("COUNTDOWN LALALALALA");
-							new CountDownTimer(10000, 1000) {
+							countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
 								public void onTick(long millisUntilFinished) {
-									secondsLeftForRate = (int) (millisUntilFinished * 0.001);
+									secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
 									System.out.println("COUNTDOWN LALALALALA seconds" + secondsLeftForRate);
 								}
 
@@ -1697,6 +1703,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STOPPED:
 						break;
 					case PAUSED:
+						if (!canRate){
+							countDownTimer.cancel();
+						}
 						break;
 					case COMPLETED:
 						break;
@@ -1924,24 +1933,39 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	}
 
 	public void excellentButton(View view){
-		verticalSeekBar.setProgress(100);
+
+
+		animateProgression(100);
+		//verticalSeekBar.setProgress(100);
 		vibrator.vibrate(15);
 	}
 	public void goodButton(View view){
-		verticalSeekBar.setProgress(80);
+		animateProgression(80);
+		//verticalSeekBar.setProgress(80);
 		vibrator.vibrate(15);
 	}
 	public void fairButton(View view){
-		verticalSeekBar.setProgress(60);
+		animateProgression(60);
+		//verticalSeekBar.setProgress(60);
 		vibrator.vibrate(15);
 	}
 	public void poorButton(View view){
-		verticalSeekBar.setProgress(40);
+		animateProgression(40);
+		//verticalSeekBar.setProgress(40);
 		vibrator.vibrate(15);
 	}
 	public void badButton(View view){
-		verticalSeekBar.setProgress(20);
+		animateProgression(20);
+		//verticalSeekBar.setProgress(20);
 		vibrator.vibrate(15);
+	}
+
+	private void animateProgression(int progress) {
+		ObjectAnimator animation = ObjectAnimator.ofInt(verticalSeekBar, "progress", verticalSeekBar.getProgress(), progress);
+		animation.setDuration(3000);
+		animation.setInterpolator(new DecelerateInterpolator());
+		animation.start();
+		verticalSeekBar.clearAnimation();
 	}
 
 	//FUNCTIONS FOR MyMusicQoE

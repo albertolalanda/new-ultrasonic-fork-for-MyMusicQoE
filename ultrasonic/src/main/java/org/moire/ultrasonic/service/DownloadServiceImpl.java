@@ -60,6 +60,7 @@ import org.moire.ultrasonic.provider.UltraSonicAppWidgetProvider4x3;
 import org.moire.ultrasonic.provider.UltraSonicAppWidgetProvider4x4;
 import org.moire.ultrasonic.receiver.MediaButtonIntentReceiver;
 import org.moire.ultrasonic.util.BackgroundTask;
+import org.moire.ultrasonic.util.CacheCleaner;
 import org.moire.ultrasonic.util.CancellableTask;
 import org.moire.ultrasonic.util.Constants;
 import org.moire.ultrasonic.util.ErrorDialog;
@@ -159,10 +160,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	//LALANDA RATING FOR MyMusicQoE variables
 
 	//SONG RATED ?, RATING GIVEN, NUMBER OF RATING FOR THIS PLAYLIST NUMBER (TO IMPLEMENT LATER)
-	List<int[]> songsRatingInfo = new ArrayList<int[]>();
-	private int numberOfPlaylistForThisUser;
-	private boolean canRate = false;
-	private double secondsLeftForRate = 10;
+	ArrayList<int[]> songsRatingInfo = new ArrayList<int[]>();
 	//--------------------------------------------------------------------------------------------//
 
 	static
@@ -360,6 +358,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		if (newPlaylist)
 		{
+			//LOOKS LIKE WE ONLY ENTER HERE ON BOOKMARK?
+
 			//ALBERTO LALANDA CLEAR OLD PLAYLIST IF NEW PLAYLIST IS GOING TO PLAY
 			//DOES NOT WORK
 //			final List<MusicDirectory.Entry> oldPlaylistSong = new LinkedList<Entry>();
@@ -371,6 +371,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			downloadFileCache.clear();
 			/////////////////////////////////////////////////////////////////////
 			downloadList.clear();
+			songsRatingInfo.clear();
 		}
 
 		if (playNext)
@@ -384,6 +385,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			{
 				DownloadFile downloadFile = new DownloadFile(this, song, save);
 				downloadList.add(getCurrentPlayingIndex() + offset, downloadFile);
+				songsRatingInfo.add(getCurrentPlayingIndex() + offset, new int[2]);
 				offset++;
 			}
 
@@ -391,6 +393,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 		else
 		{
+
+			final Context context = DownloadActivity.getInstance().getApplicationContext();
+			Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
+
+
 			int size = size();
 			int index = getCurrentPlayingIndex();
 
@@ -398,6 +405,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			{
 				DownloadFile downloadFile = new DownloadFile(this, song, save);
 				downloadList.add(downloadFile);
+				songsRatingInfo.add(new int[2]);
 			}
 
 			if (!autoplay && (size - 1) == index)
@@ -640,6 +648,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	{
 		reset();
 		downloadList.clear();
+		songsRatingInfo.clear();
 		revision++;
 		if (currentDownloading != null)
 		{
@@ -1831,10 +1840,17 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //					DownloadActivity.getVerticaSeekBar().getProgress()
 //				}
 
+				//LALANDA SEND RATING
+
 				int songId = Integer.parseInt(downloadFile.getSong().getId());
 				int transcoderNum = downloadFile.getSong().getTranscoderNum();
+				if (getSongsRatingInfo(getCurrentPlayingIndex(), 0) == 0){
+					setNewRatingRest(songId, transcoderNum);
+					setSongsRatingInfo(getCurrentPlayingIndex(), 1, DownloadActivity.getVerticaSeekBar().getProgress());
+				}else{
+					setUpdateRatingRest(songId, transcoderNum);
+				}
 
-				setNewRatingRestRest(songId, transcoderNum);
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
@@ -2351,7 +2367,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	}
 
 	//MyMusicQoE SEND RATING RELATED METHODS
-	private void setNewRatingRestRest(final int songId, final int transcoderNum) {
+	private void setNewRatingRest(final int songId, final int transcoderNum) {
 		BackgroundTask<Boolean> task = new TabActivityBackgroundTask<Boolean>(DownloadActivity.getInstance(), true)
 		{
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
@@ -2381,4 +2397,48 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		};
 		task.execute();
 	}
+
+	private void setUpdateRatingRest(final int songId, final int transcoderNum) {
+		BackgroundTask<Boolean> task = new TabActivityBackgroundTask<Boolean>(DownloadActivity.getInstance(), true)
+		{
+			final Context context = DownloadActivity.getInstance().getApplicationContext();
+			boolean responseSuccessful = false;
+			int playlistNumber;
+			@Override
+			protected Boolean doInBackground() throws Throwable
+			{
+				MusicService musicService = MusicServiceFactory.getMusicService(context);
+				playlistNumber = Util.getUserPlaylistNumber(context);
+				responseSuccessful = musicService.setUpdateRatingQoE(context, playlistNumber,
+						Util.getUserId(context), songId, transcoderNum,
+						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+				return responseSuccessful;
+			}
+
+			@Override
+			protected void done(Boolean result)
+			{
+				if (!result) {
+					Util.toast(DownloadActivity.getInstance(), R.string.user_information_error_message);
+				}else {
+					Util.toast(DownloadActivity.getInstance(), R.string.user_information_saved_message);
+				}
+			}
+		};
+		task.execute();
+	}
+
+	//LALANDA GET SONG RATING INFO
+	public int getSongsRatingInfo(int index, int yesOrRating) {
+		int response = songsRatingInfo.get(index)[yesOrRating];
+		return response;
+	}
+
+	public void setSongsRatingInfo(int index, int hasRated, int rating) {
+		int[] x = (int[]) songsRatingInfo.get(index);
+		x[0] = hasRated;
+		x[1] = rating;
+		songsRatingInfo.set(index, x);
+	}
+
 }

@@ -250,7 +250,9 @@ public class CacheCleaner
 				findCandidatesForDeletion(FileUtil.getMusicDirectory(context), files, dirs);
 				sortByAscendingModificationTime(files);
 
+				//LALANDA
 				Set<File> filesToNotDelete = findFilesToNotDelete();
+				//Set<File> filesToNotDelete = new HashSet<File>(5);
 
 				deleteFiles(files, filesToNotDelete, getMinimumDelete(files), true);
 				deleteEmptyDirs(dirs, filesToNotDelete);

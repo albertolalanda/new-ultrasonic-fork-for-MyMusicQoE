@@ -852,6 +852,19 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 			{
 				if (!append && !playNext)
 				{
+					//LALANDA CLEAR OLD PLAYLIST SEEMS TO WORK //STILL NEED TO DO IT FOR SHUFFLE
+					final List<MusicDirectory.Entry> oldPlaylistSongs = new LinkedList<MusicDirectory.Entry>();
+					for (final DownloadFile downloadFile : getDownloadService().getSongs())
+					{
+						oldPlaylistSongs.add(downloadFile.getSong());
+					}
+					if (getDownloadService() != null && oldPlaylistSongs.isEmpty())
+					{
+						getDownloadService().delete(oldPlaylistSongs);
+
+					}
+					getDownloadService().delete(songs);
+					//----------------------------------------------------------------------
 					getDownloadService().clear();
 				}
 

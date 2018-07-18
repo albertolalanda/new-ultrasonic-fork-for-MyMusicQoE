@@ -111,7 +111,6 @@ public class UpdateView extends LinearLayout
 				{
 					Log.w(TAG, "Error when updating song views.", x);
 				}
-				System.out.println("LALANDA GET VIEW REFRESH INTERVAL");
 				//LALANDA I THINK THIS NEEDS TO BE SEEN FOR USER INFORMATION LOADING OF GENRES
 				uiHandler.postDelayed(updateRunnable, Util.getViewRefreshInterval(context));
 			}
