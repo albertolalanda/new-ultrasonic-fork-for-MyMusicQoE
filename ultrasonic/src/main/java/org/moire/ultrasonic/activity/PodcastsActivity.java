@@ -85,7 +85,7 @@
 //				MusicService musicService = MusicServiceFactory.getMusicService(PodcastsActivity.this);
 //				List<PodcastsChannel> channels = musicService.getPodcastsChannels(false,PodcastsActivity.this, this);
 //
-//			/*	 TODO c'est quoi ce nettoyage de cache ?
+//			/*
 //				if (!Util.isOffline(PodcastsActivity.this))
 //					new CacheCleaner(PodcastsActivity.this, getDownloadService()).cleanPlaylists(playlists);
 //            */

@@ -68,6 +68,7 @@
             <!--a:configChanges="orientation|keyboardHidden"/>-->
         <activity
             a:name=".activity.DownloadActivity"
+            a:screenOrientation="portrait"
             a:configChanges="keyboardHidden"
             a:launchMode="singleTask"
             a:exported="true" />
@@ -77,6 +78,7 @@
             a:launchMode="singleTask"/>
         <activity
             a:name=".activity.UserInformationActivity"
+            a:screenOrientation="portrait"
             a:configChanges="orientation|keyboardHidden"
             a:launchMode="singleTask"/>
         <activity

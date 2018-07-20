@@ -78,8 +78,6 @@ import org.moire.ultrasonic.view.VisualizerView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -149,6 +147,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	//use for timer
 	private int secondsLeftForRate = 10;
+	private boolean songUnrated = true;
 	private boolean newSong = true;
 	private CountDownTimer countDownTimer;
 
@@ -157,7 +156,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	/**
 	 * Called when the activity is first created.
 	 */
-	//TODO LALANDA ACTIVITY PLAYER
 	@Override
 	public void onCreate(final Bundle savedInstanceState)
 	{
@@ -239,6 +237,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected Void doInBackground() throws Throwable
 					{
+						//LALANDA SEND ON PREVIEOUS
+						getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 						getDownloadService().previous();
 						return null;
 					}
@@ -246,7 +246,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected void done(final Void result)
 					{
-						onCurrentChanged();
+						newSong = true; onCurrentChanged();
 						onSliderProgressChanged();
 					}
 				}.execute();
@@ -275,6 +275,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected Boolean doInBackground() throws Throwable
 					{
+						//LALANDA SEND ON NEXT
+						getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+
 						if (getDownloadService().getCurrentPlayingIndex() < getDownloadService().size() - 1)
 						{
 							getDownloadService().next();
@@ -291,7 +294,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					{
 						if (result)
 						{
-							onCurrentChanged();
+							newSong = true; onCurrentChanged();
 							onSliderProgressChanged();
 						}
 					}
@@ -371,7 +374,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			{
 				warnIfNetworkOrStorageUnavailable();
 
-				if (!hasRated && !newSong){
+				if (!hasRated && !songUnrated){
 					countDownTimer.start();
 				}
 
@@ -572,10 +575,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					hasRated = true;
 					changeStar = true;
 				}
-
 				verticalSeekBarChangeText(i);
-
-
 			}
 
 			@Override
@@ -1037,7 +1037,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			case R.id.menu_remove:
 				getDownloadService().remove(song);
 				//lalanda delete song !!!!!!!!!!!!!!!!!!!!
-				deleteFromPlaylist(song);
+				//deleteFromPlaylist(song);
 				onDownloadListChanged();
 				return true;
 			case R.id.menu_item_screen_on_off:
@@ -1386,7 +1386,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		final List<DownloadFile> list = downloadService.getSongs();
 
-
 		emptyTextView.setText(R.string.download_empty);
 		final SongListAdapter adapter = new SongListAdapter(this, list);
 		playlistView.setAdapter(adapter);
@@ -1398,6 +1397,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			{
 				if (from != to)
 				{
+					//myMusicQoE drag change rating list
+
+
 					DownloadFile item = adapter.getItem(from);
 					adapter.remove(item);
 					adapter.notifyDataSetChanged();
@@ -1415,6 +1417,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void remove(int which)
 			{
+				//myMusicQoE remove change rating list
+
 				DownloadFile item = adapter.getItem(which);
 				DownloadService downloadService = getDownloadService();
 
@@ -1491,31 +1495,30 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//LALANDA WHEN CURRENT MUSIC IS CHANGED MODIFICATIONS
 		//this will get information of the music the user changed to and change rating button and rating bar
 
-
-
 		///LALANDA THIS NEEDS TO BE RESOLVED
-
-		if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
-			newSong = true;
-			canRate = false;
-			hasRated = false;
-			changeStar = true;
-			verticalSeekBar.setProgress(0);
-			seekbarRatingText.setText("");
-			verticalSeekBarChangeText(0);
-		}else{
+		//NEW SONG PRECISA DE SER NO SERVIÇO !!!! TODO TODO
+		if (newSong){
 			newSong = false;
-			canRate = true;
-			hasRated = true;
-			changeStar = true;
-			secondsLeftForRate = 10;
-			int progress = downloadService.getSongsRatingInfo(currentSongIndex-1, 1);
-			verticalSeekBar.setProgress(progress);
-			seekbarRatingText.setText(""+progress);
-			verticalSeekBarChangeText(progress);
+			if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
+				verticalSeekBar.setProgress(0);
+				seekbarRatingText.setText("");
+				verticalSeekBarChangeText(0);
+				songUnrated = true;
+				canRate = false;
+				hasRated = false;
+				changeStar = true;
+			}else{
+				int progress = downloadService.getSongsRatingInfo(currentSongIndex-1, 1);
+				verticalSeekBar.setProgress(progress);
+				seekbarRatingText.setText(""+progress);
+				verticalSeekBarChangeText(progress);
+				songUnrated = false;
+				canRate = true;
+				hasRated = true;
+				changeStar = true;
+				secondsLeftForRate = 10;
+			}
 		}
-
-
 
 		//TIMER
 		//secondsPassed = 0;
@@ -1632,8 +1635,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STARTED:
 						final DownloadService downloadService = getDownloadService();
 
-						if (newSong){
-							newSong = false;
+						if (songUnrated){
+							songUnrated = false;
 							System.out.println("COUNTDOWN LALALALALA");
 							countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
 								public void onTick(long millisUntilFinished) {
@@ -1644,7 +1647,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 								public void onFinish() {
 									canRate = true;
 									changeStar = true;
-									newSong = false;
+									songUnrated = false;
 								}
 							}.start();
 						}

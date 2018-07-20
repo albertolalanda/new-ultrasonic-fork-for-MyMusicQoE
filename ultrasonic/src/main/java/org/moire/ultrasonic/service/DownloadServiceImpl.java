@@ -612,7 +612,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		return downloadFile;
 	}
 
-	//LALALALA
+	//LALANDA
 	@Override
 	public synchronized boolean forSongGetIsRated(MusicDirectory.Entry song)
 	{
@@ -694,8 +694,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	public synchronized void remove(int which)
 	{
 		downloadList.remove(which);
+		//remove MyMusicQoE Rating
+		songsRatingInfo.remove(which);
 	}
 
+	//LALANDA MAYBE I NEED TO DELETE HERE AS WELL
 	@Override
 	public synchronized void remove(DownloadFile downloadFile)
 	{
@@ -709,6 +712,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			reset();
 			setCurrentPlaying(null);
 		}
+		songsRatingInfo.remove(downloadList.indexOf(downloadFile));
 		downloadList.remove(downloadFile);
 		backgroundDownloadList.remove(downloadFile);
 		revision++;
@@ -932,6 +936,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 	private synchronized void play(int index, boolean start)
 	{
+		//MyMusicQoE send if
+		if (getCurrentPlaying() != null){
+			sendRatingMyMusicQoE(getCurrentPlaying());
+		}
+
 		updateRemoteControl();
 
 		if (index < 0 || index >= size())
@@ -1867,17 +1876,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //				}
 
 				//LALANDA SEND RATING
-
-				int songId = Integer.parseInt(downloadFile.getSong().getId());
-				int transcoderNum = downloadFile.getSong().getTranscoderNum();
-				if (getSongsRatingInfo(getCurrentPlayingIndex(), 0) == 0){
-					setNewRatingRest(songId, transcoderNum);
-					setSongsRatingInfo(getCurrentPlayingIndex(), 1, DownloadActivity.getVerticaSeekBar().getProgress());
-				}else{
-					setUpdateRatingRest(songId, transcoderNum);
-					setSongsRatingInfo(getCurrentPlayingIndex(), 1, DownloadActivity.getVerticaSeekBar().getProgress());
-				}
-
+				sendRatingMyMusicQoE(downloadFile);
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
@@ -1935,6 +1934,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 	}
 
+
 	@Override
 	public synchronized void swap(boolean mainList, int from, int to)
 	{
@@ -1951,8 +1951,23 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		int currentPlayingIndex = getCurrentPlayingIndex();
+
+
 		DownloadFile movedSong = list.remove(from);
+
+
 		list.add(to, movedSong);
+
+		//MyMusicQoE swap songs drag list. WE DONT NEED TO USE BACKGROUND DOWNLOAD LIST!!!
+		//I THINK THIS WILL DO THE TRICK
+		if (mainList){
+			//this is aparently doing nothing
+			songsRatingInfo.add(to, songsRatingInfo.get(from));
+			songsRatingInfo.remove(from);
+		}
+
+
+
 
 		if (jukeboxEnabled && mainList)
 		{
@@ -2435,9 +2450,9 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			protected void done(Boolean result)
 			{
 				if (!result) {
-					Util.toast(DownloadActivity.getInstance(), R.string.user_information_error_message);
+					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					Util.toast(DownloadActivity.getInstance(), R.string.user_information_saved_message);
+					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_saved_success);
 				}
 			}
 		};
@@ -2465,13 +2480,37 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			protected void done(Boolean result)
 			{
 				if (!result) {
-					Util.toast(DownloadActivity.getInstance(), R.string.user_information_error_message);
+					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					Util.toast(DownloadActivity.getInstance(), R.string.user_information_saved_message);
+					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_updated_success);
 				}
 			}
 		};
 		task.execute();
+	}
+
+    @Override
+	public void sendRatingMyMusicQoE(final DownloadFile downloadFile){
+		new Handler(Looper.getMainLooper()).post(new Runnable() {
+			@Override
+			public void run() {
+				int songId = Integer.parseInt(downloadFile.getSong().getId());
+				int transcoderNum = downloadFile.getSong().getTranscoderNum();
+				int index = downloadList.indexOf(downloadFile);
+
+				if (DownloadActivity.isRated()){
+					if (getSongsRatingInfo(index, 0) == 0){
+						setNewRatingRest(songId, transcoderNum);
+						setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+					}else{
+						if (getSongsRatingInfo(index, 1) != DownloadActivity.getVerticaSeekBar().getProgress()){
+							setUpdateRatingRest(songId, transcoderNum);
+							setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+						}
+					}
+				}
+			}
+		});
 	}
 
 	//MyMusicQoE getSongsRatingInfo DownloadServiceImpl.java

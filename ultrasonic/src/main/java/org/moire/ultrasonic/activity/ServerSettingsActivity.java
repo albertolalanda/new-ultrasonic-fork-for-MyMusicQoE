@@ -26,7 +26,7 @@ public class ServerSettingsActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             configureActionBar();
-            //LALANDA TODO
+            //LALANDA
             //Atividade de editar um server
             System.out.println("ServerSettingActivity onCreate");
             //-----//

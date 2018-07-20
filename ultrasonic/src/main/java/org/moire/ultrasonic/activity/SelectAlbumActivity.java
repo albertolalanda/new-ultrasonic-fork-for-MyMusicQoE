@@ -859,7 +859,6 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 
 	private void getPodcastEpisodes(final String podcastChannelId)
 	{
-		// TODO on fait quoi là ?
 		//setActionBarSubtitle(playlistName);
 
 		new LoadTask()

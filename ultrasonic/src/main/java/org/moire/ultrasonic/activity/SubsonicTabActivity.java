@@ -85,7 +85,6 @@ import java.util.regex.Pattern;
 /**
  * @author Sindre Mehus
  */
-//LALANDA TODO SubsonicTabActivity
 public class SubsonicTabActivity extends ResultActivity implements OnClickListener
 {
 	private static final String TAG = SubsonicTabActivity.class.getSimpleName();

@@ -153,5 +153,7 @@ public interface DownloadService
 
 	boolean forSongGetIsRated(Entry song);
 
+	void sendRatingMyMusicQoE(final DownloadFile downloadFile);
+
 	//void setSongsRatingInfo(int index, int hasRated, int rating);
 }

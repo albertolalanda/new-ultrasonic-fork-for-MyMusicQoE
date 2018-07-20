@@ -134,7 +134,7 @@ public class MainActivity extends SubsonicTabActivity
 
 		boolean shouldShowDialog = false;
 
-		//TODO LALANDA CHANGE TO ALWAYS SHOW DIALOG
+		//LALANDA HERE WE CAN CHANGE TO ALWAYS SHOW DIALOG
 		//shouldShowDialog = true;
 
 		if (!getActiveServerEnabled())
@@ -358,7 +358,6 @@ public class MainActivity extends SubsonicTabActivity
 		}
 
 		menu.setGroupCheckable(MENU_GROUP_SERVER, true, true);
-		//SELECT SERVER STRING TODO LALANDA
 		menu.setHeaderTitle(R.string.main_select_server);
 	}
 
