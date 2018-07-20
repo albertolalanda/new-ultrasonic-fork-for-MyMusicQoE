@@ -28,6 +28,9 @@ import java.util.List;
 
 /**
  * @author Sindre Mehus
+ * @version ultrasonic 2.4.0
+ *
+ * @author Alberto Lalanda, Tiago Martins
  * @version $Id$
  */
 public interface DownloadService
@@ -147,6 +150,8 @@ public interface DownloadService
 
 	//MyMusicQoE
 	int getSongsRatingInfo(int index, int yesOrRating);
+
+	boolean forSongGetIsRated(Entry song);
 
 	//void setSongsRatingInfo(int index, int hasRated, int rating);
 }

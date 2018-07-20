@@ -24,8 +24,8 @@ public class SongListAdapter extends ArrayAdapter<DownloadFile>
 	public View getView(final int position, final View convertView, final ViewGroup parent)
 	{
 		DownloadFile downloadFile = getItem(position);
-   	MusicDirectory.Entry entry = downloadFile.getSong();
-   	//entry.setTranscoderNum(696969);
+   		MusicDirectory.Entry entry = downloadFile.getSong();
+   		//entry.setTranscoderNum(696969);
 
 		SongView view;
 
@@ -50,7 +50,7 @@ public class SongListAdapter extends ArrayAdapter<DownloadFile>
 			view.setLayout(entry);
 		}
 
-		view.setSong(entry, false, true);
+		view.setSong(entry, false, true, true);
 		return view;
 	}
 }

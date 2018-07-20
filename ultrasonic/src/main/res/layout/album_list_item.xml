@@ -39,14 +39,14 @@
 
     </LinearLayout>
 
-    <ImageView
-        	a:id="@+id/album_star" 
-        	a:layout_width="wrap_content"
-			a:layout_height="fill_parent"
-			a:gravity="center_vertical"
-			a:background="@android:color/transparent"
-            a:src="?attr/star_hollow"
-            a:focusable="false"
-            a:paddingRight="3dip" />
+    <!--<ImageView-->
+        	<!--a:id="@+id/album_star" -->
+        	<!--a:layout_width="wrap_content"-->
+			<!--a:layout_height="fill_parent"-->
+			<!--a:gravity="center_vertical"-->
+			<!--a:background="@android:color/transparent"-->
+            <!--a:src="?attr/star_hollow"-->
+            <!--a:focusable="false"-->
+            <!--a:paddingRight="3dip" />-->
     
 </LinearLayout>

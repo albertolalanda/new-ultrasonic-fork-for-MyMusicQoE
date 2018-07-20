@@ -19,6 +19,7 @@
 package org.moire.ultrasonic.service;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -535,9 +536,9 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		if (currentPlaying != null)
 		{
+			songsRatingInfo.remove(getCurrentPlayingIndex());
 			songsRatingInfo.add(0, songsRatingInfo.get(getCurrentPlayingIndex()));
 			downloadList.remove(getCurrentPlayingIndex());
-			songsRatingInfo.remove(getCurrentPlayingIndex());
 			downloadList.add(0, currentPlaying);
 		}
 
@@ -611,6 +612,20 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		return downloadFile;
 	}
 
+	//LALALALA
+	@Override
+	public synchronized boolean forSongGetIsRated(MusicDirectory.Entry song)
+	{
+		for (DownloadFile downloadFile : downloadList)
+		{
+			if (downloadFile.getSong().equals(song))
+			{
+				return getSongsRatingInfo(downloadList.indexOf(downloadFile), 0) == 1;
+			}
+		}
+		return false;
+	}
+
 	@Override
 	public synchronized void clear()
 	{
@@ -656,6 +671,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	public synchronized void clear(boolean serialize)
 	{
 		reset();
+
 		downloadList.clear();
 		songsRatingInfo.clear();
 		revision++;
@@ -960,6 +976,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	//LALANDA PLAYNEXT SONG
 	private synchronized void playNext()
 	{
+
 		MediaPlayer tmp = mediaPlayer;
 		mediaPlayer = nextMediaPlayer;
 		nextMediaPlayer = tmp;
@@ -2084,6 +2101,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		cleanup();
 	}
 
+
+
+
+	//LALANDA checkShufflePlay
 	private synchronized void checkShufflePlay()
 	{
 		// Get users desired random playlist size
@@ -2100,8 +2121,21 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			{
 				DownloadFile downloadFile = new DownloadFile(this, song, false);
 				downloadList.add(downloadFile);
+				songsRatingInfo.add(new int[2]);
 				revision++;
 			}
+			//LALANDA DELETE FOR SHUFFLE
+			final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
+			for (final DownloadFile downloadFile : downloadList)
+			{
+				songs.add(downloadFile.getSong());
+			}
+
+			if (!songs.isEmpty())
+			{
+				delete(songs);
+			}
+			//-------------------//
 		}
 
 		int currIndex = currentPlaying == null ? 0 : getCurrentPlayingIndex();
@@ -2113,8 +2147,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			for (MusicDirectory.Entry song : shufflePlayBuffer.get(songsToShift))
 			{
 				downloadList.add(new DownloadFile(this, song, false));
+				songsRatingInfo.add(new int[2]);
 				downloadList.get(0).cancelDownload();
 				downloadList.remove(0);
+				songsRatingInfo.remove(0);
 				revision++;
 			}
 		}
@@ -2438,7 +2474,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		task.execute();
 	}
 
-	//LALANDA GET SONG RATING INFO
+	//MyMusicQoE getSongsRatingInfo DownloadServiceImpl.java
 	@Override
 	public int getSongsRatingInfo(int index, int yesOrRating) {
 		int response = songsRatingInfo.get(index)[yesOrRating];

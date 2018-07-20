@@ -108,7 +108,7 @@ public class EntryAdapter extends ArrayAdapter<Entry>
 				view.setLayout(entry);
 			}
 
-			view.setSong(entry, checkable, false);
+			view.setSong(entry, checkable, false, false);
 			return view;
 		}
 	}

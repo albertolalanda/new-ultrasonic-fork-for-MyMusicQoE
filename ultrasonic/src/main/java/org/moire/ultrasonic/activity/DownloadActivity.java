@@ -223,7 +223,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onClick(final View view)
 			{
-				toggleFullScreenAlbumArt(1);
+				toggleFullScreenAlbumArtRating(1);
 			}
 		});
 
@@ -318,6 +318,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			{
 
 				System.out.println("LALANDA user id:"+ Util.getUserId(DownloadActivity.getInstance()) +" CURRENT PLAYING NAME: " + currentPlaying.getSong().getId() + "GET ID TRANSCODING "+ currentPlaying.getSong().getTranscoderNum()  + " BITRATESONG: " + currentPlaying.getSong().getBitRate() +" BITRATEPLAYING: " + currentPlaying.getBitRate() + " TRANCODEDCONTENTTYPE: " + currentPlaying.getSong().getTranscodedContentType());
+				countDownTimer.cancel();
+
 
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
 				{
@@ -331,9 +333,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected void done(final Void result)
 					{
-						if (!canRate){
-							countDownTimer.cancel();
-						}
 						onCurrentChanged();
 						onSliderProgressChanged();
 					}
@@ -372,6 +371,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			{
 				warnIfNetworkOrStorageUnavailable();
 
+				if (!hasRated && !newSong){
+					countDownTimer.start();
+				}
+
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
 				{
 					@Override
@@ -391,7 +394,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
-		//LALANDA ISTO FODE TUDO TALVEZ REMOVER A FEATURE SEJA A MELHOR SOLUÇÃO
+		//LALANDA TODO TESTES PARA VER O QUÃO BEM ISTO FOI IMPLEMENTADO
 		// maybe this is the answer https://stackoverflow.com/questions/13532919/how-do-i-shuffle-two-arrays-in-same-order-in-java
 		shuffleButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -500,14 +503,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			downloadService.setShufflePlayEnabled(true);
 		}
 
-		//LALANDA populate lists
-		if (downloadService != null && !downloadService.getSongs().isEmpty()){
+		//LALANDA populate lists NOT NEEDED ANYMORE
+		/*if (downloadService != null && !downloadService.getSongs().isEmpty()){
 			List<DownloadFile> list = downloadService.getSongs();
 
-			List<Boolean> songsRated =new ArrayList<Boolean>(Arrays.asList(new Boolean[list.size()]));
+			/*List<Boolean> songsRated =new ArrayList<Boolean>(Arrays.asList(new Boolean[list.size()]));
 			Collections.fill(songsRated, Boolean.FALSE);
-		}
-
+		}*/
 
 		visualizerAvailable = (downloadService != null) && (downloadService.getVisualizerController() != null);
 		equalizerAvailable = (downloadService != null) && (downloadService.getEqualizerController() != null);
@@ -1080,7 +1082,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				return true;
 				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
-				toggleFullScreenAlbumArt(1);
+				toggleFullScreenAlbumArtRating(1);
 				return true;
 			case R.id.menu_item_clear_playlist:
 				getDownloadService().setShufflePlayEnabled(false);
@@ -1097,8 +1099,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				return true;
 			case R.id.menu_item_star:
+				if (currentSong == null)
+				{
+					return true;
+				}
 				if (canRate) {
-					toggleFullScreenAlbumArt(2);
+					toggleFullScreenAlbumArtRating(2);
 				}else{
 					Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + secondsLeftForRate + " seconds");
 				}
@@ -1302,7 +1308,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	}
 
 	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE AND RATING BAR
-	private void toggleFullScreenAlbumArt(int index)
+	private void toggleFullScreenAlbumArtRating(int index)
 	{
 		if (playlistFlipper.getDisplayedChild() == 2 && index == 2)
 		{
@@ -1455,10 +1461,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
-	//WHEN MUSIC IS CHANGED LALANDA
+	//WHEN MUSIC IS CHANGED LALANDA OR PAUSED OR WHATEVER
 	private void onCurrentChanged()
 	{
 		DownloadService downloadService = getDownloadService();
+		if (playlistFlipper.getDisplayedChild()==2){
+			toggleFullScreenAlbumArtRating(0);
+		}
 		System.out.println("LALANDA ONCURRENTCHANGED()");
 
 		if (downloadService == null)
@@ -1484,14 +1493,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 
 
-
+		///LALANDA THIS NEEDS TO BE RESOLVED
 
 		if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
 			newSong = true;
 			canRate = false;
 			hasRated = false;
 			changeStar = true;
-			secondsLeftForRate = 10;
 			verticalSeekBar.setProgress(0);
 			seekbarRatingText.setText("");
 			verticalSeekBarChangeText(0);
@@ -1500,11 +1508,14 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			canRate = true;
 			hasRated = true;
 			changeStar = true;
+			secondsLeftForRate = 10;
 			int progress = downloadService.getSongsRatingInfo(currentSongIndex-1, 1);
 			verticalSeekBar.setProgress(progress);
 			seekbarRatingText.setText(""+progress);
 			verticalSeekBarChangeText(progress);
 		}
+
+
 
 		//TIMER
 		//secondsPassed = 0;
@@ -1622,6 +1633,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 						final DownloadService downloadService = getDownloadService();
 
 						if (newSong){
+							newSong = false;
 							System.out.println("COUNTDOWN LALALALALA");
 							countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
 								public void onTick(long millisUntilFinished) {
@@ -1636,6 +1648,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 								}
 							}.start();
 						}
+
+
 
 						if (downloadService != null && downloadService.isShufflePlayEnabled())
 						{
@@ -1656,6 +1670,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STOPPED:
 						break;
 					case PAUSED:
+						if (!canRate){
+							System.out.println("COUNTDOWNTIMER CANCEL");
+							countDownTimer.cancel();
+						}
 						break;
 					case COMPLETED:
 						break;
@@ -1983,6 +2001,5 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	public static boolean isRated() {
 		return hasRated;
 	}
-
 
 }

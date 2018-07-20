@@ -145,7 +145,7 @@ public class SongView extends UpdateView implements Checkable
 		return this.song;
 	}
 
-	protected void setSong(final Entry song, boolean checkable, boolean draggable)
+	protected void setSong(final Entry song, boolean checkable, boolean draggable, boolean starable)
 	{
 		updateBackground();
 
@@ -236,59 +236,11 @@ public class SongView extends UpdateView implements Checkable
 			viewHolder.drag.setVisibility(draggable ? View.VISIBLE : View.GONE);
 		}
 
-		if (Util.isOffline(this.context))
+		if (viewHolder.star != null)
 		{
-			viewHolder.star.setVisibility(View.GONE);
-		}
-		else
-		{
-			viewHolder.star.setImageDrawable(song.getStarred() ? starDrawable : starHollowDrawable);
-
-			viewHolder.star.setOnClickListener(new View.OnClickListener()
-			{
-				@Override
-				public void onClick(View view)
-				{
-					final boolean isStarred = song.getStarred();
-					final String id = song.getId();
-
-					if (!isStarred)
-					{
-						viewHolder.star.setImageDrawable(starDrawable);
-						song.setStarred(true);
-					}
-					else
-					{
-						viewHolder.star.setImageDrawable(starHollowDrawable);
-						song.setStarred(false);
-					}
-
-					new Thread(new Runnable()
-					{
-						@Override
-						public void run()
-						{
-							MusicService musicService = MusicServiceFactory.getMusicService(SongView.this.context);
-
-							try
-							{
-								if (!isStarred)
-								{
-									musicService.star(id, null, null, SongView.this.context, null);
-								}
-								else
-								{
-									musicService.unstar(id, null, null, SongView.this.context, null);
-								}
-							}
-							catch (Exception e)
-							{
-								Log.e(TAG, e.getMessage(), e);
-							}
-						}
-					}).start();
-				}
-			});
+			viewHolder.star.setVisibility(starable ? View.VISIBLE : View.GONE);
+            //MyMusicQoE list item is rated ? Following LINE MAY BE USEFULL TO CHECK IF THE LIST OF RATINGS IS BEING CLEARD. CAN BE DELETED OTHERWISE
+            viewHolder.star.setImageDrawable(downloadService.forSongGetIsRated(this.song) ? starDrawable : starHollowDrawable);
 		}
 
 		update();
@@ -375,7 +327,13 @@ public class SongView extends UpdateView implements Checkable
 			}
 		}
 
-		if (!song.getStarred())
+		//MyMusicQoE list item is rated
+		if (viewHolder.star != null)
+		{
+			viewHolder.star.setImageDrawable(downloadService.forSongGetIsRated(this.song) ? starDrawable : starHollowDrawable);
+		}
+
+		/*if (!song.getStarred())
 		{
 			if (viewHolder.star != null)
 			{
@@ -394,7 +352,7 @@ public class SongView extends UpdateView implements Checkable
 					viewHolder.star.setImageDrawable(starDrawable);
 				}
 			}
-		}
+		}*/
 
 		boolean playing = downloadService.getCurrentPlaying() == downloadFile;
 
