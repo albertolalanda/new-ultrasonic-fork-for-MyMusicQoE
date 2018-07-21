@@ -208,7 +208,7 @@ public class Util extends DownloadActivity
 		SharedPreferences.Editor editor = preferences.edit();
 		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, instance);
 		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_NAME + 1, "MyMusicQoE Server").apply();
-		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://167.99.82.18:8080").apply();
+		preferences.edit().putString(Constants.PREFERENCES_KEY_SERVER_URL + 1, "http://188.166.45.222:8080/airsonic").apply();
 		preferences.edit().putString(Constants.PREFERENCES_KEY_USERNAME + 1, "guest").apply();
 		preferences.edit().putString(Constants.PREFERENCES_KEY_PASSWORD + 1, "guest").apply();
 		editor.putInt(Constants.PREFERENCES_KEY_SERVER_INSTANCE, 1);

@@ -284,6 +284,7 @@ interface SubsonicAPIDefinition {
             @Query("idUser_MyMusicQoE") idUser_MyMusicQoE: Int,
             @Query("idMediaFile") idMediaFile: Int,
             @Query("idTranscoding") idTranscoding: Int,
+            @Query("headphones") headphones: Boolean,
             @Query("rating") rating: Int
     ): Call<SubsonicResponse>
 
@@ -293,6 +294,7 @@ interface SubsonicAPIDefinition {
             @Query("idUser_MyMusicQoE") idUser_MyMusicQoE: Int,
             @Query("idMediaFile") idMediaFile: Int,
             @Query("idTranscoding") idTranscoding: Int,
+            @Query("headphones") headphones: Boolean,
             @Query("rating") rating: Int
     ): Call<SubsonicResponse>
 }

@@ -1091,7 +1091,7 @@ public class RESTMusicService implements MusicService {
 
     public boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
         updateProgressListener(progressListener, R.string.parser_reading);
-        Response<SubsonicResponse> response = subsonicAPIClient.getApi().createRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating).execute();
+        Response<SubsonicResponse> response = subsonicAPIClient.getApi().createRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, false, rating).execute(); //Sending false value for headphones while headphone verification is not implemented yet
         checkResponseSuccessful(response);
         if (response.body().getStatus() == SubsonicResponse.Status.OK && response.isSuccessful()){
             return true;
@@ -1102,7 +1102,7 @@ public class RESTMusicService implements MusicService {
 
     public boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
         updateProgressListener(progressListener, R.string.parser_reading);
-        Response<SubsonicResponse> response = subsonicAPIClient.getApi().updateRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating).execute();
+        Response<SubsonicResponse> response = subsonicAPIClient.getApi().updateRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, false, rating).execute(); //Sending false value for headphones while headphone verification is not implemented yet
         checkResponseSuccessful(response);
         if (response.body().getStatus() == SubsonicResponse.Status.OK && response.isSuccessful()){
             return true;
