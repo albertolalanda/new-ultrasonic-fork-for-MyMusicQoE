@@ -156,4 +156,12 @@ public interface DownloadService
 	void sendRatingMyMusicQoE(final DownloadFile downloadFile);
 
 	//void setSongsRatingInfo(int index, int hasRated, int rating);
+
+	boolean isNewSong();
+
+	void setNewSong(boolean newSong);
+
+	void songsRatingInfoDelete(int which);
+
+	void songsRatingInfoDragNDrop(int from, int to);
 }

@@ -139,11 +139,12 @@ public class UserInformationActivity extends SubsonicTabActivity {
 
 				List<Genre> genres = new ArrayList<Genre>();
 
-				//LALANDA IF NETWORK CONNECTED ELSE ERROR DIALOG
 				do {
-//					if (!Util.isNetworkConnected(UserInformationActivity.getInstance())){
-//						new ErrorDialog(UserInformationActivity.getInstance(), "teste de erro", true);
-//					}
+
+					if (!Util.isNetworkConnected(UserInformationActivity.this))
+					{
+						throw new java.lang.Error("No internet connection");
+					}
 					try
 					{
 						genres = musicService.getGenres(UserInformationActivity.this, this);
@@ -156,6 +157,13 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				}while(genres.size() <= 0);
 
 				return genres;
+			}
+
+			@Override
+			protected void error(Throwable error) {
+				Log.w(TAG, error.toString(), error);
+				//LALANDA THIS IS NOT PERFECT. OPENS THE ACTIVITY AGAIN. BETTER THAN NOTHING
+				new ErrorDialog(UserInformationActivity.getInstance(), String.format("%s", getResources().getString(R.string.background_task_no_network)), true, true);
 			}
 
 			@Override
@@ -312,7 +320,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			@Override
 			protected Boolean doInBackground() throws Throwable {
 				final Context context = getActivity();
-				boolean responseSucesseful = false;
+				boolean responseSuccessful = false;
 				try {
 					MusicService musicService = MusicServiceFactory.getMusicService(context);
 					LastIdUser lastIdUserResponse = musicService.getLastIdUserQoE(context, this);
@@ -325,9 +333,9 @@ public class UserInformationActivity extends SubsonicTabActivity {
 							stringUserGenres = stringUserGenres + "," + listGenres[userGenres.get(i)];
 						}
 					}
-					responseSucesseful = musicService.setUserInformation(context, lastIdUser, spinnerAge.getSelectedItemPosition(), sex, stringUserGenres, this);
+					responseSuccessful = musicService.setUserInformation(context, lastIdUser, spinnerAge.getSelectedItemPosition(), sex, stringUserGenres, this);
 				} finally {
-					if (responseSucesseful){
+					if (responseSuccessful){
 						//Save user id
 						Util.setUserId(UserInformationActivity.this, lastIdUser);
 						//Save user sex
@@ -349,11 +357,10 @@ public class UserInformationActivity extends SubsonicTabActivity {
 							Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
 						}
 					}else{
-						//TODO LALANDA THIS IS NOT WORKING AS EXPECTED
-						throw new java.lang.Error(String.valueOf(R.string.user_information_error_message));
+						throw new java.lang.Error("Error sending the userInformation data to the server");
 					}
 
-					return responseSucesseful;
+					return responseSuccessful;
 				}
 			}
 
@@ -361,6 +368,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			protected void done(Boolean response) {
 				if (response) {
 					Util.toast(getActivity(), R.string.user_information_saved_message);
+					Util.setUserInfoSent(UserInformationActivity.this, true);
 				} else {
 					Util.toast(getActivity(), R.string.user_information_error_message);
 				}
@@ -369,7 +377,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			@Override
 			protected void error(Throwable error) {
 				Log.w(TAG, error.toString(), error);
-				new ErrorDialog(getActivity(), String.format("%s %s", getResources().getString(R.string.settings_connection_failure), getErrorMessage(error)), false);
+				new ErrorDialog(UserInformationActivity.getInstance(), String.format("%s %s", getResources().getString(R.string.settings_connection_failure), getResources().getString(R.string.user_information_error_message)), true, true);
 			}
 		};
 		task.execute();

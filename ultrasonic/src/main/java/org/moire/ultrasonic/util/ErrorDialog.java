@@ -68,4 +68,41 @@ public class ErrorDialog
 
 		builder.create().show();
 	}
+
+	//LALANDA THIS WAS MADE BY ME
+	public ErrorDialog(final Activity activity, CharSequence message, final boolean finishActivityOnClose, final boolean definitiveFinish)
+	{
+
+		AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+		builder.setIcon(android.R.drawable.ic_dialog_alert);
+		builder.setTitle(R.string.error_label);
+		builder.setMessage(message);
+		builder.setCancelable(true);
+		builder.setOnCancelListener(new DialogInterface.OnCancelListener()
+		{
+			@Override
+			public void onCancel(DialogInterface dialogInterface)
+			{
+				if (definitiveFinish && finishActivityOnClose)
+				{
+					activity.finish();
+					System.exit(1);
+				}
+			}
+		});
+		builder.setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener()
+		{
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i)
+			{
+				if (definitiveFinish && finishActivityOnClose)
+				{
+					activity.finish();
+					System.exit(1);
+				}
+			}
+		});
+
+		builder.create().show();
+	}
 }

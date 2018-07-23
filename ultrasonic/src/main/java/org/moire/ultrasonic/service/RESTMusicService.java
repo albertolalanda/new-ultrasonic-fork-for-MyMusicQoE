@@ -1089,6 +1089,7 @@ public class RESTMusicService implements MusicService {
         }
     }
 
+    //TODO
     public boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
         updateProgressListener(progressListener, R.string.parser_reading);
         Response<SubsonicResponse> response = subsonicAPIClient.getApi().createRatingQoE(numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, false, rating).execute(); //Sending false value for headphones while headphone verification is not implemented yet

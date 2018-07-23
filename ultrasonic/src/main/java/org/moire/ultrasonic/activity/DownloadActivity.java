@@ -148,7 +148,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	//use for timer
 	private int secondsLeftForRate = 10;
 	private boolean songUnrated = true;
-	private boolean newSong = true;
 	private CountDownTimer countDownTimer;
 
 	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
@@ -246,7 +245,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected void done(final Void result)
 					{
-						newSong = true; onCurrentChanged();
+						onCurrentChanged();
 						onSliderProgressChanged();
 					}
 				}.execute();
@@ -294,7 +293,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					{
 						if (result)
 						{
-							newSong = true; onCurrentChanged();
+							onCurrentChanged();
 							onSliderProgressChanged();
 						}
 					}
@@ -321,7 +320,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			{
 
 				System.out.println("LALANDA user id:"+ Util.getUserId(DownloadActivity.getInstance()) +" CURRENT PLAYING NAME: " + currentPlaying.getSong().getId() + "GET ID TRANSCODING "+ currentPlaying.getSong().getTranscoderNum()  + " BITRATESONG: " + currentPlaying.getSong().getBitRate() +" BITRATEPLAYING: " + currentPlaying.getBitRate() + " TRANCODEDCONTENTTYPE: " + currentPlaying.getSong().getTranscodedContentType());
-				countDownTimer.cancel();
 
 
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
@@ -373,10 +371,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			public void onClick(final View view)
 			{
 				warnIfNetworkOrStorageUnavailable();
-
-				if (!hasRated && !songUnrated){
-					countDownTimer.start();
-				}
 
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
 				{
@@ -665,6 +659,30 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 
 		invalidateOptionsMenu();
+
+		//RESUME LALANDA
+
+		System.out.println("LALANDA : "+getDownloadService().getPlayerPosition());
+		if (getDownloadService().getPlayerPosition() > 10000){
+			canRate = true;
+			changeStar = true;
+			songUnrated = false;
+		}else{
+			secondsLeftForRate = (int) Math.round(getDownloadService().getPlayerPosition() * 0.001);
+			songUnrated = false;
+			countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
+				public void onTick(long millisUntilFinished) {
+					secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
+					System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
+				}
+
+				public void onFinish() {
+					canRate = true;
+					changeStar = true;
+					songUnrated = false;
+				}
+			}.start();
+		}
 	}
 
 	// Scroll to current playing/downloading.
@@ -1106,7 +1124,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				if (canRate) {
 					toggleFullScreenAlbumArtRating(2);
 				}else{
-					Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + secondsLeftForRate + " seconds");
+					Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + secondsLeftForRate + " seconds", false);
 				}
 
 				//LALANDA ITEM STAR
@@ -1398,7 +1416,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				if (from != to)
 				{
 					//myMusicQoE drag change rating list
-
+					downloadService.songsRatingInfoDragNDrop(from, to);
 
 					DownloadFile item = adapter.getItem(from);
 					adapter.remove(item);
@@ -1417,8 +1435,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void remove(int which)
 			{
-				//myMusicQoE remove change rating list
-
 				DownloadFile item = adapter.getItem(which);
 				DownloadService downloadService = getDownloadService();
 
@@ -1433,6 +1449,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				{
 					getDownloadService().next();
 				}
+
+				//myMusicQoE remove change rating list
+				downloadService.songsRatingInfoDelete(which);
 
 				adapter.remove(item);
 				adapter.notifyDataSetChanged();
@@ -1496,9 +1515,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//this will get information of the music the user changed to and change rating button and rating bar
 
 		///LALANDA THIS NEEDS TO BE RESOLVED
-		//NEW SONG PRECISA DE SER NO SERVIÇO !!!! TODO TODO
-		if (newSong){
-			newSong = false;
+		//NEW SONG PRECISA DE SER NO SERVIÇO !!!! TODO TODO PENSAR NISTO
+		if (downloadService.isNewSong()){
+			System.out.println("ENTREI AQUI LALANDA");
+			downloadService.setNewSong(false);
 			if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
 				verticalSeekBar.setProgress(0);
 				seekbarRatingText.setText("");
@@ -1507,6 +1527,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				canRate = false;
 				hasRated = false;
 				changeStar = true;
+				secondsLeftForRate = 10;
 			}else{
 				int progress = downloadService.getSongsRatingInfo(currentSongIndex-1, 1);
 				verticalSeekBar.setProgress(progress);
@@ -1637,11 +1658,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 						if (songUnrated){
 							songUnrated = false;
-							System.out.println("COUNTDOWN LALALALALA");
 							countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
 								public void onTick(long millisUntilFinished) {
 									secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
-									System.out.println("COUNTDOWN LALALALALA seconds" + secondsLeftForRate);
+									System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
 								}
 
 								public void onFinish() {
@@ -1673,7 +1693,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STOPPED:
 						break;
 					case PAUSED:
-						if (!canRate){
+						if (!canRate && !songUnrated){
+							songUnrated = true;
 							System.out.println("COUNTDOWNTIMER CANCEL");
 							countDownTimer.cancel();
 						}

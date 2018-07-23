@@ -19,8 +19,13 @@
         a:normalScreens="true"
         a:smallScreens="true"
         a:xlargeScreens="true"/>
+    <!--next 2 lines -->
+    <!--was false-->
+    <!--added the next 1 LALANDA! SE HOUVER PROBLEMA VIR AQUI VER SE É A RAZÃO-->
     <application
-        a:allowBackup="false"
+        a:allowBackup="true"
+        a:largeHeap="true"
+
         a:icon="@mipmap/ic_launcher"
         a:roundIcon="@mipmap/ic_launcher_round"
         a:theme="@style/Theme.AppCompat"

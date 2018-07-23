@@ -162,7 +162,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	//LALANDA RATING FOR MyMusicQoE variables
 
 	//SONG RATED ?, RATING GIVEN, NUMBER OF RATING FOR THIS PLAYLIST NUMBER (TO IMPLEMENT LATER)
-	ArrayList<int[]> songsRatingInfo = new ArrayList<int[]>();
+	private ArrayList<int[]> songsRatingInfo = new ArrayList<int[]>();
+	private boolean newSong = true;
 	//--------------------------------------------------------------------------------------------//
 
 	static
@@ -942,6 +943,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		updateRemoteControl();
+		//MyMusicQoE newSong
+		setNewSong(true);
 
 		if (index < 0 || index >= size())
 		{
@@ -1955,17 +1958,16 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		DownloadFile movedSong = list.remove(from);
 
-
-		list.add(to, movedSong);
-
 		//MyMusicQoE swap songs drag list. WE DONT NEED TO USE BACKGROUND DOWNLOAD LIST!!!
 		//I THINK THIS WILL DO THE TRICK
-		if (mainList){
-			//this is aparently doing nothing
-			songsRatingInfo.add(to, songsRatingInfo.get(from));
-			songsRatingInfo.remove(from);
-		}
+//		if (mainList){
+//			int[] data = songsRatingInfo.remove(from);
+//			//this is aparently does nothing ITS ON DOWNLOAD ACTIVITY ?!?!?!
+//			songsRatingInfo.add(to, data);
+//		}
 
+
+		list.add(to, movedSong);
 
 
 
@@ -2443,6 +2445,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 						Util.getUserId(context), songId, transcoderNum,
 						DownloadActivity.getVerticaSeekBar().getProgress(), this);
 
+
 				return responseSuccessful;
 			}
 
@@ -2473,6 +2476,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				responseSuccessful = musicService.setUpdateRatingQoE(context, playlistNumber,
 						Util.getUserId(context), songId, transcoderNum,
 						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+
 				return responseSuccessful;
 			}
 
@@ -2526,6 +2530,27 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		x[0] = hasRated;
 		x[1] = rating;
 		songsRatingInfo.set(index, x);
+	}
+
+	@Override
+	public boolean isNewSong() {
+		return newSong;
+	}
+
+	@Override
+	public void setNewSong(boolean newSong) {
+		this.newSong = newSong;
+	}
+
+	@Override
+	public void songsRatingInfoDelete(int which){
+		songsRatingInfo.remove(which);
+	}
+
+	@Override
+	public void songsRatingInfoDragNDrop(int from, int to){
+		int[] item = songsRatingInfo.remove(from);
+		songsRatingInfo.add(to, item);
 	}
 
 }

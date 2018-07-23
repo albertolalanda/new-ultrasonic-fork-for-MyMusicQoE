@@ -276,7 +276,10 @@ public class MainActivity extends SubsonicTabActivity
 		// Remember the current theme.
 		theme = Util.getTheme(this);
 
-		showInfoDialog(shouldShowDialog);
+		//showInfoDialog(shouldShowDialog);
+		if (!Util.isUserInfoSent(MainActivity.this) && shouldShowDialog){
+			showInfoDialog(true);
+		}
 	}
 
 	private void loadSettings()
@@ -511,15 +514,15 @@ public class MainActivity extends SubsonicTabActivity
 	//LALANDA WELCOME TO ULTRASONIC BOX
 	private void showInfoDialog(final boolean show)
 	{
-		if (!infoDialogDisplayed)
+		/*if (!infoDialogDisplayed)
 		{
-			infoDialogDisplayed = true;
+			infoDialogDisplayed = true;*/
 
 			if (show || Util.getRestUrl(this, null).contains("yourhost"))
 			{
 				Util.showWelcomeDialog(this, this, R.string.main_welcome_title, R.string.main_welcome_text);
 			}
-		}
+		//}
 	}
 
 	private void showAlbumList(final String type, final int title)
