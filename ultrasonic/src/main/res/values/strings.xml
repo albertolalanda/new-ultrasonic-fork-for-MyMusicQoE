@@ -458,6 +458,7 @@
     <string name="user_information_error_message" translatable="false">there was a problem saving your data</string>
     <string name="mymusicqoe_rating_saved_success" translatable="false">rating sent successfully</string>
     <string name="mymusicqoe_rating_error" translatable="false">there was a problem sending the rating</string>
-    <string name="mymusicqoe_rating_updated_success">rating updated successfully</string>
+    <string name="mymusicqoe_rating_updated_success" translatable="false">rating updated successfully</string>
+    <string name="mymusicqoe_rating_tooltip" translatable="false">por favor classifique</string>
 
 </resources>

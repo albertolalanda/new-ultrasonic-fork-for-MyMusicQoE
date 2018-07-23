@@ -37,6 +37,7 @@ import android.view.ContextMenu;
 import android.view.Display;
 import android.view.GestureDetector;
 import android.view.GestureDetector.OnGestureListener;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -49,6 +50,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
@@ -85,6 +87,8 @@ import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import io.github.douglasjunior.androidSimpleTooltip.SimpleTooltip;
 
 import static org.moire.ultrasonic.domain.PlayerState.COMPLETED;
 import static org.moire.ultrasonic.domain.PlayerState.IDLE;
@@ -128,6 +132,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private SilentBackgroundTask<Void> onProgressChangedTask;
 	LinearLayout visualizerViewLayout;
 	private MenuItem starMenuItem;
+	private View starButtonView;
 
 	private static SeekBar verticalSeekBar;
 	private LinearLayout verticalSeekBarParent;
@@ -607,9 +612,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //				}
 //			}
 //		});
-
-
-
 	}
 
 	@Override
@@ -641,6 +643,31 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		};
 
+		/*if (downloadService != null || downloadService.getCurrentPlaying() != null) {
+			//RESUME LALANDA
+			System.out.println("LALANDA : " + getDownloadService().getPlayerPosition());
+			if (downloadService.getPlayerPosition() > 10000) {
+				canRate = true;
+				changeStar = true;
+				songUnrated = false;
+			} else {
+				secondsLeftForRate = (int) Math.round(getDownloadService().getPlayerPosition() * 0.001);
+				songUnrated = false;
+				countDownTimer = new CountDownTimer(secondsLeftForRate * 1000, 1000) {
+					public void onTick(long millisUntilFinished) {
+						secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
+						System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
+					}
+
+					public void onFinish() {
+						canRate = true;
+						changeStar = true;
+						songUnrated = false;
+					}
+				}.start();
+			}
+		}*/
+
 		executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleWithFixedDelay(runnable, 0L, 250L, TimeUnit.MILLISECONDS);
 
@@ -660,29 +687,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		invalidateOptionsMenu();
 
-		//RESUME LALANDA
-
-		System.out.println("LALANDA : "+getDownloadService().getPlayerPosition());
-		if (getDownloadService().getPlayerPosition() > 10000){
-			canRate = true;
-			changeStar = true;
-			songUnrated = false;
-		}else{
-			secondsLeftForRate = (int) Math.round(getDownloadService().getPlayerPosition() * 0.001);
-			songUnrated = false;
-			countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
-				public void onTick(long millisUntilFinished) {
-					secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
-					System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
-				}
-
-				public void onFinish() {
-					canRate = true;
-					changeStar = true;
-					songUnrated = false;
-				}
-			}.start();
-		}
 	}
 
 	// Scroll to current playing/downloading.
@@ -820,6 +824,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		MenuItem bookmarkMenuItem = menu.findItem(R.id.menu_item_bookmark_set);
 		MenuItem bookmarkRemoveMenuItem = menu.findItem(R.id.menu_item_bookmark_delete);
 
+		//Lalanda star button view
+		starButtonView = findViewById(R.id.menu_item_star);
 
 		if (Util.isOffline(this))
 		{
@@ -1668,6 +1674,18 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 									canRate = true;
 									changeStar = true;
 									songUnrated = false;
+
+									new SimpleTooltip.Builder(DownloadActivity.this)
+											.anchorView(starButtonView)
+											.text(R.string.mymusicqoe_rating_tooltip)
+											.gravity(Gravity.BOTTOM)
+											.animated(false)
+											.transparentOverlay(true)
+											.backgroundColor(Color.parseColor("#31698a"))
+											.arrowColor(Color.parseColor("#31698a"))
+											.textColor(Color.WHITE)
+											.build()
+											.show();
 								}
 							}.start();
 						}

@@ -156,7 +156,7 @@ public interface MusicService
 
 	boolean setUserInformation(Context context, int id, int age, String gender, String genres, ProgressListener progressListener) throws Exception;
 
-	boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception;
+	boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, boolean headphones, int rating, ProgressListener progressListener) throws Exception;
 
-	boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception;
+	boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, boolean headphones, int rating, ProgressListener progressListener) throws Exception;
 }

@@ -27,6 +27,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
@@ -2429,6 +2430,23 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 	}
 
+	private boolean isHeadphonesPlugged(){
+		AudioManager audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+		if ((Build.VERSION.SDK_INT < 23) && (audioManager != null)) {
+			return audioManager.isWiredHeadsetOn();
+		}else if (Build.VERSION.SDK_INT >= 23){
+			AudioDeviceInfo[] audioDevices = audioManager.getDevices(AudioManager.GET_DEVICES_ALL);
+			for (AudioDeviceInfo deviceInfo : audioDevices) {
+				if (deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADPHONES
+						|| deviceInfo.getType() == AudioDeviceInfo.TYPE_WIRED_HEADSET) {
+					return true;
+				}
+			}
+			return false;
+		}
+		return false;
+	}
+
 	//MyMusicQoE SEND RATING RELATED METHODS
 	private void setNewRatingRest(final int songId, final int transcoderNum) {
 		BackgroundTask<Boolean> task = new TabActivityBackgroundTask<Boolean>(DownloadActivity.getInstance(), true)
@@ -2442,7 +2460,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				MusicService musicService = MusicServiceFactory.getMusicService(context);
 				playlistNumber = Util.getUserPlaylistNumber(context);
 				responseSuccessful = musicService.setCreateRatingQoE(context, playlistNumber,
-						Util.getUserId(context), songId, transcoderNum,
+						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
 						DownloadActivity.getVerticaSeekBar().getProgress(), this);
 
 
@@ -2468,13 +2486,14 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
 			boolean responseSuccessful = false;
 			int playlistNumber;
+
 			@Override
 			protected Boolean doInBackground() throws Throwable
 			{
 				MusicService musicService = MusicServiceFactory.getMusicService(context);
 				playlistNumber = Util.getUserPlaylistNumber(context);
 				responseSuccessful = musicService.setUpdateRatingQoE(context, playlistNumber,
-						Util.getUserId(context), songId, transcoderNum,
+						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
 						DownloadActivity.getVerticaSeekBar().getProgress(), this);
 
 				return responseSuccessful;

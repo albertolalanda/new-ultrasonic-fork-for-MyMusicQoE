@@ -6,6 +6,7 @@ buildscript {
         jcenter()
         google()
         maven { url "https://plugins.gradle.org/m2/" }
+
     }
     dependencies {
         classpath gradlePlugins.androidTools
@@ -30,6 +31,8 @@ allprojects {
     repositories {
         jcenter()
         google()
+        //      lalanda notification https://github.com/douglasjunior/android-simple-tooltip
+        maven { url "https://jitpack.io" }
     }
 }
 

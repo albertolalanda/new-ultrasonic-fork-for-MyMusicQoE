@@ -537,12 +537,12 @@ public class CachedMusicService implements MusicService
 	}
 
 	@Override
-	public boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
-		return musicService.setCreateRatingQoE(context, numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating, progressListener);
+	public boolean setCreateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, boolean headphones, int rating, ProgressListener progressListener) throws Exception {
+		return musicService.setCreateRatingQoE(context, numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, headphones, rating, progressListener);
 	}
 
 	@Override
-	public boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, int rating, ProgressListener progressListener) throws Exception {
-		return musicService.setUpdateRatingQoE(context, numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, rating, progressListener);
+	public boolean setUpdateRatingQoE(Context context, int numberOfPlaylist, int idUser_MyMusicQoE, int idMediaFile, int idTranscoding, boolean headphones, int rating, ProgressListener progressListener) throws Exception {
+		return musicService.setUpdateRatingQoE(context, numberOfPlaylist, idUser_MyMusicQoE, idMediaFile, idTranscoding, headphones, rating, progressListener);
 	}
 }

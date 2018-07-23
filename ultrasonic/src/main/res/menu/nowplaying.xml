@@ -9,6 +9,7 @@
         a:icon="?attr/playlist_toggle"
         app:showAsAction="always"
         a:title="@string/download.toggle_playlist"/>
+    <!--lalanda added action view class-->
     <item
         a:id="@+id/menu_item_star"
         a:icon="?attr/star_hollow"
