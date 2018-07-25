@@ -52,11 +52,11 @@
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/search.label"
             android:launchMode="singleTask"/>
-        <activity
-            android:name=".activity.SelectPlaylistActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/playlist.label"
-            android:launchMode="standard"/>
+        <!--<activity-->
+            <!--android:name=".activity.SelectPlaylistActivity"-->
+            <!--android:configChanges="orientation|keyboardHidden"-->
+            <!--android:label="@string/playlist.label"-->
+            <!--android:launchMode="standard"/>-->
         <!--<activity-->
             <!--a:name=".activity.PodcastsActivity"-->
             <!--a:configChanges="orientation|keyboardHidden"-->

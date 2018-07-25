@@ -324,9 +324,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			public void onClick(final View view)
 			{
 
-				System.out.println("LALANDA user id:"+ Util.getUserId(DownloadActivity.getInstance()) +" CURRENT PLAYING NAME: " + currentPlaying.getSong().getId() + "GET ID TRANSCODING "+ currentPlaying.getSong().getTranscoderNum()  + " BITRATESONG: " + currentPlaying.getSong().getBitRate() +" BITRATEPLAYING: " + currentPlaying.getBitRate() + " TRANCODEDCONTENTTYPE: " + currentPlaying.getSong().getTranscodedContentType());
-
-
 				new SilentBackgroundTask<Void>(DownloadActivity.this)
 				{
 					@Override
@@ -816,38 +813,38 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		super.onPrepareOptionsMenu(menu);
 
 		final MenuItem screenOption = menu.findItem(R.id.menu_item_screen_on_off);
-		final MenuItem jukeboxOption = menu.findItem(R.id.menu_item_jukebox);
+		//final MenuItem jukeboxOption = menu.findItem(R.id.menu_item_jukebox);
 		final MenuItem equalizerMenuItem = menu.findItem(R.id.menu_item_equalizer);
 		final MenuItem visualizerMenuItem = menu.findItem(R.id.menu_item_visualizer);
-		final MenuItem shareMenuItem = menu.findItem(R.id.menu_item_share);
+		//final MenuItem shareMenuItem = menu.findItem(R.id.menu_item_share);
 		starMenuItem = menu.findItem(R.id.menu_item_star);
-		MenuItem bookmarkMenuItem = menu.findItem(R.id.menu_item_bookmark_set);
-		MenuItem bookmarkRemoveMenuItem = menu.findItem(R.id.menu_item_bookmark_delete);
+		//MenuItem bookmarkMenuItem = menu.findItem(R.id.menu_item_bookmark_set);
+		//MenuItem bookmarkRemoveMenuItem = menu.findItem(R.id.menu_item_bookmark_delete);
 
 		//Lalanda star button view
 		starButtonView = findViewById(R.id.menu_item_star);
 
 		if (Util.isOffline(this))
 		{
-			if (shareMenuItem != null)
-			{
-				shareMenuItem.setVisible(false);
-			}
+//			if (shareMenuItem != null)
+//			{
+//				shareMenuItem.setVisible(false);
+//			}
 
 			if (starMenuItem != null)
 			{
 				starMenuItem.setVisible(false);
 			}
 
-			if (bookmarkMenuItem != null)
-			{
-				bookmarkMenuItem.setVisible(false);
-			}
-
-			if (bookmarkRemoveMenuItem != null)
-			{
-				bookmarkRemoveMenuItem.setVisible(false);
-			}
+//			if (bookmarkMenuItem != null)
+//			{
+//				bookmarkMenuItem.setVisible(false);
+//			}
+//
+//			if (bookmarkRemoveMenuItem != null)
+//			{
+//				bookmarkRemoveMenuItem.setVisible(false);
+//			}
 		}
 
 		if (equalizerMenuItem != null)
@@ -917,20 +914,20 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 			}
 
-			if (jukeboxOption != null)
-			{
-				jukeboxOption.setEnabled(jukeboxAvailable);
-				jukeboxOption.setVisible(jukeboxAvailable);
-
-				if (downloadService.isJukeboxEnabled())
-				{
-					jukeboxOption.setTitle(R.string.download_menu_jukebox_off);
-				}
-				else
-				{
-					jukeboxOption.setTitle(R.string.download_menu_jukebox_on);
-				}
-			}
+//			if (jukeboxOption != null)
+//			{
+//				jukeboxOption.setEnabled(jukeboxAvailable);
+//				jukeboxOption.setVisible(jukeboxAvailable);
+//
+//				if (downloadService.isJukeboxEnabled())
+//				{
+//					jukeboxOption.setTitle(R.string.download_menu_jukebox_off);
+//				}
+//				else
+//				{
+//					jukeboxOption.setTitle(R.string.download_menu_jukebox_on);
+//				}
+//			}
 		}
 
 		return true;
@@ -1099,11 +1096,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().setShowVisualization(visualizerView.isActive());
 				Util.toast(DownloadActivity.this, active ? R.string.download_visualizer_on : R.string.download_visualizer_off);
 				return true;
-			case R.id.menu_item_jukebox:
-				final boolean jukeboxEnabled = !getDownloadService().isJukeboxEnabled();
-				getDownloadService().setJukeboxEnabled(jukeboxEnabled);
-				Util.toast(DownloadActivity.this, jukeboxEnabled ? R.string.download_jukebox_on : R.string.download_jukebox_off, false);
-				return true;
+//			case R.id.menu_item_jukebox:
+//				final boolean jukeboxEnabled = !getDownloadService().isJukeboxEnabled();
+//				getDownloadService().setJukeboxEnabled(jukeboxEnabled);
+//				Util.toast(DownloadActivity.this, jukeboxEnabled ? R.string.download_jukebox_on : R.string.download_jukebox_off, false);
+//				return true;
 				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
 				toggleFullScreenAlbumArtRating(1);
@@ -1116,12 +1113,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().clear();
 				onDownloadListChanged();
 				return true;
-			case R.id.menu_item_save_playlist:
-				if (!getDownloadService().getSongs().isEmpty())
-				{
-					showDialog(DIALOG_SAVE_PLAYLIST);
-				}
-				return true;
+//			case R.id.menu_item_save_playlist:
+//				if (!getDownloadService().getSongs().isEmpty())
+//				{
+//					showDialog(DIALOG_SAVE_PLAYLIST);
+//				}
+//				return true;
 			case R.id.menu_item_star:
 				if (currentSong == null)
 				{
@@ -1178,99 +1175,99 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					}
 				}).start();*/
 				return true;
-			case R.id.menu_item_bookmark_set:
-				if (currentSong == null)
-				{
-					return true;
-				}
-
-				final String songId = currentSong.getId();
-				final int playerPosition = getDownloadService().getPlayerPosition();
-
-				currentSong.setBookmarkPosition(playerPosition);
-
-				String bookmarkTime = Util.formatTotalDuration(playerPosition, true);
-
-				new Thread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
-
-						try
-						{
-							musicService.createBookmark(songId, playerPosition, DownloadActivity.this, null);
-						}
-						catch (Exception e)
-						{
-							Log.e(TAG, e.getMessage(), e);
-						}
-					}
-				}).start();
-
-				String msg = getResources().getString(R.string.download_bookmark_set_at_position, bookmarkTime);
-
-				Util.toast(DownloadActivity.this, msg);
-
-				return true;
-			case R.id.menu_item_bookmark_delete:
-				if (currentSong == null)
-				{
-					return true;
-				}
-
-				final String bookmarkSongId = currentSong.getId();
-				currentSong.setBookmarkPosition(0);
-
-				new Thread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
-
-						try
-						{
-							musicService.deleteBookmark(bookmarkSongId, DownloadActivity.this, null);
-						}
-						catch (Exception e)
-						{
-							Log.e(TAG, e.getMessage(), e);
-						}
-					}
-				}).start();
-
-				Util.toast(DownloadActivity.this, R.string.download_bookmark_removed);
-
-				return true;
-			case R.id.menu_item_share:
-				DownloadService downloadService = getDownloadService();
-				List<Entry> entries = new ArrayList<Entry>();
-
-				if (downloadService != null)
-				{
-					List<DownloadFile> downloadServiceSongs = downloadService.getSongs();
-
-					if (downloadServiceSongs != null)
-					{
-						for (DownloadFile downloadFile : downloadServiceSongs)
-						{
-							if (downloadFile != null)
-							{
-								Entry playlistEntry = downloadFile.getSong();
-
-								if (playlistEntry != null)
-								{
-									entries.add(playlistEntry);
-								}
-							}
-						}
-					}
-				}
-
-				createShare(entries);
-				return true;
+//			case R.id.menu_item_bookmark_set:
+//				if (currentSong == null)
+//				{
+//					return true;
+//				}
+//
+//				final String songId = currentSong.getId();
+//				final int playerPosition = getDownloadService().getPlayerPosition();
+//
+//				currentSong.setBookmarkPosition(playerPosition);
+//
+//				String bookmarkTime = Util.formatTotalDuration(playerPosition, true);
+//
+//				new Thread(new Runnable()
+//				{
+//					@Override
+//					public void run()
+//					{
+//						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
+//
+//						try
+//						{
+//							musicService.createBookmark(songId, playerPosition, DownloadActivity.this, null);
+//						}
+//						catch (Exception e)
+//						{
+//							Log.e(TAG, e.getMessage(), e);
+//						}
+//					}
+//				}).start();
+//
+//				String msg = getResources().getString(R.string.download_bookmark_set_at_position, bookmarkTime);
+//
+//				Util.toast(DownloadActivity.this, msg);
+//
+//				return true;
+//			case R.id.menu_item_bookmark_delete:
+//				if (currentSong == null)
+//				{
+//					return true;
+//				}
+//
+//				final String bookmarkSongId = currentSong.getId();
+//				currentSong.setBookmarkPosition(0);
+//
+//				new Thread(new Runnable()
+//				{
+//					@Override
+//					public void run()
+//					{
+//						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
+//
+//						try
+//						{
+//							musicService.deleteBookmark(bookmarkSongId, DownloadActivity.this, null);
+//						}
+//						catch (Exception e)
+//						{
+//							Log.e(TAG, e.getMessage(), e);
+//						}
+//					}
+//				}).start();
+//
+//				Util.toast(DownloadActivity.this, R.string.download_bookmark_removed);
+//
+//				return true;
+//			case R.id.menu_item_share:
+//				DownloadService downloadService = getDownloadService();
+//				List<Entry> entries = new ArrayList<Entry>();
+//
+//				if (downloadService != null)
+//				{
+//					List<DownloadFile> downloadServiceSongs = downloadService.getSongs();
+//
+//					if (downloadServiceSongs != null)
+//					{
+//						for (DownloadFile downloadFile : downloadServiceSongs)
+//						{
+//							if (downloadFile != null)
+//							{
+//								Entry playlistEntry = downloadFile.getSong();
+//
+//								if (playlistEntry != null)
+//								{
+//									entries.add(playlistEntry);
+//								}
+//							}
+//						}
+//					}
+//				}
+//
+//				createShare(entries);
+//				return true;
 			default:
 				return false;
 		}
@@ -1364,7 +1361,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	private void start()
 	{
-		System.out.println("LALANDA start()");
 		final DownloadService service = getDownloadService();
 		final PlayerState state = service.getPlayerState();
 
@@ -1401,7 +1397,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		final DownloadService downloadService = getDownloadService();
 
-		System.out.println("LALANDA ONDOWNLOADLISTCHANGED()");
 		// ALBERTO LALANDA METHOD WHEN DOWNLOAD LIST IS CHANGED IN THE ORDER
 		if (downloadService == null)
 		{
@@ -1497,7 +1492,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		if (playlistFlipper.getDisplayedChild()==2){
 			toggleFullScreenAlbumArtRating(0);
 		}
-		System.out.println("LALANDA ONCURRENTCHANGED()");
 
 		if (downloadService == null)
 		{
@@ -1552,7 +1546,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//offset = 0;
 
 		String duration = Util.formatTotalDuration(totalDuration);
-		System.out.println("LALANDA onCurrentChanged: duration formattotalduration util - " + duration);
 
 		String trackFormat = String.format(Locale.getDefault(), "%d / %d", currentSongIndex, totalSongs);
 

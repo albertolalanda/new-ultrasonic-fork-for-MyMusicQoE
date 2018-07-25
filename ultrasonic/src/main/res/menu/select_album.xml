@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
 
-    <item
-        a:id="@+id/menu_item_share"
-        app:showAsAction="ifRoom|withText"
-        a:title="@string/menu.share"
-        a:icon="?attr/share"/>
+    <!--<item-->
+        <!--a:id="@+id/menu_item_share"-->
+        <!--app:showAsAction="ifRoom|withText"-->
+        <!--a:title="@string/menu.share"-->
+        <!--a:icon="?attr/share"/>-->
 
     <item
         a:id="@+id/select_album_play_all"

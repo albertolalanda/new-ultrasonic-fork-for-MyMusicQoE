@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
     xmlns:a="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!--LALANDA NOWPLAYING UPPER RIGHT MENU-->
     <item
         a:id="@+id/menu_item_toggle_list"
         a:icon="?attr/playlist_toggle"
@@ -15,31 +15,32 @@
         a:icon="?attr/star_hollow"
         app:showAsAction="ifRoom|withText"
         a:title="@string/download.menu_star"/>
-    <item
-        a:id="@+id/menu_item_share"
-        a:icon="?attr/share"
-        app:showAsAction="ifRoom|withText"
-        a:title="@string/download.share_playlist"/>
-    <item
-        a:id="@+id/menu_item_save_playlist"
-        a:icon="?attr/save"
-        app:showAsAction="ifRoom|withText"
-        a:title="@string/download.menu_save"/>
+   <!--Playlist and bookmark -->
+    <!--<item-->
+        <!--a:id="@+id/menu_item_share"-->
+        <!--a:icon="?attr/share"-->
+        <!--app:showAsAction="ifRoom|withText"-->
+        <!--a:title="@string/download.share_playlist"/>-->
+    <!--<item-->
+        <!--a:id="@+id/menu_item_save_playlist"-->
+        <!--a:icon="?attr/save"-->
+        <!--app:showAsAction="ifRoom|withText"-->
+        <!--a:title="@string/download.menu_save"/>-->
     <item
         a:id="@+id/menu_item_clear_playlist"
         a:icon="?attr/remove_all"
         app:showAsAction="ifRoom|withText"
         a:title="@string/download.menu_clear_playlist"/>
-    <item
-        a:id="@+id/menu_item_bookmark_set"
-        a:icon="?attr/bookmark"
-        app:showAsAction="ifRoom|withText"
-        a:title="@string/download.bookmark_set"/>
-    <item
-        a:id="@+id/menu_item_bookmark_delete"
-        a:icon="?attr/bookmark"
-        app:showAsAction="ifRoom|withText"
-        a:title="@string/download.bookmark_delete"/>
+    <!--<item-->
+        <!--a:id="@+id/menu_item_bookmark_set"-->
+        <!--a:icon="?attr/bookmark"-->
+        <!--app:showAsAction="ifRoom|withText"-->
+        <!--a:title="@string/download.bookmark_set"/>-->
+    <!--<item-->
+        <!--a:id="@+id/menu_item_bookmark_delete"-->
+        <!--a:icon="?attr/bookmark"-->
+        <!--app:showAsAction="ifRoom|withText"-->
+        <!--a:title="@string/download.bookmark_delete"/>-->
     <item
         a:id="@+id/menu_item_equalizer"
         app:showAsAction="never"
@@ -48,10 +49,10 @@
         a:id="@+id/menu_item_visualizer"
         app:showAsAction="never"
         a:title="@string/download.menu_visualizer"/>
-    <item
-        a:id="@+id/menu_item_jukebox"
-        app:showAsAction="never"
-        a:title="@string/download.menu_jukebox_on"/>
+    <!--<item-->
+        <!--a:id="@+id/menu_item_jukebox"-->
+        <!--app:showAsAction="never"-->
+        <!--a:title="@string/download.menu_jukebox_on"/>-->
     <item
         a:id="@+id/menu_item_screen_on_off"
         app:showAsAction="never"

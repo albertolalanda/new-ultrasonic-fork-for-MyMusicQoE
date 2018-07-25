@@ -181,8 +181,8 @@ public class BookmarkActivity extends SubsonicTabActivity
 
 		enableButtons();
 
-		View browseMenuItem = findViewById(R.id.menu_bookmarks);
-		menuDrawer.setActiveView(browseMenuItem);
+//		View browseMenuItem = findViewById(R.id.menu_bookmarks);
+//		menuDrawer.setActiveView(browseMenuItem);
 
 		getBookmarks();
 	}

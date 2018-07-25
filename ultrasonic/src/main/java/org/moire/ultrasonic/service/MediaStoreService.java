@@ -52,9 +52,6 @@ public class MediaStoreService
 		MusicDirectory.Entry song = downloadFile.getSong();
 		File songFile = downloadFile.getCompleteFile();
 
-		System.out.println("LALANDA 20:20 BITRATE: " + song.getBitRate() + " CONTENT TYPE: " + song.getContentType()
-				+ " TRANSCODED CONTENT TYPE: " + song.getTranscodedContentType());
-
 		// Delete existing row in case the song has been downloaded before.
 		deleteFromMediaStore(downloadFile);
 

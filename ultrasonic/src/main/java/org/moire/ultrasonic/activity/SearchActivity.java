@@ -209,21 +209,21 @@ public class SearchActivity extends SubsonicTabActivity
 			inflater.inflate(R.menu.select_album_context, menu);
 		}
 
-		MenuItem shareButton = menu.findItem(R.id.menu_item_share);
-		MenuItem downloadMenuItem = menu.findItem(R.id.album_menu_download);
+		//MenuItem shareButton = menu.findItem(R.id.menu_item_share);
+		//MenuItem downloadMenuItem = menu.findItem(R.id.album_menu_download);
 
-		if (downloadMenuItem != null)
-		{
-			downloadMenuItem.setVisible(!Util.isOffline(this));
-		}
+//		if (downloadMenuItem != null)
+//		{
+//			downloadMenuItem.setVisible(!Util.isOffline(this));
+//		}
 
-		if (Util.isOffline(this) || isArtist)
-		{
-			if (shareButton != null)
-			{
-				shareButton.setVisible(false);
-			}
-		}
+//		if (Util.isOffline(this) || isArtist)
+//		{
+//			if (shareButton != null)
+//			{
+//				shareButton.setVisible(false);
+//			}
+//		}
 	}
 
 	@Override
@@ -262,21 +262,21 @@ public class SearchActivity extends SubsonicTabActivity
 			case R.id.album_menu_play_now:
 				downloadRecursively(id, false, false, true, false, false, false, false, false);
 				break;
-			case R.id.album_menu_play_next:
-				downloadRecursively(id, false, true, false, true, false, true, false, false);
-				break;
-			case R.id.album_menu_play_last:
-				downloadRecursively(id, false, true, false, false, false, false, false, false);
-				break;
-			case R.id.album_menu_pin:
-				downloadRecursively(id, true, true, false, false, false, false, false, false);
-				break;
-			case R.id.album_menu_unpin:
-				downloadRecursively(id, false, false, false, false, false, false, true, false);
-				break;
-			case R.id.album_menu_download:
-				downloadRecursively(id, false, false, false, false, true, false, false, false);
-				break;
+//			case R.id.album_menu_play_next:
+//				downloadRecursively(id, false, true, false, true, false, true, false, false);
+//				break;
+//			case R.id.album_menu_play_last:
+//				downloadRecursively(id, false, true, false, false, false, false, false, false);
+//				break;
+//			case R.id.album_menu_pin:
+//				downloadRecursively(id, true, true, false, false, false, false, false, false);
+//				break;
+//			case R.id.album_menu_unpin:
+//				downloadRecursively(id, false, false, false, false, false, false, true, false);
+//				break;
+//			case R.id.album_menu_download:
+//				downloadRecursively(id, false, false, false, false, true, false, false, false);
+//				break;
 			case R.id.song_menu_play_now:
 				if (entry != null)
 				{
@@ -285,53 +285,53 @@ public class SearchActivity extends SubsonicTabActivity
 					download(false, false, true, false, false, songs);
 				}
 				break;
-			case R.id.song_menu_play_next:
-				if (entry != null)
-				{
-					songs = new ArrayList<MusicDirectory.Entry>(1);
-					songs.add(entry);
-					download(true, false, false, true, false, songs);
-				}
-				break;
-			case R.id.song_menu_play_last:
-				if (entry != null)
-				{
-					songs = new ArrayList<MusicDirectory.Entry>(1);
-					songs.add(entry);
-					download(true, false, false, false, false, songs);
-				}
-				break;
-			case R.id.song_menu_pin:
-				if (entry != null)
-				{
-					songs.add(entry);
-					Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_pinned, songs.size(), songs.size()));
-					downloadBackground(true, songs);
-				}
-				break;
-			case R.id.song_menu_download:
-				if (entry != null)
-				{
-					songs.add(entry);
-					Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_downloaded, songs.size(), songs.size()));
-					downloadBackground(false, songs);
-				}
-				break;
-			case R.id.song_menu_unpin:
-				if (entry != null)
-				{
-					songs.add(entry);
-					Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_unpinned, songs.size(), songs.size()));
-					getDownloadService().unpin(songs);
-				}
-				break;
-			case R.id.menu_item_share:
-				if (entry != null)
-				{
-					songs = new ArrayList<MusicDirectory.Entry>(1);
-					songs.add(entry);
-					createShare(songs);
-				}
+//			case R.id.song_menu_play_next:
+//				if (entry != null)
+//				{
+//					songs = new ArrayList<MusicDirectory.Entry>(1);
+//					songs.add(entry);
+//					download(true, false, false, true, false, songs);
+//				}
+//				break;
+//			case R.id.song_menu_play_last:
+//				if (entry != null)
+//				{
+//					songs = new ArrayList<MusicDirectory.Entry>(1);
+//					songs.add(entry);
+//					download(true, false, false, false, false, songs);
+//				}
+//				break;
+//			case R.id.song_menu_pin:
+//				if (entry != null)
+//				{
+//					songs.add(entry);
+//					Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_pinned, songs.size(), songs.size()));
+//					downloadBackground(true, songs);
+//				}
+//				break;
+//			case R.id.song_menu_download:
+//				if (entry != null)
+//				{
+//					songs.add(entry);
+//					Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_downloaded, songs.size(), songs.size()));
+//					downloadBackground(false, songs);
+//				}
+//				break;
+//			case R.id.song_menu_unpin:
+//				if (entry != null)
+//				{
+//					songs.add(entry);
+//					Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_unpinned, songs.size(), songs.size()));
+//					getDownloadService().unpin(songs);
+//				}
+//				break;
+//			case R.id.menu_item_share:
+//				if (entry != null)
+//				{
+//					songs = new ArrayList<MusicDirectory.Entry>(1);
+//					songs.add(entry);
+//					createShare(songs);
+//				}
 			default:
 				return super.onContextItemSelected(menuItem);
 		}
@@ -506,22 +506,32 @@ public class SearchActivity extends SubsonicTabActivity
 		startActivityForResultWithoutTransition(SearchActivity.this, intent);
 	}
 
+	//LALANDA SEARCH ACTIVITY ADD NEW PLAYLIST
 	private void onSongSelected(MusicDirectory.Entry song, boolean save, boolean append, boolean autoplay, boolean playNext)
 	{
 		DownloadService downloadService = getDownloadService();
 		if (downloadService != null)
 		{
-			if (!append && !playNext)
+
+			List<MusicDirectory.Entry> selectedSongs = new ArrayList<MusicDirectory.Entry>(1);
+			selectedSongs.add(song);
+			downloadService.clear();
+			if (song!=null)
 			{
-				downloadService.clear();
+				download(false, false, true, false, false, Collections.singletonList(song));
 			}
 
-			downloadService.download(Collections.singletonList(song), save, false, playNext, false, false);
+//			if (!append && !playNext)
+//			{
+//				downloadService.clear();
+//			}
+//
+//			downloadService.download(Collections.singletonList(song), save, false, false, false, true);
 
-			if (autoplay)
+			/*if (autoplay)
 			{
 				downloadService.play(downloadService.size() - 1);
-			}
+			}*/
 
 			Util.toast(SearchActivity.this, getResources().getQuantityString(R.plurals.select_album_n_songs_added, 1, 1));
 		}

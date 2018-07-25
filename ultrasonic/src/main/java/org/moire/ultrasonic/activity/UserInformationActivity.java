@@ -77,9 +77,11 @@ public class UserInformationActivity extends SubsonicTabActivity {
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.user_information);
+
 		//to disable back button
 		setActionBarDisplayHomeAsUp(false);
-
+		//this works WOW
+		menuDrawer.setMenuSize(0);
 
 		imgMale = findViewById(R.id.image_view_male);
 		imgFemale = findViewById(R.id.image_view_female);

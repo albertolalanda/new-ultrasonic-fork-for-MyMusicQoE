@@ -397,10 +397,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 		else
 		{
-
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
 			Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
-
 
 			int size = size();
 			int index = getCurrentPlayingIndex();
@@ -535,11 +533,12 @@ public class DownloadServiceImpl extends Service implements DownloadService
         long seed = System.nanoTime();
 		Collections.shuffle(downloadList, new Random(seed));
         Collections.shuffle(songsRatingInfo, new Random(seed));
+		int[] auxiliar;
 
 		if (currentPlaying != null)
 		{
-			songsRatingInfo.remove(getCurrentPlayingIndex());
-			songsRatingInfo.add(0, songsRatingInfo.get(getCurrentPlayingIndex()));
+			auxiliar = songsRatingInfo.remove(getCurrentPlayingIndex());
+			songsRatingInfo.add(0, auxiliar);
 			downloadList.remove(getCurrentPlayingIndex());
 			downloadList.add(0, currentPlaying);
 		}
@@ -1087,8 +1086,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	//LALANDA ON SONG COMPLETED DOWNLOAD!!!
 	private void onSongCompleted()
 	{
-		System.out.println("LALANDA ON SONG COMPLETED");
-
 		int index = getCurrentPlayingIndex();
 
 		if (currentPlaying != null)
@@ -1366,7 +1363,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 	private void setPlayerStateCompleted()
 	{
-		System.out.println("LALANDA setPlayerStateCompleted");
 		Log.i(TAG, String.format("%s -> %s (%s)", this.playerState.name(), PlayerState.COMPLETED, currentPlaying));
 		this.playerState = PlayerState.COMPLETED;
 
@@ -1870,11 +1866,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				int pos = cachedPosition;
 				Log.i(TAG, String.format("Ending position %d of %d", pos, duration));
 
-
-				System.out.println("LALANDA MEDIA PLAYER ON COMPLETION");
-				//IF RATING WAS NOT GIVEN NEED TO GIVE IT
-				System.out.println("PROGRESS: "+ DownloadActivity.getVerticaSeekBar().getProgress());
-                System.out.println("HAS RATED: "+ DownloadActivity.isRated());
 //                if(DownloadActivity.isRated()){
 //					DownloadActivity.getVerticaSeekBar().getProgress()
 //				}
@@ -2156,10 +2147,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			//-------------------//
 		}
 
-		int currIndex = currentPlaying == null ? 0 : getCurrentPlayingIndex();
-
+		//LALANDA INFINITE SHUFFLE LIST FOR NOW WE TAKE
+		//int currIndex = currentPlaying == null ? 0 : getCurrentPlayingIndex();
 		// Only shift playlist if playing song #5 or later.
-		if (currIndex > 4)
+		/*if (currIndex > 4)
 		{
 			int songsToShift = currIndex - 2;
 			for (MusicDirectory.Entry song : shufflePlayBuffer.get(songsToShift))
@@ -2171,7 +2162,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				songsRatingInfo.remove(0);
 				revision++;
 			}
-		}
+		}*/
 
 		if (revisionBefore != revision)
 		{

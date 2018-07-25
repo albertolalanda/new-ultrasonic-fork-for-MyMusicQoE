@@ -357,12 +357,12 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 			playAllButton.setVisible(playAllButtonVisible);
 		}
 
-		shareButton = menu.findItem(R.id.menu_item_share);
+		//shareButton = menu.findItem(R.id.menu_item_share);
 
-		if (shareButton != null)
-		{
-			shareButton.setVisible(shareButtonVisible);
-		}
+//		if (shareButton != null)
+//		{
+//			shareButton.setVisible(shareButtonVisible);
+//		}
 
 		return true;
 	}
@@ -467,19 +467,19 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 			inflater.inflate(R.menu.select_album_context, menu);
 		}
 
-		shareButton = menu.findItem(R.id.menu_item_share);
+//		shareButton = menu.findItem(R.id.menu_item_share);
+//
+//		if (shareButton != null)
+//		{
+//			shareButton.setVisible(!Util.isOffline(this));
+//		}
 
-		if (shareButton != null)
-		{
-			shareButton.setVisible(!Util.isOffline(this));
-		}
+		//MenuItem downloadMenuItem = menu.findItem(R.id.album_menu_download);
 
-		MenuItem downloadMenuItem = menu.findItem(R.id.album_menu_download);
-
-		if (downloadMenuItem != null)
-		{
-			downloadMenuItem.setVisible(!Util.isOffline(this));
-		}
+//		if (downloadMenuItem != null)
+//		{
+//			downloadMenuItem.setVisible(!Util.isOffline(this));
+//		}
 	}
 
 	@Override
@@ -506,29 +506,29 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 			case R.id.album_menu_play_now:
 				downloadRecursively(entryId, false, false, true, false, false, false, false, false);
 				break;
-			case R.id.album_menu_play_next:
-				downloadRecursively(entryId, false, false, false, false, false, true, false, false);
-				break;
-			case R.id.album_menu_play_last:
-				downloadRecursively(entryId, false, true, false, false, false, false, false, false);
-				break;
-			case R.id.album_menu_pin:
-				downloadRecursively(entryId, true, true, false, false, false, false, false, false);
-				break;
-			case R.id.album_menu_unpin:
-				downloadRecursively(entryId, false, false, false, false, false, false, true, false);
-				break;
-			case R.id.album_menu_download:
-				downloadRecursively(entryId, false, false, false, false, true, false, false, false);
-				break;
+//			case R.id.album_menu_play_next:
+//				downloadRecursively(entryId, false, false, false, false, false, true, false, false);
+//				break;
+//			case R.id.album_menu_play_last:
+//				downloadRecursively(entryId, false, true, false, false, false, false, false, false);
+//				break;
+//			case R.id.album_menu_pin:
+//				downloadRecursively(entryId, true, true, false, false, false, false, false, false);
+//				break;
+//			case R.id.album_menu_unpin:
+//				downloadRecursively(entryId, false, false, false, false, false, false, true, false);
+//				break;
+//			case R.id.album_menu_download:
+//				downloadRecursively(entryId, false, false, false, false, true, false, false, false);
+//				break;
 			case R.id.select_album_play_all:
 				playAll();
 				break;
-			case R.id.menu_item_share:
-				List<MusicDirectory.Entry> entries = new ArrayList<MusicDirectory.Entry>(1);
-				entries.add(entry);
-				createShare(entries);
-				return true;
+//			case R.id.menu_item_share:
+//				List<MusicDirectory.Entry> entries = new ArrayList<MusicDirectory.Entry>(1);
+//				entries.add(entry);
+//				createShare(entries);
+//				return true;
 			default:
 				return super.onContextItemSelected(menuItem);
 		}
@@ -551,9 +551,9 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 			case R.id.select_album_play_all:
 				playAll();
 				return true;
-			case R.id.menu_item_share:
-				createShare(getSelectedSongs(albumListView));
-				return true;
+//			case R.id.menu_item_share:
+//				createShare(getSelectedSongs(albumListView));
+//				return true;
 		}
 
 		return false;

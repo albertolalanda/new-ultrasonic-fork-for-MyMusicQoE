@@ -137,17 +137,17 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		menuDrawer.setMenuView(R.layout.menu_main);
 
 		//chatMenuItem = findViewById(R.id.menu_chat);
-		bookmarksMenuItem = findViewById(R.id.menu_bookmarks);
+		//bookmarksMenuItem = findViewById(R.id.menu_bookmarks);
 		//sharesMenuItem = findViewById(R.id.menu_shares);
 
 		findViewById(R.id.menu_home).setOnClickListener(this);
 		findViewById(R.id.menu_browse).setOnClickListener(this);
 		findViewById(R.id.menu_search).setOnClickListener(this);
-		findViewById(R.id.menu_playlists).setOnClickListener(this);
+		//findViewById(R.id.menu_playlists).setOnClickListener(this);
 		//findViewById(R.id.menu_podcasts).setOnClickListener(this);
 		//sharesMenuItem.setOnClickListener(this);
 		//chatMenuItem.setOnClickListener(this);
-		bookmarksMenuItem.setOnClickListener(this);
+		//bookmarksMenuItem.setOnClickListener(this);
 		findViewById(R.id.menu_now_playing).setOnClickListener(this);
 		findViewById(R.id.menu_settings).setOnClickListener(this);
 		findViewById(R.id.menu_about).setOnClickListener(this);
@@ -168,9 +168,9 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		super.onPostCreate(bundle);
 		instance = this;
 
-		int visibility = Util.isOffline(this) ? View.GONE : View.VISIBLE;
+		//int visibility = Util.isOffline(this) ? View.GONE : View.VISIBLE;
 		//chatMenuItem.setVisibility(visibility);
-		bookmarksMenuItem.setVisibility(visibility);
+		//bookmarksMenuItem.setVisibility(visibility);
 		//sharesMenuItem.setVisibility(visibility);
 	}
 
@@ -1315,11 +1315,11 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 				intent.putExtra(Constants.INTENT_EXTRA_REQUEST_SEARCH, true);
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, intent);
 				break;
-			case R.id.menu_playlists:
-				intent = new Intent(SubsonicTabActivity.this, SelectPlaylistActivity.class);
-				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-				startActivityForResultWithoutTransition(SubsonicTabActivity.this, intent);
-				break;
+//			case R.id.menu_playlists:
+//				intent = new Intent(SubsonicTabActivity.this, SelectPlaylistActivity.class);
+//				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//				startActivityForResultWithoutTransition(SubsonicTabActivity.this, intent);
+//				break;
 			/*case R.id.menu_podcasts:
 				intent = new Intent(SubsonicTabActivity.this, PodcastsActivity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -1333,9 +1333,9 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 			/*case R.id.menu_chat:
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, ChatActivity.class);
 				break;*/
-			case R.id.menu_bookmarks:
-				startActivityForResultWithoutTransition(this, BookmarkActivity.class);
-				break;
+//			case R.id.menu_bookmarks:
+//				startActivityForResultWithoutTransition(this, BookmarkActivity.class);
+//				break;
 			case R.id.menu_now_playing:
 				startActivityForResultWithoutTransition(SubsonicTabActivity.this, DownloadActivity.class);
 				break;

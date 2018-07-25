@@ -90,8 +90,8 @@ public class SelectPlaylistActivity extends SubsonicTabActivity implements Adapt
 		playlistsListView.setOnItemClickListener(this);
 		registerForContextMenu(playlistsListView);
 
-		View playlistsMenuItem = findViewById(R.id.menu_playlists);
-		menuDrawer.setActiveView(playlistsMenuItem);
+//		View playlistsMenuItem = findViewById(R.id.menu_playlists);
+//		menuDrawer.setActiveView(playlistsMenuItem);
 
 		setActionBarTitle(R.string.common_appname);
 		setActionBarSubtitle(R.string.playlist_label);
@@ -149,12 +149,12 @@ public class SelectPlaylistActivity extends SubsonicTabActivity implements Adapt
 		if (Util.isOffline(this)) inflater.inflate(R.menu.select_playlist_context_offline, menu);
 		else inflater.inflate(R.menu.select_playlist_context, menu);
 
-		MenuItem downloadMenuItem = menu.findItem(R.id.album_menu_download);
-
-		if (downloadMenuItem != null)
-		{
-			downloadMenuItem.setVisible(!Util.isOffline(this));
-		}
+//		MenuItem downloadMenuItem = menu.findItem(R.id.album_menu_download);
+//
+//		if (downloadMenuItem != null)
+//		{
+//			downloadMenuItem.setVisible(!Util.isOffline(this));
+//		}
 	}
 
 	@Override
