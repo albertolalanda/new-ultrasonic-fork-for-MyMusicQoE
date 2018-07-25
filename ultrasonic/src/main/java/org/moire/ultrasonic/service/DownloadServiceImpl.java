@@ -943,8 +943,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		updateRemoteControl();
-		//MyMusicQoE newSong
-		setNewSong(true);
 
 		if (index < 0 || index >= size())
 		{
@@ -976,6 +974,9 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			checkDownloads();
 			setNextPlaying();
 		}
+
+		//MyMusicQoE newSong
+		setNewSong(true);
 	}
 
 	private synchronized void resetPlayback()

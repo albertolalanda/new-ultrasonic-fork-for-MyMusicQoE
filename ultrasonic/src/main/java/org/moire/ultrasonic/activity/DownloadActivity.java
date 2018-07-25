@@ -146,14 +146,15 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private Vibrator vibrator;
 
 	// variables for the user rating
-	private boolean canRate = false;
-	private static boolean hasRated = false;
-	private boolean changeStar = false;
+	private boolean canRate = false; // timer is over and user can rate
+	private static boolean hasRated = false; //has rated in the activity, star goes full
+	private boolean changeStar = false; //true when we want to change star
 
 	//use for timer
 	private int secondsLeftForRate = 10;
-	private boolean songUnrated = true;
+	private boolean songUnrated = true; // song unrated on saved array of the service
 	private CountDownTimer countDownTimer;
+	private boolean isRunning = false; // countdowntimer is running
 
 	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 
@@ -242,7 +243,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					protected Void doInBackground() throws Throwable
 					{
 						//LALANDA SEND ON PREVIEOUS
-						getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+						//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 						getDownloadService().previous();
 						return null;
 					}
@@ -279,11 +280,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected Boolean doInBackground() throws Throwable
 					{
-						//LALANDA SEND ON NEXT
-						getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 
 						if (getDownloadService().getCurrentPlayingIndex() < getDownloadService().size() - 1)
 						{
+							//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 							getDownloadService().next();
 							return true;
 						}
@@ -640,7 +640,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		};
 
-		/*if (downloadService != null || downloadService.getCurrentPlaying() != null) {
+		if (downloadService != null || downloadService.getCurrentPlaying() != null) {
 			//RESUME LALANDA
 			System.out.println("LALANDA : " + getDownloadService().getPlayerPosition());
 			if (downloadService.getPlayerPosition() > 10000) {
@@ -650,20 +650,25 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			} else {
 				secondsLeftForRate = (int) Math.round(getDownloadService().getPlayerPosition() * 0.001);
 				songUnrated = false;
+				if (isRunning){
+					countDownTimer.cancel();
+				}
 				countDownTimer = new CountDownTimer(secondsLeftForRate * 1000, 1000) {
 					public void onTick(long millisUntilFinished) {
+						isRunning = true;
 						secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
 						System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
 					}
 
 					public void onFinish() {
+						isRunning = false;
 						canRate = true;
 						changeStar = true;
 						songUnrated = false;
 					}
 				}.start();
 			}
-		}*/
+		}
 
 		executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleWithFixedDelay(runnable, 0L, 250L, TimeUnit.MILLISECONDS);
@@ -1096,11 +1101,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().setShowVisualization(visualizerView.isActive());
 				Util.toast(DownloadActivity.this, active ? R.string.download_visualizer_on : R.string.download_visualizer_off);
 				return true;
-//			case R.id.menu_item_jukebox:
-//				final boolean jukeboxEnabled = !getDownloadService().isJukeboxEnabled();
-//				getDownloadService().setJukeboxEnabled(jukeboxEnabled);
-//				Util.toast(DownloadActivity.this, jukeboxEnabled ? R.string.download_jukebox_on : R.string.download_jukebox_off, false);
-//				return true;
 				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
 				toggleFullScreenAlbumArtRating(1);
@@ -1113,12 +1113,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().clear();
 				onDownloadListChanged();
 				return true;
-//			case R.id.menu_item_save_playlist:
-//				if (!getDownloadService().getSongs().isEmpty())
-//				{
-//					showDialog(DIALOG_SAVE_PLAYLIST);
-//				}
-//				return true;
 			case R.id.menu_item_star:
 				if (currentSong == null)
 				{
@@ -1127,147 +1121,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				if (canRate) {
 					toggleFullScreenAlbumArtRating(2);
 				}else{
-					Util.toast(DownloadActivity.this, "ratings disabled. please listen for another " + secondsLeftForRate + " seconds", false);
-				}
-
-				//LALANDA ITEM STAR
-				/*if (currentSong == null)
-				{
-					return true;
-				}
-
-				final boolean isStarred = currentSong.getStarred();
-				final String id = currentSong.getId();
-
-				if (isStarred)
-				{
-					starMenuItem.setIcon(Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow));
-					currentSong.setStarred(false);
-				}
-				else
-				{
-					starMenuItem.setIcon(Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full));
-					currentSong.setStarred(true);
-				}
-
-				new Thread(new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
-
-						try
-						{
-							if (isStarred)
-							{
-								musicService.unstar(id, null, null, DownloadActivity.this, null);
-							}
-							else
-							{
-								musicService.star(id, null, null, DownloadActivity.this, null);
-							}
-						}
-						catch (Exception e)
-						{
-							Log.e(TAG, e.getMessage(), e);
-						}
+					if (secondsLeftForRate!=10){
+						Util.toast(DownloadActivity.this, "please listen for another " + secondsLeftForRate + " seconds.", false);
+					}else{
+						Util.toast(DownloadActivity.this, "please listen at least for " + secondsLeftForRate + " seconds.", false);
 					}
-				}).start();*/
+				}
 				return true;
-//			case R.id.menu_item_bookmark_set:
-//				if (currentSong == null)
-//				{
-//					return true;
-//				}
-//
-//				final String songId = currentSong.getId();
-//				final int playerPosition = getDownloadService().getPlayerPosition();
-//
-//				currentSong.setBookmarkPosition(playerPosition);
-//
-//				String bookmarkTime = Util.formatTotalDuration(playerPosition, true);
-//
-//				new Thread(new Runnable()
-//				{
-//					@Override
-//					public void run()
-//					{
-//						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
-//
-//						try
-//						{
-//							musicService.createBookmark(songId, playerPosition, DownloadActivity.this, null);
-//						}
-//						catch (Exception e)
-//						{
-//							Log.e(TAG, e.getMessage(), e);
-//						}
-//					}
-//				}).start();
-//
-//				String msg = getResources().getString(R.string.download_bookmark_set_at_position, bookmarkTime);
-//
-//				Util.toast(DownloadActivity.this, msg);
-//
-//				return true;
-//			case R.id.menu_item_bookmark_delete:
-//				if (currentSong == null)
-//				{
-//					return true;
-//				}
-//
-//				final String bookmarkSongId = currentSong.getId();
-//				currentSong.setBookmarkPosition(0);
-//
-//				new Thread(new Runnable()
-//				{
-//					@Override
-//					public void run()
-//					{
-//						final MusicService musicService = MusicServiceFactory.getMusicService(DownloadActivity.this);
-//
-//						try
-//						{
-//							musicService.deleteBookmark(bookmarkSongId, DownloadActivity.this, null);
-//						}
-//						catch (Exception e)
-//						{
-//							Log.e(TAG, e.getMessage(), e);
-//						}
-//					}
-//				}).start();
-//
-//				Util.toast(DownloadActivity.this, R.string.download_bookmark_removed);
-//
-//				return true;
-//			case R.id.menu_item_share:
-//				DownloadService downloadService = getDownloadService();
-//				List<Entry> entries = new ArrayList<Entry>();
-//
-//				if (downloadService != null)
-//				{
-//					List<DownloadFile> downloadServiceSongs = downloadService.getSongs();
-//
-//					if (downloadServiceSongs != null)
-//					{
-//						for (DownloadFile downloadFile : downloadServiceSongs)
-//						{
-//							if (downloadFile != null)
-//							{
-//								Entry playlistEntry = downloadFile.getSong();
-//
-//								if (playlistEntry != null)
-//								{
-//									entries.add(playlistEntry);
-//								}
-//							}
-//						}
-//					}
-//				}
-//
-//				createShare(entries);
-//				return true;
 			default:
 				return false;
 		}
@@ -1515,9 +1375,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//this will get information of the music the user changed to and change rating button and rating bar
 
 		///LALANDA THIS NEEDS TO BE RESOLVED
-		//NEW SONG PRECISA DE SER NO SERVIÇO !!!! TODO TODO PENSAR NISTO
 		if (downloadService.isNewSong()){
-			System.out.println("ENTREI AQUI LALANDA");
 			downloadService.setNewSong(false);
 			if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
 				verticalSeekBar.setProgress(0);
@@ -1540,10 +1398,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				secondsLeftForRate = 10;
 			}
 		}
-
-		//TIMER
-		//secondsPassed = 0;
-		//offset = 0;
 
 		String duration = Util.formatTotalDuration(totalDuration);
 
@@ -1588,9 +1442,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			Integer duration;
 			PlayerState playerState;
 
-			/*int seconds;
-			int secondsOld;*/
-
 			@Override
 			protected Void doInBackground() throws Throwable
 			{
@@ -1600,27 +1451,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				duration = downloadService.getPlayerDuration();
 				playerState = getDownloadService().getPlayerState();
 
-
-				/*seconds = (int) (millisPlayed * 0.001);
-
-				if (seconds!=secondsOld){
-					setSecondsPassed(seconds, getSecondsPassed());
-				}
-
-				System.out.println("LALANDA MILLISPLAYED " + millisPlayed+" seconds " + seconds);
-
-				if (getSecondsPassed() >= 10 && canRate == false){
-					canRate = true;
-					changeStar = true;
-				}*/
-
 				return null;
 			}
 
 			@Override
 			protected void done(final Void result)
 			{
-//				ALBERTO LALANDA ENABLE STAR BUTTON IF MORE THAN 10 SECONDS
 				if (currentPlaying != null)
 				{
 					final int millisTotal = duration == null ? 0 : duration;
@@ -1657,17 +1493,20 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 						if (songUnrated){
 							songUnrated = false;
+							if (isRunning){
+							    countDownTimer.cancel();
+                            }
 							countDownTimer = new CountDownTimer(secondsLeftForRate*1000, 1000) {
 								public void onTick(long millisUntilFinished) {
 									secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
-									System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
+									isRunning = true;
 								}
 
 								public void onFinish() {
 									canRate = true;
 									changeStar = true;
 									songUnrated = false;
-
+									isRunning = false;
 									new SimpleTooltip.Builder(DownloadActivity.this)
 											.anchorView(starButtonView)
 											.text(R.string.mymusicqoe_rating_tooltip)
@@ -1706,7 +1545,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case PAUSED:
 						if (!canRate && !songUnrated){
 							songUnrated = true;
-							System.out.println("COUNTDOWNTIMER CANCEL");
 							countDownTimer.cancel();
 						}
 						break;
