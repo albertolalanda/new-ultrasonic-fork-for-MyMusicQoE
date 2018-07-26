@@ -289,6 +289,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	{
 		super.onDestroy();
 
+		System.out.println("LALANDA DOWNLOADSERVICEIMPL ON DESTROY");
+
 		try
 		{
 			instance = null;
@@ -398,6 +400,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		else
 		{
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
+			//LALANDA SET PLAYLIST NUMBER
 			Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
 
 			int size = size();

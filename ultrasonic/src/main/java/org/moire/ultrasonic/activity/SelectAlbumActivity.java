@@ -1043,10 +1043,14 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 		playNextButton.setVisibility(View.GONE);
 		playLastButton.setVisibility(View.GONE);
 
-		pinButton.setVisibility((enabled && !Util.isOffline(this) && selection.size() > pinnedCount) ? View.VISIBLE : View.GONE);
-		unpinButton.setVisibility(enabled && unpinEnabled ? View.VISIBLE : View.GONE);
-		downloadButton.setVisibility(enabled && !deleteEnabled && !Util.isOffline(this) ? View.VISIBLE : View.GONE);
-		deleteButton.setVisibility(enabled && deleteEnabled ? View.VISIBLE : View.GONE);
+		//pinButton.setVisibility((enabled && !Util.isOffline(this) && selection.size() > pinnedCount) ? View.VISIBLE : View.GONE);
+		//unpinButton.setVisibility(enabled && unpinEnabled ? View.VISIBLE : View.GONE);
+		//downloadButton.setVisibility(enabled && !deleteEnabled && !Util.isOffline(this) ? View.VISIBLE : View.GONE);
+		//deleteButton.setVisibility(enabled && deleteEnabled ? View.VISIBLE : View.GONE);
+		pinButton.setVisibility(View.GONE);
+		unpinButton.setVisibility(View.GONE);
+		downloadButton.setVisibility(View.GONE);
+		deleteButton.setVisibility(View.GONE);
 	}
 
 	private void downloadBackground(final boolean save)
@@ -1179,15 +1183,15 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 					}
 				}
 
-				pinButton.setVisibility(View.VISIBLE);
-				unpinButton.setVisibility(View.VISIBLE);
-				downloadButton.setVisibility(View.VISIBLE);
-				deleteButton.setVisibility(View.VISIBLE);
 				selectButton.setVisibility(allVideos ? View.GONE : View.VISIBLE);
 				playNowButton.setVisibility(View.VISIBLE);
 				//LALANDA REMOVE BUTTONS
 				playNextButton.setVisibility(View.GONE);
 				playLastButton.setVisibility(View.GONE);
+				pinButton.setVisibility(View.GONE);
+				unpinButton.setVisibility(View.GONE);
+				downloadButton.setVisibility(View.GONE);
+				deleteButton.setVisibility(View.GONE);
 
 				if (listSize == 0 || songCount < listSize)
 				{

@@ -119,13 +119,13 @@ public class MainActivity extends SubsonicTabActivity
 		//final View videosTitle = buttons.findViewById(R.id.main_videos_title);
 		final View songsTitle = buttons.findViewById(R.id.main_songs);
 		final View randomSongsButton = buttons.findViewById(R.id.main_songs_button);
-		final View songsStarredButton = buttons.findViewById(R.id.main_songs_starred);
+		//final View songsStarredButton = buttons.findViewById(R.id.main_songs_starred);
 		final View albumsTitle = buttons.findViewById(R.id.main_albums);
 		final View albumsNewestButton = buttons.findViewById(R.id.main_albums_newest);
 		final View albumsRandomButton = buttons.findViewById(R.id.main_albums_random);
-		final View albumsHighestButton = buttons.findViewById(R.id.main_albums_highest);
-		final View albumsStarredButton = buttons.findViewById(R.id.main_albums_starred);
-		final View albumsRecentButton = buttons.findViewById(R.id.main_albums_recent);
+		//final View albumsHighestButton = buttons.findViewById(R.id.main_albums_highest);
+		//final View albumsStarredButton = buttons.findViewById(R.id.main_albums_starred);
+		//final View albumsRecentButton = buttons.findViewById(R.id.main_albums_recent);
 		final View albumsFrequentButton = buttons.findViewById(R.id.main_albums_frequent);
 		final View albumsAlphaByNameButton = buttons.findViewById(R.id.main_albums_alphaByName);
 		final View albumsAlphaByArtistButton = buttons.findViewById(R.id.main_albums_alphaByArtist);
@@ -173,18 +173,18 @@ public class MainActivity extends SubsonicTabActivity
 			adapter.addView(musicTitle, false);
 			adapter.addViews(asList(artistsButton, albumsButton, genresButton), true);
 			adapter.addView(songsTitle, false);
-			adapter.addViews(asList(randomSongsButton, songsStarredButton), true);
+			adapter.addViews(asList(randomSongsButton), true);
 			adapter.addView(albumsTitle, false);
 
 			if (Util.getShouldUseId3Tags(MainActivity.this))
 			{
 				shouldUseId3 = true;
-				adapter.addViews(asList(albumsNewestButton, albumsRecentButton, albumsFrequentButton, albumsRandomButton, albumsStarredButton, albumsAlphaByNameButton, albumsAlphaByArtistButton), true);
+				adapter.addViews(asList(albumsNewestButton, albumsFrequentButton, albumsRandomButton, albumsAlphaByNameButton, albumsAlphaByArtistButton), true);
 			}
 			else
 			{
 				shouldUseId3 = false;
-				adapter.addViews(asList(albumsNewestButton, albumsRecentButton, albumsFrequentButton, albumsHighestButton, albumsRandomButton, albumsStarredButton, albumsAlphaByNameButton, albumsAlphaByArtistButton), true);
+				adapter.addViews(asList(albumsNewestButton, albumsFrequentButton, albumsRandomButton, albumsAlphaByNameButton, albumsAlphaByArtistButton), true);
 			}
 
 			//adapter.addView(videosTitle, false);
@@ -216,22 +216,22 @@ public class MainActivity extends SubsonicTabActivity
 				{
 					showAlbumList("random", R.string.main_albums_random);
 				}
-				else if (view == albumsHighestButton)
-				{
-					showAlbumList("highest", R.string.main_albums_highest);
-				}
-				else if (view == albumsRecentButton)
-				{
-					showAlbumList("recent", R.string.main_albums_recent);
-				}
+//				else if (view == albumsHighestButton)
+//				{
+//					showAlbumList("highest", R.string.main_albums_highest);
+//				}
+//				else if (view == albumsRecentButton)
+//				{
+//					showAlbumList("recent", R.string.main_albums_recent);
+//				}
 				else if (view == albumsFrequentButton)
 				{
 					showAlbumList("frequent", R.string.main_albums_frequent);
 				}
-				else if (view == albumsStarredButton)
-				{
-					showAlbumList(Constants.STARRED, R.string.main_albums_starred);
-				}
+//				else if (view == albumsStarredButton)
+//				{
+//					showAlbumList(Constants.STARRED, R.string.main_albums_starred);
+//				}
 				else if (view == albumsAlphaByNameButton)
 				{
 					showAlbumList(Constants.ALPHABETICAL_BY_NAME, R.string.main_albums_alphaByName);
@@ -240,10 +240,10 @@ public class MainActivity extends SubsonicTabActivity
 				{
 					showAlbumList("alphabeticalByArtist", R.string.main_albums_alphaByArtist);
 				}
-				else if (view == songsStarredButton)
-				{
-					showStarredSongs();
-				}
+//				else if (view == songsStarredButton)
+//				{
+//					showStarredSongs();
+//				}
 				else if (view == artistsButton)
 				{
 					showArtists();

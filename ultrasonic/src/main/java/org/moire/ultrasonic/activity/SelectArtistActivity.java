@@ -57,7 +57,7 @@ public class SelectArtistActivity extends SubsonicTabActivity implements Adapter
 
 	private PullToRefreshListView refreshArtistListView;
 	private ListView artistListView;
-	private View folderButton;
+	//private View folderButton;
 	private TextView folderName;
 	private List<MusicFolder> musicFolders;
 
@@ -84,17 +84,18 @@ public class SelectArtistActivity extends SubsonicTabActivity implements Adapter
 
 		artistListView.setOnItemClickListener(this);
 
-		folderButton = LayoutInflater.from(this).inflate(R.layout.select_artist_header, artistListView, false);
-
-		if (folderButton != null)
-		{
-			folderName = (TextView) folderButton.findViewById(R.id.select_artist_folder_2);
-		}
-
-		if (!Util.isOffline(this) && !Util.getShouldUseId3Tags(this))
-		{
-			artistListView.addHeaderView(folderButton);
-		}
+		//LALANDA REMOVED FOLDER BUTTON
+//		folderButton = LayoutInflater.from(this).inflate(R.layout.select_artist_header, artistListView, false);
+//
+//		if (folderButton != null)
+//		{
+//			folderName = (TextView) folderButton.findViewById(R.id.select_artist_folder_2);
+//		}
+//
+//		if (!Util.isOffline(this) && !Util.getShouldUseId3Tags(this))
+//		{
+//			artistListView.addHeaderView(folderButton);
+//		}
 
 		registerForContextMenu(artistListView);
 
@@ -132,10 +133,10 @@ public class SelectArtistActivity extends SubsonicTabActivity implements Adapter
 		startActivityForResultWithoutTransition(this, intent);
 	}
 
-	private void selectFolder()
-	{
-		folderButton.showContextMenu();
-	}
+//	private void selectFolder()
+//	{
+//		folderButton.showContextMenu();
+//	}
 
 	private void load()
 	{
@@ -206,12 +207,12 @@ public class SelectArtistActivity extends SubsonicTabActivity implements Adapter
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 	{
-		if (view == folderButton)
-		{
-			selectFolder();
-		}
-		else
-		{
+//		if (view == folderButton)
+//		{
+//			selectFolder();
+//		}
+//		else
+//		{
 			Artist artist = (Artist) parent.getItemAtPosition(position);
 
 			if (artist != null)
@@ -223,7 +224,7 @@ public class SelectArtistActivity extends SubsonicTabActivity implements Adapter
 				intent.putExtra(Constants.INTENT_EXTRA_NAME_ARTIST, true);
 				startActivityForResultWithoutTransition(this, intent);
 			}
-		}
+		//}
 	}
 
 	@Override
