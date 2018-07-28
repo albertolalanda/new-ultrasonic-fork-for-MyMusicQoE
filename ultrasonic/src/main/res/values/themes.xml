@@ -51,6 +51,7 @@
         <item name="button_check_custom">@drawable/btn_check_custom_dark</item>
         <!--playlist toggle-->
         <item name="playlist_toggle">@drawable/ic_playlist_dark</item>
+        <item name="ratingbar_background">@color/rating_bar_background_dark</item>
     </style>
 
     <style name="UltraSonicTheme.Light" parent="Theme.AppCompat.Light">
@@ -99,6 +100,7 @@
         <item name="bookmark">@drawable/ic_menu_bookmark_light</item>
         <item name="button_check_custom">@drawable/btn_check_custom_light</item>
         <item name="playlist_toggle">@drawable/ic_playlist_light</item>
+        <item name="ratingbar_background">@color/rating_bar_background_light</item>
     </style>
 
 </resources>

@@ -12,13 +12,13 @@
         a:layout_marginBottom="7dp"
         a:layout_marginTop="7dp"
         a:gravity="center"
-        a:text="como foi a qualidade de áudio ?"
+        a:text="@string/seekbar_question"
         a:textAppearance="?android:attr/textAppearanceLarge" />
 
     <RelativeLayout
         a:layout_width="fill_parent"
         a:layout_height="fill_parent"
-        a:background="@color/grey_rating_bar_unselected"
+        a:background="?attr/ratingbar_background"
         a:clickable="false"
         a:orientation="horizontal">
 
@@ -54,7 +54,7 @@
                     a:layout_height="fill_parent"
                     a:layout_weight="1"
                     a:gravity="center_vertical"
-                    a:text="Excellent"
+                    a:text="@string/seekbar_excellent"
                     a:textSize="30sp" />
 
             </LinearLayout>
@@ -79,7 +79,7 @@
                     a:layout_height="fill_parent"
                     a:layout_weight="1"
                     a:gravity="center_vertical"
-                    a:text="Good"
+                    a:text="@string/seekbar_good"
                     a:textSize="30sp" />
 
             </LinearLayout>
@@ -104,7 +104,7 @@
                     a:layout_height="fill_parent"
                     a:layout_weight="1"
                     a:gravity="center_vertical"
-                    a:text="Fair"
+                    a:text="@string/seekbar_fair"
                     a:textSize="30sp" />
 
             </LinearLayout>
@@ -129,7 +129,7 @@
                     a:layout_height="fill_parent"
                     a:layout_weight="1"
                     a:gravity="center_vertical"
-                    a:text="Poor"
+                    a:text="@string/seekbar_poor"
                     a:textSize="30sp" />
 
             </LinearLayout>
@@ -154,7 +154,7 @@
                     a:layout_height="fill_parent"
                     a:layout_weight="1"
                     a:gravity="center_vertical"
-                    a:text="Bad"
+                    a:text="@string/seekbar_bad"
                     a:textSize="30sp" />
 
                 <include

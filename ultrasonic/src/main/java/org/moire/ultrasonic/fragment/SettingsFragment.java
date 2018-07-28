@@ -43,15 +43,15 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private ListPreference cacheSize;
     private EditTextPreference cacheLocation;
     private ListPreference preloadCount;
-    private ListPreference bufferLength;
-    private ListPreference incrementTime;
-    private ListPreference networkTimeout;
-    private ListPreference maxAlbums;
+   // private ListPreference bufferLength;
+    //private ListPreference incrementTime;
+    //private ListPreference networkTimeout;
+    //private ListPreference maxAlbums;
     private ListPreference maxSongs;
-    private ListPreference maxArtists;
-    private ListPreference defaultAlbums;
-    private ListPreference defaultSongs;
-    private ListPreference defaultArtists;
+   // private ListPreference maxArtists;
+    //private ListPreference defaultAlbums;
+    //private ListPreference defaultSongs;
+    //private ListPreference defaultArtists;
     //private ListPreference chatRefreshInterval;
     private ListPreference directoryCacheTime;
     private CheckBoxPreference mediaButtonsEnabled;
@@ -90,21 +90,21 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         cacheSize = (ListPreference) findPreference(Constants.PREFERENCES_KEY_CACHE_SIZE);
         cacheLocation = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_CACHE_LOCATION);
         preloadCount = (ListPreference) findPreference(Constants.PREFERENCES_KEY_PRELOAD_COUNT);
-        bufferLength = (ListPreference) findPreference(Constants.PREFERENCES_KEY_BUFFER_LENGTH);
-        incrementTime = (ListPreference) findPreference(Constants.PREFERENCES_KEY_INCREMENT_TIME);
-        networkTimeout = (ListPreference) findPreference(Constants.PREFERENCES_KEY_NETWORK_TIMEOUT);
-        maxAlbums = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_ALBUMS);
+       // bufferLength = (ListPreference) findPreference(Constants.PREFERENCES_KEY_BUFFER_LENGTH);
+        //incrementTime = (ListPreference) findPreference(Constants.PREFERENCES_KEY_INCREMENT_TIME);
+       // networkTimeout = (ListPreference) findPreference(Constants.PREFERENCES_KEY_NETWORK_TIMEOUT);
+       // maxAlbums = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_ALBUMS);
         maxSongs = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_SONGS);
-        maxArtists = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_ARTISTS);
-        defaultArtists = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ARTISTS);
-        defaultSongs = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SONGS);
-        defaultAlbums = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ALBUMS);
+        //maxArtists = (ListPreference) findPreference(Constants.PREFERENCES_KEY_MAX_ARTISTS);
+        //defaultArtists = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ARTISTS);
+        //defaultSongs = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SONGS);
+        //defaultAlbums = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ALBUMS);
         //chatRefreshInterval = (ListPreference) findPreference(Constants.PREFERENCES_KEY_CHAT_REFRESH_INTERVAL);
         directoryCacheTime = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DIRECTORY_CACHE_TIME);
         mediaButtonsEnabled = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_MEDIA_BUTTONS);
         lockScreenEnabled = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SHOW_LOCK_SCREEN_CONTROLS);
-        sendBluetoothAlbumArt = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART);
-        sendBluetoothNotifications = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_NOTIFICATIONS);
+        //sendBluetoothAlbumArt = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART);
+        //sendBluetoothNotifications = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_NOTIFICATIONS);
         //viewRefresh = (ListPreference) findPreference(Constants.PREFERENCES_KEY_VIEW_REFRESH);
         //imageLoaderConcurrency = (ListPreference) findPreference(Constants.PREFERENCES_KEY_IMAGE_LOADER_CONCURRENCY);
 //        sharingDefaultDescription = (EditTextPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SHARE_DESCRIPTION);
@@ -147,7 +147,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         update();
 
         if (Constants.PREFERENCES_KEY_HIDE_MEDIA.equals(key)) {
-            setHideMedia(sharedPreferences.getBoolean(key, false));
+            setHideMedia(sharedPreferences.getBoolean(key, true));
         } else if (Constants.PREFERENCES_KEY_MEDIA_BUTTONS.equals(key)) {
             setMediaButtonsEnabled(sharedPreferences.getBoolean(key, true));
         } else if (Constants.PREFERENCES_KEY_CACHE_LOCATION.equals(key)) {
@@ -282,15 +282,15 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         cacheSize.setSummary(cacheSize.getEntry());
         cacheLocation.setSummary(cacheLocation.getText());
         preloadCount.setSummary(preloadCount.getEntry());
-        bufferLength.setSummary(bufferLength.getEntry());
-        incrementTime.setSummary(incrementTime.getEntry());
-        networkTimeout.setSummary(networkTimeout.getEntry());
-        maxAlbums.setSummary(maxAlbums.getEntry());
-        maxArtists.setSummary(maxArtists.getEntry());
+        //bufferLength.setSummary(bufferLength.getEntry());
+        //incrementTime.setSummary(incrementTime.getEntry());
+        //networkTimeout.setSummary(networkTimeout.getEntry());
+       // maxAlbums.setSummary(maxAlbums.getEntry());
+        //maxArtists.setSummary(maxArtists.getEntry());
         maxSongs.setSummary(maxSongs.getEntry());
-        defaultAlbums.setSummary(defaultAlbums.getEntry());
-        defaultArtists.setSummary(defaultArtists.getEntry());
-        defaultSongs.setSummary(defaultSongs.getEntry());
+       // defaultAlbums.setSummary(defaultAlbums.getEntry());
+        //defaultArtists.setSummary(defaultArtists.getEntry());
+        //defaultSongs.setSummary(defaultSongs.getEntry());
         //chatRefreshInterval.setSummary(chatRefreshInterval.getEntry());
         directoryCacheTime.setSummary(directoryCacheTime.getEntry());
         //viewRefresh.setSummary(viewRefresh.getEntry());
@@ -304,10 +304,10 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
             lockScreenEnabled.setEnabled(false);
         }
 
-        if (!sendBluetoothNotifications.isChecked()) {
-            sendBluetoothAlbumArt.setChecked(false);
-            sendBluetoothAlbumArt.setEnabled(false);
-        }
+//        if (!sendBluetoothNotifications.isChecked()) {
+//            sendBluetoothAlbumArt.setChecked(false);
+//            sendBluetoothAlbumArt.setEnabled(false);
+//        }
     }
 
     private static void setImageLoaderConcurrency(int concurrency) {

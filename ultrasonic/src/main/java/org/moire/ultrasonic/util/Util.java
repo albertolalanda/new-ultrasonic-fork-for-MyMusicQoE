@@ -154,12 +154,13 @@ public class Util extends DownloadActivity
 
 	public static boolean isScrobblingEnabled(Context context)
 	{
-		if (isOffline(context))
-		{
-			return false;
-		}
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SCROBBLE, false);
+//		if (isOffline(context))
+//		{
+//			return false;
+//		}
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SCROBBLE, false);
+		return false;
 	}
 
 	public static boolean isServerScalingEnabled(Context context)
@@ -174,14 +175,16 @@ public class Util extends DownloadActivity
 
 	public static boolean isNotificationEnabled(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_NOTIFICATION, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_NOTIFICATION, false);
+		return true;
 	}
 
 	public static boolean isNotificationAlwaysEnabled(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_ALWAYS_SHOW_NOTIFICATION, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_ALWAYS_SHOW_NOTIFICATION, false);
+		return true;
 	}
 
 	public static boolean isLockScreenEnabled(Context context)
@@ -1457,28 +1460,33 @@ public class Util extends DownloadActivity
 		views.setOnClickPendingIntent(R.id.control_stop, pendingIntent);
 	}
 
+	//NETWORK TIMEOUT n é usado?
 	public static int getNetworkTimeout(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_NETWORK_TIMEOUT, "15000"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_NETWORK_TIMEOUT, "15000"));
+		return 15000;
 	}
 
 	public static int getDefaultAlbums(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DEFAULT_ALBUMS, "5"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DEFAULT_ALBUMS, "5"));
+		return 5;
 	}
 
 	public static int getMaxAlbums(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_MAX_ALBUMS, "20"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_MAX_ALBUMS, "20"));
+		return 20;
 	}
 
 	public static int getDefaultSongs(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DEFAULT_SONGS, "10"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DEFAULT_SONGS, "10"));
+		return 10;
 	}
 
 	public static int getMaxSongs(Context context)
@@ -1489,27 +1497,33 @@ public class Util extends DownloadActivity
 
 	public static int getMaxArtists(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_MAX_ARTISTS, "10"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_MAX_ARTISTS, "10"));
+		return 10;
 	}
 
+//	YOU KNOW FOR THE SEARCH
 	public static int getDefaultArtists(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DEFAULT_ARTISTS, "3"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DEFAULT_ARTISTS, "3"));
+		return 3;
 	}
 
+	//GET BUFFER LENGTH LALANDA TODO VER COMO ISTO FUNCIONA PARA O RELATORIO
 	public static int getBufferLength(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_BUFFER_LENGTH, "5"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_BUFFER_LENGTH, "5"));
+		return 5;
 	}
 
 	//skip interval
 	public static int getIncrementTime(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_INCREMENT_TIME, "5"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_INCREMENT_TIME, "5"));
+		return 5;
 	}
 
 	public static boolean getMediaButtonsPreference(Context context)
@@ -1518,10 +1532,12 @@ public class Util extends DownloadActivity
 		return preferences.getBoolean(Constants.PREFERENCES_KEY_MEDIA_BUTTONS, true);
 	}
 
+	//LALANDA now playing summary
 	public static boolean getShowNowPlayingPreference(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_NOW_PLAYING, true);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_NOW_PLAYING, true);
+		return true;
 	}
 
 	public static boolean getGaplessPlaybackPreference(Context context)
@@ -1583,8 +1599,9 @@ public class Util extends DownloadActivity
 
 	public static boolean getShouldClearBookmark(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_CLEAR_BOOKMARK, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_CLEAR_BOOKMARK, false);
+		return false;
 	}
 
 	public static String formatTotalDuration(long totalDuration, boolean inMilliseconds)
@@ -1694,14 +1711,16 @@ public class Util extends DownloadActivity
 
 	public static boolean getShouldSendBluetoothNotifications(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_NOTIFICATIONS, true);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_NOTIFICATIONS, true);
+		return true;
 	}
 
 	public static boolean getShouldSendBluetoothAlbumArt(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART, true);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART, true);
+		return false;
 	}
 
 	//LALANDA refresh interval for views always 1sec
@@ -1791,8 +1810,9 @@ public class Util extends DownloadActivity
 
 	public static boolean getShouldScanMedia(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SCAN_MEDIA, false);
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SCAN_MEDIA, false);
+		return false;
 	}
 
 	public static void scanMedia(Context context, File file)

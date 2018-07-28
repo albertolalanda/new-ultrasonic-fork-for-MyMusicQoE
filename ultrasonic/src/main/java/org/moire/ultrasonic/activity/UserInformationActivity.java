@@ -181,8 +181,6 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				String item = "";
 				numberOfFavoriteGenres = Util.getNumberOfFavoriteGenres(UserInformationActivity.this);
 				for (int i = 0; i < numberOfFavoriteGenres; i++){
-					System.out.println(Util.getNumberOfFavoriteGenres(UserInformationActivity.this));
-					System.out.println("FAVORITE GENRES: "+Util.getFavoriteGenre(UserInformationActivity.this, i));
 					listPreferenceFavoriteGenres.add(Util.getFavoriteGenre(UserInformationActivity.this, i));
 					item = item + Util.getFavoriteGenre(UserInformationActivity.this, i);
 					if (i != numberOfFavoriteGenres - 1) {
@@ -192,7 +190,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 				if (!item.isEmpty()){
 					buttonGenres.setText(item);
 				}else{
-					buttonGenres.setText("select favorite genres");
+					buttonGenres.setText(R.string.user_information_favoritegenres_button);
 				}
 
 				for (int i = 0; i < result.size(); i++)
@@ -218,7 +216,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 					@Override
 					public void onClick(View view) {
 						AlertDialog.Builder mBuilder = new AlertDialog.Builder(UserInformationActivity.this);
-						mBuilder.setTitle("Select Favorite Genres");
+						mBuilder.setTitle(getString(R.string.user_information_selectgenres_title));
 						mBuilder.setMultiChoiceItems(listGenres, checkedGenres, new DialogInterface.OnMultiChoiceClickListener() {
 						@Override
 						public void onClick(DialogInterface dialogInterface, int position, boolean isChecked) {
@@ -231,7 +229,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 						});
 
 						mBuilder.setCancelable(false);
-						mBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+						mBuilder.setPositiveButton(getString(R.string.user_information_selectgenres_positivebtn), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int which) {
 								String item = "";
@@ -244,19 +242,19 @@ public class UserInformationActivity extends SubsonicTabActivity {
 								if (!item.isEmpty()){
 									buttonGenres.setText(item);
 								}else{
-									buttonGenres.setText("select favorite genres");
+									buttonGenres.setText(R.string.user_information_favoritegenres_button);
 								}
 
 							}
 						});
 
-						mBuilder.setNeutralButton("Clear All", new DialogInterface.OnClickListener() {
+						mBuilder.setNeutralButton(getString(R.string.user_information_selectgenres_clearbtn), new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialogInterface, int which) {
 								for (int i = 0; i < checkedGenres.length; i++) {
 									checkedGenres[i] = false;
 									userGenres.clear();
-									buttonGenres.setText("select favorite genres");
+									buttonGenres.setText(R.string.user_information_favoritegenres_button);
 								}
 							}
 						});
@@ -353,9 +351,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 						Util.setUserAge(UserInformationActivity.this, spinnerAge.getSelectedItemPosition());
 						//Save favorite genres
 						Util.setNumberOfFavoriteGenres(UserInformationActivity.this, userGenres.size());
-						System.out.println("NUMBER OF NEW FAVORITE GENRES: " + userGenres.size());
 						for (int i = 0; i < userGenres.size(); i++){
-							System.out.println("SET FAVORITE GENRES: "+ listGenres[userGenres.get(i)]);
 							Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
 						}
 					}else{

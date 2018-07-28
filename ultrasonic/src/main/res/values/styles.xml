@@ -94,6 +94,7 @@
     <attr name="button_check_custom" format="reference"/>
     <attr name="color_background" format="reference"/>
     <attr name="playlist_toggle" format="reference"/>
+    <attr name="ratingbar_background" format="reference"/>
 
 </resources>
 

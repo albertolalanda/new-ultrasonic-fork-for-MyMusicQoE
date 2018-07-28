@@ -357,6 +357,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		shufflePlay = false;
 		int offset = 1;
 
+		final Context context = DownloadActivity.getInstance().getApplicationContext();
+		//LALANDA SET PLAYLIST NUMBER
+		Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
+
 		if (songs.isEmpty())
 		{
 			return;
@@ -399,10 +403,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 		else
 		{
-			final Context context = DownloadActivity.getInstance().getApplicationContext();
-			//LALANDA SET PLAYLIST NUMBER
-			Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
-
 			int size = size();
 			int index = getCurrentPlayingIndex();
 
@@ -516,6 +516,9 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	public synchronized void setShufflePlayEnabled(boolean enabled)
 	{
 		shufflePlay = enabled;
+		//LALANDA SHUFFLEPLAY CORNER BUTTON
+		final Context context = DownloadActivity.getInstance().getApplicationContext();
+		Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
 		if (shufflePlay)
 		{
 			clear();
@@ -978,7 +981,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			setNextPlaying();
 		}
 
-		//MyMusicQoE newSong
 		setNewSong(true);
 	}
 
@@ -1874,6 +1876,25 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //					DownloadActivity.getVerticaSeekBar().getProgress()
 //				}
 
+
+				//LALANDA TODO TODO TODO
+//				// prepare intent which is triggered if the // notification is selected
+//				Intent intent = new Intent(this, NotificationReceiver.class);
+//				PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+//				// build notification
+//				// the addAction re-use the same intent to keep the example short
+//				Notification n  = new Notification.Builder(this)
+//						.setContentTitle("New mail from " + "test@gmail.com")
+//						.setContentText("Subject")
+//						.setSmallIcon(R.drawable.icon)
+//						.setContentIntent(pIntent)
+//						.setAutoCancel(true)
+//						.addAction(R.drawable.icon, "Call", pIntent)
+//						.addAction(R.drawable.icon, "More", pIntent)
+//						.addAction(R.drawable.icon, "And more", pIntent).build();
+//				NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//				notificationManager.notify(0, n);
+
 				//LALANDA SEND RATING
 				sendRatingMyMusicQoE(downloadFile);
 
@@ -2001,6 +2022,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		setNextPlayerState(IDLE);
 	}
 
+
+	//LALANDA WHEN SHUFFLE CORNER BUTTON IS PRESSED
 	protected synchronized void checkDownloads()
 	{
 		if (!Util.isExternalStoragePresent() || !lifecycleSupport.isExternalStorageAvailable())
@@ -2277,6 +2300,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			this.position = position;
 			partialFile = downloadFile.getPartialFile();
 
+			//LALANDA BUFFER LENGTH
 			long bufferLength = Util.getBufferLength(DownloadServiceImpl.this);
 
 			if (bufferLength == 0)
