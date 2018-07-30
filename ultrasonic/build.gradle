@@ -3,20 +3,16 @@ apply plugin: 'kotlin-android'
 apply plugin: 'jacoco-android'
 apply from: "../gradle_scripts/code_quality.gradle"
 
+//applicationId Changed with change flavours. i dont think actual package change is needed
 android {
     compileSdkVersion versions.compileSdk
-
     defaultConfig {
-        applicationId "org.moire.ultrasonic"
-        versionCode versions.versionCode
+        applicationId 'pt.ipleiria.mymusicqoe'
         versionName versions.versionName
-
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
-
         resConfigs "en", "pt"
     }
-
     buildTypes {
         release {
             minifyEnabled true
@@ -38,14 +34,14 @@ android {
         main.java.srcDirs += "${projectDir}/src/main/kotlin"
         test.java.srcDirs += "${projectDir}/src/test/kotlin"
     }
-
     packagingOptions {
         exclude 'META-INF/LICENSE'
     }
-
     lintOptions {
         baselineFile file("lint-baseline.xml")
         abortOnError true
+    }
+    productFlavors {
     }
 }
 
@@ -56,20 +52,15 @@ dependencies {
     implementation project(':domain')
     implementation project(':subsonic-api')
     implementation project(':cache')
-
     implementation androidSupport.support
     implementation androidSupport.design
-
     implementation other.kotlinStdlib
-
     testImplementation other.kotlinReflect
     testImplementation testing.junit
     testImplementation testing.kotlinJunit
     testImplementation testing.mockitoKotlin
     testImplementation testing.kluent
-
     implementation 'com.android.support.constraint:constraint-layout:1.1.2'
-
     implementation 'com.github.douglasjunior:android-simple-tooltip:0.2.2'
 }
 
