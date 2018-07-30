@@ -72,6 +72,7 @@ public final class Constants
 	// Other user constants.
 	public static final String USER_NUMBER_OF_PLAYLIST = "myMusicQoE.userNumberOfPlaylist";
 	public static final String USER_INFORMATION_IS_SENT = "myMusicQoE.userInformationIsSent";
+	public static final String DOWNLOAD_ACTIVITY_IS_DESTROYED = "myMusicQoE.downloadDestroyed";
 
 	// Preferences keys.
 	public static final String PREFERENCES_KEY_SERVER = "server";

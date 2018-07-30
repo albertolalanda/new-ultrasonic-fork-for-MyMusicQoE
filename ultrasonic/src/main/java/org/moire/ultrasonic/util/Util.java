@@ -187,10 +187,12 @@ public class Util extends DownloadActivity
 		return true;
 	}
 
+	//LALANDA MEDIA BUTTON  LOCK SCREEN ENABLED
 	public static boolean isLockScreenEnabled(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
 		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_LOCK_SCREEN_CONTROLS, false);
+//		return false;
 	}
 
 	public static void setActiveServer(Context context, int instance)
@@ -203,6 +205,20 @@ public class Util extends DownloadActivity
 	}
 
 	////-------------------------------------------------------------------------------------///////
+
+    public static boolean isDownloadActivityDestroyed(Context context)
+    {
+        SharedPreferences preferences = getPreferences(context);
+        return preferences.getBoolean(Constants.DOWNLOAD_ACTIVITY_IS_DESTROYED, false);
+    }
+
+    public static void setisDownloadActivityDestroyed(Context context, boolean value)
+    {
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(Constants.DOWNLOAD_ACTIVITY_IS_DESTROYED, value);
+        editor.commit();
+    }
 
 	public static boolean isUserInfoSent(Context context)
 	{
@@ -1526,10 +1542,12 @@ public class Util extends DownloadActivity
 		return 5;
 	}
 
+	//TODO CONSIDER MEDIABUTTONS NOTIFICATIONS
 	public static boolean getMediaButtonsPreference(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
 		return preferences.getBoolean(Constants.PREFERENCES_KEY_MEDIA_BUTTONS, true);
+		//return false;
 	}
 
 	//LALANDA now playing summary

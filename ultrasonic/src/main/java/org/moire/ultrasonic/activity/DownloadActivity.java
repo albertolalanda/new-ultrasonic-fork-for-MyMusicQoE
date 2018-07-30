@@ -166,7 +166,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 	private static boolean activityVisible;
-	private static boolean activityDestroyed;
 
 	/**
 	 * Called when the activity is first created.
@@ -186,7 +185,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 		activityVisible = true;
-		activityDestroyed = false;
+		Util.setisDownloadActivityDestroyed(DownloadActivity.this, false);
 
 		swipeDistance = (width + height) * PERCENTAGE_OF_SCREEN_FOR_SWIPE / 100;
 		swipeVelocity = swipeDistance;
@@ -635,7 +634,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 		activityVisible = true;
-		activityDestroyed = false;
+		//Util.setisDownloadActivityDestroyed(DownloadActivity.this, false);
 
 		if (downloadService == null || downloadService.getCurrentPlaying() == null)
 		{
@@ -756,7 +755,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 		activityVisible = false;
-		activityDestroyed = false;
+		//Util.setisDownloadActivityDestroyed(DownloadActivity.this, false);
 
 		if (visualizerView != null)
 		{
@@ -770,7 +769,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		super.onDestroy();
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 		activityVisible = false;
-		activityDestroyed = true;
+		Util.setisDownloadActivityDestroyed(DownloadActivity.this, true);
 	}
 
 	@Override
@@ -1945,8 +1944,4 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	public static boolean isActivityVisible() {
 		return activityVisible;
 	}
-	public static boolean isActivityDestroyed() {
-		return activityDestroyed;
-	}
-
 }

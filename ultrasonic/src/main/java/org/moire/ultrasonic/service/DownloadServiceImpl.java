@@ -21,18 +21,22 @@ package org.moire.ultrasonic.service;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.media.AudioDeviceInfo;
 import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.media.RemoteControlClient;
+import android.media.RingtoneManager;
 import android.media.audiofx.AudioEffect;
+import android.net.Uri;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -1876,24 +1880,39 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //					DownloadActivity.getVerticaSeekBar().getProgress()
 //				}
 
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+                   // if (Util.isDownloadActivityDestroyed(DownloadServiceImpl.this) && !forSongGetIsRated(downloadFile.getSong()) ){
+//                    	&& DownloadActivity.isRated()
 
-				//LALANDA TODO TODO TODO
-//				// prepare intent which is triggered if the // notification is selected
-//				Intent intent = new Intent(this, NotificationReceiver.class);
-//				PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
-//				// build notification
-//				// the addAction re-use the same intent to keep the example short
-//				Notification n  = new Notification.Builder(this)
-//						.setContentTitle("New mail from " + "test@gmail.com")
-//						.setContentText("Subject")
-//						.setSmallIcon(R.drawable.icon)
-//						.setContentIntent(pIntent)
-//						.setAutoCancel(true)
-//						.addAction(R.drawable.icon, "Call", pIntent)
-//						.addAction(R.drawable.icon, "More", pIntent)
-//						.addAction(R.drawable.icon, "And more", pIntent).build();
-//				NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//				notificationManager.notify(0, n);
+                        // prepare intent which is triggered if the // notification is selected
+                        Intent intent = new Intent(DownloadServiceImpl.this, DownloadActivity.class);
+                        PendingIntent pIntent = PendingIntent.getActivity(DownloadServiceImpl.this, 0, intent, 0);
+                        // build notification
+                        // the addAction re-use the same intent to keep the example short
+                        Notification n = null;
+
+                            n = new Notification.Builder(DownloadServiceImpl.this)
+                                    .setContentTitle("New mail from " + "test@gmail.com")
+                                    .setContentText("Subject")
+                                    .setSmallIcon(android.R.drawable.ic_dialog_info)
+                                    .setContentIntent(pIntent)
+									.setVibrate(new long[] {200, 200})
+									.setLights(Color.BLUE, 3000, 3000)
+									.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+									.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+									.addAction(R.drawable.ic_star_hollow_light, "Rate", pIntent)
+									.setAutoCancel(true).build();
+
+    //                            .addAction(R.drawable.icon, "Call", pIntent)
+    //                            .addAction(R.drawable.icon, "More", pIntent)
+    //                            .addAction(R.drawable.icon, "And more", pIntent)
+
+                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+                        notificationManager.notify(0, n);
+                        pause();
+                        return ;
+                    //}
+                }
 
 				//LALANDA SEND RATING
 				sendRatingMyMusicQoE(downloadFile);
@@ -2225,6 +2244,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	}
 
     @SuppressWarnings("IconColors")
+	//LALANDA BUILD NOTIFICATION CONTROLLS
     private Notification buildForegroundNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.ic_stat_ultrasonic);

@@ -64,6 +64,7 @@
             <!--a:key="useId3Tags"-->
             <!--a:summary="@string/settings.use_id3_summary"-->
             <!--a:title="@string/settings.use_id3"/>-->
+        <!--LALANDA TODO CONSIDER NOTIFICATION BUTTONS MEDIA-->
         <CheckBoxPreference
             a:defaultValue="true"
             a:key="mediaButtons"
@@ -123,6 +124,7 @@
             <!--a:key="alwaysShowNotification"-->
             <!--a:summary="@string/settings.show_notification_always_summary"-->
             <!--a:title="@string/settings.show_notification_always"/>-->
+    <!--TODO LALANDA SE VOLTAR A METER MEDIA BUTTONS METER ISTO TMB-->
         <CheckBoxPreference
             a:defaultValue="true"
             a:key="showLockScreen"
