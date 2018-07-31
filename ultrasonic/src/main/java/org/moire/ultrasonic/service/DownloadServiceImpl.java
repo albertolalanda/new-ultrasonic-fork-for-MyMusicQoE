@@ -389,7 +389,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			//test LALANDA THIS WORKS? TODO TODO
 			//delete(songs);
 
-			downloadFileCache.clear();
+
+			//downloadFileCache.clear();
 			/////////////////////////////////////////////////////////////////////
 			downloadList.clear();
 			songsRatingInfo.clear();
@@ -960,18 +961,19 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		if (getSongsRatingInfo(index, 0) == 0){
-			countDownTimerPausable = new CountDownTimerPausable(10000, 1000) {
-				@Override
-				public void onTick(long millisUntilFinished) {
-				}
 
-				@Override
-				public void onFinish() {
-					if (DownloadActivity.isActivityVisible()){
-						DownloadActivity.countDownEnded();
+				countDownTimerPausable = new CountDownTimerPausable(10000, 1000) {
+					@Override
+					public void onTick(long millisUntilFinished) {
 					}
-				}
-			};
+
+					@Override
+					public void onFinish() {
+						if (DownloadActivity.isActivityVisible()) {
+							DownloadActivity.countDownEnded();
+						}
+					}
+				};
 		}
 
 
@@ -1244,7 +1246,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		try
 		{
 
-			if (!countDownTimerPausable.isFinished() && countDownTimerPausable.isPaused()){
+			if (countDownTimerPausable != null && !countDownTimerPausable.isFinished() && countDownTimerPausable.isPaused()){
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
 					@Override
 					public void run() {
@@ -1800,6 +1802,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 						if (start)
 						{
 							mediaPlayer.start();
+							//LALANDA TIMER START AFTER LOADING
+							countDownTimerPausable.start();
 							setPlayerState(STARTED);
 						}
 						else

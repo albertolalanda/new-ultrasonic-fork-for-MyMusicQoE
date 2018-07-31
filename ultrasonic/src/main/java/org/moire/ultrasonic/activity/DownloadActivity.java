@@ -1529,10 +1529,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STARTED:
 						final DownloadService downloadService = getDownloadService();
 
-						if (getDownloadService().getCountDownTimer() != null && !getDownloadService().getCountDownTimer().isFinished()){
-							System.out.println("LALANDA COUNTDOWN TIMER ");
-							getDownloadService().getCountDownTimer().start();
-						}
+//						if (getDownloadService().getCountDownTimer() != null && !getDownloadService().getCountDownTimer().isFinished()){
+//							getDownloadService().getCountDownTimer().start();
+//						}
 						if (showTooltip){
 							new SimpleTooltip.Builder(DownloadActivity.this)
 									.anchorView(starButtonView)
