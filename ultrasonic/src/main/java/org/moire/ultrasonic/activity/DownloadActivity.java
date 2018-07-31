@@ -680,7 +680,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		invalidateOptionsMenu();
 
 		//TIMER REMOVE
-		if (downloadService != null || downloadService.getCurrentPlaying() != null || downloadService.getCountDownTimer() != null) {
+		if ((downloadService != null || downloadService.getCurrentPlaying() != null) && downloadService.getCountDownTimer() != null) {
 			//RESUME LALANDA
 			if (downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
 				countDownEnded();
@@ -1147,13 +1147,14 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					toggleFullScreenAlbumArtRating(2);
 				}
 				//TIMER REMOVE
-//				else{
-//					if (secondsLeftForRate!=10){
-//						Util.toast(DownloadActivity.this, String.format(getResources().getString(R.string.download_listen10), secondsLeftForRate), false);
-//					}else{
-//						Util.toast(DownloadActivity.this, String.format(getResources().getString(R.string.download_listen), secondsLeftForRate), false);
-//					}
-//				}
+				else{
+					long secondsRemaining = getDownloadService().getCountDownTimer().getSecondsRemaining();
+					if (secondsRemaining!=10){
+						Util.toast(DownloadActivity.this, String.format(getResources().getString(R.string.download_listen10), secondsRemaining), false);
+					}else{
+						Util.toast(DownloadActivity.this, String.format(getResources().getString(R.string.download_listen), secondsRemaining), false);
+					}
+				}
 				return true;
 			default:
 				return false;
