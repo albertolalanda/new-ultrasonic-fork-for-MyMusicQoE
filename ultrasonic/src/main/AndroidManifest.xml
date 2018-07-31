@@ -23,7 +23,7 @@
     <!--added the next 1 LALANDA! SE HOUVER PROBLEMA VIR AQUI VER SE É A RAZÃO-->
     <!--icon changed-->
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:largeHeap="true"
 
         android:icon="@mipmap/ic_launcher_mymusicqoe"

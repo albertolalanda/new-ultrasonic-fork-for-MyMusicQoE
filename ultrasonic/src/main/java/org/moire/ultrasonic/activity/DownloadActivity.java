@@ -70,6 +70,7 @@ import org.moire.ultrasonic.domain.PlayerState;
 import org.moire.ultrasonic.domain.RepeatMode;
 import org.moire.ultrasonic.service.DownloadFile;
 import org.moire.ultrasonic.service.DownloadService;
+import org.moire.ultrasonic.service.DownloadServiceImpl;
 import org.moire.ultrasonic.service.MusicService;
 import org.moire.ultrasonic.service.MusicServiceFactory;
 import org.moire.ultrasonic.util.Constants;
@@ -149,10 +150,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private String theme;
 
 	// variables for the user rating
-	private boolean canRate = true; //TIMER REMOVE
-	//private boolean canRate = false; // timer is over and user can rate
+	//private static boolean canRate = true; //TIMER REMOVE
+	private static boolean canRate = false; // timer is over and user can rate
 	private static boolean hasRated = false; //has rated in the activity, star goes full
-	private boolean changeStar = false; //true when we want to change star
+	private static boolean changeStar = false; //true when we want to change star
 
 	//use for timer
 //	private int secondsLeftForRate = 10;
@@ -161,8 +162,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //	private boolean isRunning = false; // countdowntimer is running
 
 //	TIMER REMOVE
-	//private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
-	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
+	private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
+	//private Drawable starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
 
 	//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 	private static boolean activityVisible;
@@ -659,35 +660,24 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		};
 
 		//TIMER REMOVE
-//		if (downloadService != null || downloadService.getCurrentPlaying() != null) {
-//			//RESUME LALANDA
-//			System.out.println("LALANDA : " + getDownloadService().getPlayerPosition());
-//			if (downloadService.getPlayerPosition() > 10000) {
-//				canRate = true;
-//				changeStar = true;
-//				songUnrated = false;
-//			} else {
-//				secondsLeftForRate = (int) Math.round(getDownloadService().getPlayerPosition() * 0.001);
-//				songUnrated = false;
-//				if (isRunning){
-//					countDownTimer.cancel();
-//				}
-//				countDownTimer = new CountDownTimer(secondsLeftForRate * 1000, 1000) {
-//					public void onTick(long millisUntilFinished) {
-//						isRunning = true;
-//						secondsLeftForRate = (int) Math.round(millisUntilFinished * 0.001);
-//						System.out.println("COUNTDOWN seconds" + secondsLeftForRate);
-//					}
-//
-//					public void onFinish() {
-//						isRunning = false;
-//						canRate = true;
-//						changeStar = true;
-//						songUnrated = false;
-//					}
-//				}.start();
-//			}
-//		}
+		if (downloadService != null || downloadService.getCurrentPlaying() != null) {
+			//RESUME LALANDA
+			System.out.println("LALANDA : " + getDownloadService().getPlayerPosition());
+			if (downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
+				countDownEnded();
+			} else if(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 1){
+				verticalSeekBar.setProgress(0);
+				seekbarRatingText.setText("");
+				verticalSeekBarChangeText(0);
+				canRate = true;
+				hasRated = true;
+				changeStar = true;
+			}else{
+				canRate = false;
+				hasRated = false;
+				changeStar = true;
+			}
+		}
 
 		executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleWithFixedDelay(runnable, 0L, 250L, TimeUnit.MILLISECONDS);
@@ -914,6 +904,17 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 					}else if(!hasRated) {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
+						new SimpleTooltip.Builder(DownloadActivity.this)
+								.anchorView(starButtonView)
+								.text(R.string.mymusicqoe_rating_tooltip)
+								.gravity(Gravity.BOTTOM)
+								.animated(false)
+								.transparentOverlay(true)
+								.backgroundColor(Color.parseColor("#31698a"))
+								.arrowColor(Color.parseColor("#31698a"))
+								.textColor(Color.WHITE)
+								.build()
+								.show();
 					}else {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full);
 					}
@@ -1420,7 +1421,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				seekbarRatingText.setText("");
 				verticalSeekBarChangeText(0);
 				//songUnrated = true;
-				//canRate = false;
+				canRate = false;
 				hasRated = false;
 				changeStar = true;
 				//secondsLeftForRate = 10;
@@ -1430,7 +1431,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				seekbarRatingText.setText(""+progress);
 				verticalSeekBarChangeText(progress);
 				//songUnrated = false;
-				//canRate = true;
+				canRate = true;
 				hasRated = true;
 				changeStar = true;
 				//secondsLeftForRate = 10;
@@ -1529,6 +1530,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					case STARTED:
 						final DownloadService downloadService = getDownloadService();
 
+						if (getDownloadService().getCountDownTimer() != null && !getDownloadService().getCountDownTimer().isFinished()){
+							System.out.println("LALANDA COUNTDOWN TIMER ");
+							getDownloadService().getCountDownTimer().start();
+						}
+
+
 						//TIMER REMOVE
 //						if (songUnrated){
 //							songUnrated = false;
@@ -1546,17 +1553,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //									changeStar = true;
 //									songUnrated = false;
 //									isRunning = false;
-//									new SimpleTooltip.Builder(DownloadActivity.this)
-//											.anchorView(starButtonView)
-//											.text(R.string.mymusicqoe_rating_tooltip)
-//											.gravity(Gravity.BOTTOM)
-//											.animated(false)
-//											.transparentOverlay(true)
-//											.backgroundColor(Color.parseColor("#31698a"))
-//											.arrowColor(Color.parseColor("#31698a"))
-//											.textColor(Color.WHITE)
-//											.build()
-//											.show();
+//
 //								}
 //							}.start();
 //						}
@@ -1943,5 +1940,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	public static boolean isActivityVisible() {
 		return activityVisible;
+	}
+
+	public static void countDownEnded() {
+		canRate = true;
+		hasRated = false;
+		changeStar = true;
 	}
 }

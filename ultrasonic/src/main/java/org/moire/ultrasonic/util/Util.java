@@ -248,7 +248,6 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
-	//LALANDA CLASS FOR ALL USER PREFTS? IS TRY CATCH NEEDED?
 	public static void setUserId(Context context, int instance)
 	{
 		SharedPreferences preferences = getPreferences(context);

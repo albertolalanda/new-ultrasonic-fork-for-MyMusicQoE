@@ -43,7 +43,6 @@
 
         <include layout="@layout/download_playlist" />
         <include layout="@layout/vertical_seekbar_rating" />
-        <!--LALANDA INCLUDE CUSTOM SEEKBAR-->
 
     </org.moire.ultrasonic.util.MyViewFlipper>
 

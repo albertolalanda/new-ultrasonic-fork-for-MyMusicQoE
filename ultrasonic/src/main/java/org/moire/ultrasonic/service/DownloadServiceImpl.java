@@ -170,6 +170,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	private ArrayList<int[]> songsRatingInfo = new ArrayList<int[]>();
 	private boolean newSong = true;
 	//--------------------------------------------------------------------------------------------//
+	private CountDownTimerPausable countDownTimerPausable;
+	//--------------------------------------------------------------------------------------------//
 
 	static
 	{
@@ -202,6 +204,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	public void onCreate()
 	{
 		super.onCreate();
+
+		countDownTimerPausable = null;
 
 		new Thread(new Runnable()
 		{
@@ -293,8 +297,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	{
 		super.onDestroy();
 
-		System.out.println("LALANDA DOWNLOADSERVICEIMPL ON DESTROY");
-
 		try
 		{
 			instance = null;
@@ -365,6 +367,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		//LALANDA SET PLAYLIST NUMBER
 		Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
 
+
 		if (songs.isEmpty())
 		{
 			return;
@@ -382,6 +385,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //				oldPlaylistSong.add(downloadFile.getSong());
 //			}
 //			delete(oldPlaylistSong);
+
+			//test LALANDA THIS WORKS? TODO TODO
+			//delete(songs);
+
 			downloadFileCache.clear();
 			/////////////////////////////////////////////////////////////////////
 			downloadList.clear();
@@ -947,10 +954,33 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 	private synchronized void play(int index, boolean start)
 	{
+
+		if (countDownTimerPausable != null){
+			countDownTimerPausable.cancel();
+		}
+
+		if (getSongsRatingInfo(index, 0) == 0){
+			countDownTimerPausable = new CountDownTimerPausable(10000, 1000) {
+				@Override
+				public void onTick(long millisUntilFinished) {
+				}
+
+				@Override
+				public void onFinish() {
+					if (DownloadActivity.isActivityVisible()){
+						DownloadActivity.countDownEnded();
+					}
+				}
+			};
+		}
+
+
 		//MyMusicQoE send if
 		if (getCurrentPlaying() != null){
 			sendRatingMyMusicQoE(getCurrentPlaying());
 		}
+
+
 
 		updateRemoteControl();
 
@@ -1151,6 +1181,16 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	{
 		try
 		{
+
+
+			if (!countDownTimerPausable.isFinished() && !countDownTimerPausable.isPaused()){
+				new Handler(Looper.getMainLooper()).post(new Runnable() {
+					@Override
+					public void run() {
+						countDownTimerPausable.pause();
+					}
+				});
+			}
 			if (playerState == STARTED)
 			{
 				if (jukeboxEnabled)
@@ -1203,6 +1243,15 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	{
 		try
 		{
+
+			if (!countDownTimerPausable.isFinished() && countDownTimerPausable.isPaused()){
+				new Handler(Looper.getMainLooper()).post(new Runnable() {
+					@Override
+					public void run() {
+						countDownTimerPausable.start();
+					}
+				});
+			}
 			if (jukeboxEnabled)
 			{
 				jukeboxService.start();
@@ -1880,39 +1929,41 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //					DownloadActivity.getVerticaSeekBar().getProgress()
 //				}
 
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-                   // if (Util.isDownloadActivityDestroyed(DownloadServiceImpl.this) && !forSongGetIsRated(downloadFile.getSong()) ){
-//                    	&& DownloadActivity.isRated()
 
-                        // prepare intent which is triggered if the // notification is selected
-                        Intent intent = new Intent(DownloadServiceImpl.this, DownloadActivity.class);
-                        PendingIntent pIntent = PendingIntent.getActivity(DownloadServiceImpl.this, 0, intent, 0);
-                        // build notification
-                        // the addAction re-use the same intent to keep the example short
-                        Notification n = null;
-
-                            n = new Notification.Builder(DownloadServiceImpl.this)
-                                    .setContentTitle("New mail from " + "test@gmail.com")
-                                    .setContentText("Subject")
-                                    .setSmallIcon(android.R.drawable.ic_dialog_info)
-                                    .setContentIntent(pIntent)
-									.setVibrate(new long[] {200, 200})
-									.setLights(Color.BLUE, 3000, 3000)
-									.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-									.setPriority(NotificationCompat.PRIORITY_DEFAULT)
-									.addAction(R.drawable.ic_star_hollow_light, "Rate", pIntent)
-									.setAutoCancel(true).build();
-
-    //                            .addAction(R.drawable.icon, "Call", pIntent)
-    //                            .addAction(R.drawable.icon, "More", pIntent)
-    //                            .addAction(R.drawable.icon, "And more", pIntent)
-
-                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-                        notificationManager.notify(0, n);
-                        pause();
-                        return ;
-                    //}
-                }
+				//TODO LALANDA NOTIFICATION FOR NOW FORGET IT
+//                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+//                   // if (Util.isDownloadActivityDestroyed(DownloadServiceImpl.this) && !forSongGetIsRated(downloadFile.getSong()) ){
+////                    	&& DownloadActivity.isRated()
+//
+//                        // prepare intent which is triggered if the // notification is selected
+//                        Intent intent = new Intent(DownloadServiceImpl.this, DownloadActivity.class);
+//                        PendingIntent pIntent = PendingIntent.getActivity(DownloadServiceImpl.this, 0, intent, 0);
+//                        // build notification
+//                        // the addAction re-use the same intent to keep the example short
+//                        Notification n = null;
+//
+//                            n = new Notification.Builder(DownloadServiceImpl.this)
+//                                    .setContentTitle("New mail from " + "test@gmail.com")
+//                                    .setContentText("Subject")
+//                                    .setSmallIcon(android.R.drawable.ic_dialog_info)
+//                                    .setContentIntent(pIntent)
+//									.setVibrate(new long[] {200, 200})
+//									.setLights(Color.BLUE, 3000, 3000)
+//									.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+//									.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//									.addAction(R.drawable.ic_star_hollow_light, "Rate", pIntent)
+//									.setAutoCancel(true).build();
+//
+//    //                            .addAction(R.drawable.icon, "Call", pIntent)
+//    //                            .addAction(R.drawable.icon, "More", pIntent)
+//    //                            .addAction(R.drawable.icon, "And more", pIntent)
+//
+//                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//                        notificationManager.notify(0, n);
+//                        pause();
+//                        return ;
+//                    //}
+//                }
 
 				//LALANDA SEND RATING
 				sendRatingMyMusicQoE(downloadFile);
@@ -2611,4 +2662,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		songsRatingInfo.add(to, item);
 	}
 
+	@Override
+	public CountDownTimerPausable getCountDownTimer(){
+		return this.countDownTimerPausable;
+	}
 }
