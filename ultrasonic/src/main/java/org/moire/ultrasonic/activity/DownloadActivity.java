@@ -741,6 +741,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	protected void onPause()
 	{
 		super.onPause();
+
+		if (hasRated){
+			//LALANDA to keep rating
+			getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+		}
+
 		executorService.shutdown();
 
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
