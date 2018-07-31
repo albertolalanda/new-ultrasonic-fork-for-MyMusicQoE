@@ -154,6 +154,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private static boolean canRate = false; // timer is over and user can rate
 	private static boolean hasRated = false; //has rated in the activity, star goes full
 	private static boolean changeStar = false; //true when we want to change star
+	private boolean showTooltip = false;
 
 	//use for timer
 //	private int secondsLeftForRate = 10;
@@ -659,26 +660,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		};
 
-		//TIMER REMOVE
-		if (downloadService != null || downloadService.getCurrentPlaying() != null) {
-			//RESUME LALANDA
-			System.out.println("LALANDA : " + getDownloadService().getPlayerPosition());
-			if (downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
-				countDownEnded();
-			} else if(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 1){
-				verticalSeekBar.setProgress(0);
-				seekbarRatingText.setText("");
-				verticalSeekBarChangeText(0);
-				canRate = true;
-				hasRated = true;
-				changeStar = true;
-			}else{
-				canRate = false;
-				hasRated = false;
-				changeStar = true;
-			}
-		}
-
 		executorService = Executors.newSingleThreadScheduledExecutor();
 		executorService.scheduleWithFixedDelay(runnable, 0L, 250L, TimeUnit.MILLISECONDS);
 
@@ -697,6 +678,25 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 
 		invalidateOptionsMenu();
+
+		//TIMER REMOVE
+		if (downloadService != null || downloadService.getCurrentPlaying() != null || downloadService.getCountDownTimer() != null) {
+			//RESUME LALANDA
+			if (downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
+				countDownEnded();
+			} else if(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 1){
+				verticalSeekBar.setProgress(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 1));
+				seekbarRatingText.setText(String.valueOf(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 1)));
+				verticalSeekBarChangeText(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 1));
+				canRate = true;
+				hasRated = true;
+				changeStar = true;
+			}else{
+				canRate = false;
+				hasRated = false;
+				changeStar = true;
+			}
+		}
 
 	}
 
@@ -848,6 +848,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//MenuItem bookmarkMenuItem = menu.findItem(R.id.menu_item_bookmark_set);
 		//MenuItem bookmarkRemoveMenuItem = menu.findItem(R.id.menu_item_bookmark_delete);
 
+
+
 		//Lalanda star button view
 		starButtonView = findViewById(R.id.menu_item_star);
 
@@ -904,17 +906,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
 					}else if(!hasRated) {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
-						new SimpleTooltip.Builder(DownloadActivity.this)
-								.anchorView(starButtonView)
-								.text(R.string.mymusicqoe_rating_tooltip)
-								.gravity(Gravity.BOTTOM)
-								.animated(false)
-								.transparentOverlay(true)
-								.backgroundColor(Color.parseColor("#31698a"))
-								.arrowColor(Color.parseColor("#31698a"))
-								.textColor(Color.WHITE)
-								.build()
-								.show();
+						showTooltip = true;
 					}else {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_full);
 					}
@@ -1534,7 +1526,20 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 							System.out.println("LALANDA COUNTDOWN TIMER ");
 							getDownloadService().getCountDownTimer().start();
 						}
-
+						if (showTooltip){
+							new SimpleTooltip.Builder(DownloadActivity.this)
+									.anchorView(starButtonView)
+									.text(R.string.mymusicqoe_rating_tooltip)
+									.gravity(Gravity.BOTTOM)
+									.animated(false)
+									.transparentOverlay(true)
+									.backgroundColor(Color.parseColor("#31698a"))
+									.arrowColor(Color.parseColor("#31698a"))
+									.textColor(Color.WHITE)
+									.build()
+									.show();
+							showTooltip = false;
+						}
 
 						//TIMER REMOVE
 //						if (songUnrated){
