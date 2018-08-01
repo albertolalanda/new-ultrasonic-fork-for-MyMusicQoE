@@ -8,6 +8,7 @@ import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.Artist
 import org.moire.ultrasonic.api.subsonic.models.Index
 import org.moire.ultrasonic.api.subsonic.models.Indexes
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
 
 /**
  * Unit tests for extension functions in [APIIndexesConverter.kt].

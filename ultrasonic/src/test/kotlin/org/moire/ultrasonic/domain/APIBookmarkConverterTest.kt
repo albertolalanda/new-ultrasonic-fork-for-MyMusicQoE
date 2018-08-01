@@ -7,6 +7,8 @@ import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.Bookmark
 import org.moire.ultrasonic.api.subsonic.models.MusicDirectoryChild
+import pt.ipleiria.mymusicqoe.domain.toDomainEntitiesList
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
 import java.util.Calendar
 
 /**

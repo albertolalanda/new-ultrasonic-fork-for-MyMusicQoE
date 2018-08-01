@@ -5,6 +5,8 @@ package org.moire.ultrasonic.domain
 import org.amshove.kluent.`should be equal to`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.MusicFolder
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
+import pt.ipleiria.mymusicqoe.domain.toDomainEntityList
 
 /**
  * Unit test for extension functions in file APIMusicFolderConverter.kt.

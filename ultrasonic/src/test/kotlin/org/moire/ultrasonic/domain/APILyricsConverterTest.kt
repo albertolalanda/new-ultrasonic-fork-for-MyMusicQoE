@@ -5,6 +5,7 @@ package org.moire.ultrasonic.domain
 import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.Lyrics
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
 
 /**
  * Unit test for extension functions in [APILyricsConverter.kt] file.

@@ -916,7 +916,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.activity.BookmarkActivity.GetDataTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.activity.BookmarkActivity.GetDataTask)"
         errorLine1=" private class GetDataTask extends AsyncTask&lt;Void, Void, String[]&gt;"
         errorLine2="               ~~~~~~~~~~~">
         <location
@@ -927,7 +927,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.util.CacheCleaner.BackgroundCleanup)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.util.CacheCleaner.BackgroundCleanup)"
         errorLine1=" private class BackgroundCleanup extends AsyncTask&lt;Void, Void, Void>"
         errorLine2="               ~~~~~~~~~~~~~~~~~">
         <location
@@ -938,7 +938,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.util.CacheCleaner.BackgroundSpaceCleanup)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.util.CacheCleaner.BackgroundSpaceCleanup)"
         errorLine1=" private class BackgroundSpaceCleanup extends AsyncTask&lt;Void, Void, Void>"
         errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -949,7 +949,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.util.CacheCleaner.BackgroundPlaylistsCleanup)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.util.CacheCleaner.BackgroundPlaylistsCleanup)"
         errorLine1=" private class BackgroundPlaylistsCleanup extends AsyncTask&lt;List&lt;Playlist>, Void, Void>"
         errorLine2="               ~~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
@@ -982,7 +982,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.service.DownloadServiceLifecycleSupport.SerializeTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.service.DownloadServiceLifecycleSupport.SerializeTask)"
         errorLine1=" private class SerializeTask extends AsyncTask&lt;Void, Void, Void>"
         errorLine2="               ~~~~~~~~~~~~~">
         <location
@@ -993,7 +993,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.service.DownloadServiceLifecycleSupport.DeserializeTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.service.DownloadServiceLifecycleSupport.DeserializeTask)"
         errorLine1=" private class DeserializeTask extends AsyncTask&lt;Void, Void, Void>"
         errorLine2="               ~~~~~~~~~~~~~~~">
         <location
@@ -1004,7 +1004,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.activity.SelectAlbumActivity.GetDataTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.activity.SelectAlbumActivity.GetDataTask)"
         errorLine1=" private class GetDataTask extends AsyncTask&lt;Void, Void, String[]&gt;"
         errorLine2="               ~~~~~~~~~~~">
         <location
@@ -1015,7 +1015,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.activity.SelectArtistActivity.GetDataTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.activity.SelectArtistActivity.GetDataTask)"
         errorLine1=" private class GetDataTask extends AsyncTask&lt;Void, Void, String[]&gt;"
         errorLine2="               ~~~~~~~~~~~">
         <location
@@ -1026,7 +1026,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.activity.SelectGenreActivity.GetDataTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.activity.SelectGenreActivity.GetDataTask)"
         errorLine1=" private class GetDataTask extends AsyncTask&lt;Void, Void, String[]&gt;"
         errorLine2="               ~~~~~~~~~~~">
         <location
@@ -1037,7 +1037,7 @@
 
     <issue
         id="StaticFieldLeak"
-        message="This AsyncTask class should be static or leaks might occur (org.moire.ultrasonic.activity.SelectPlaylistActivity.GetDataTask)"
+        message="This AsyncTask class should be static or leaks might occur (pt.ipleiria.mymusicqoe.activity.SelectPlaylistActivity.GetDataTask)"
         errorLine1=" private class GetDataTask extends AsyncTask&lt;Void, Void, String[]&gt;"
         errorLine2="               ~~~~~~~~~~~">
         <location
@@ -2547,7 +2547,8 @@
     <issue
         id="HardcodedText"
         message="Hardcoded string &quot;0 dB&quot;, should use `@string` resource"
-        errorLine1="            a:text=&quot;0 dB&quot;"
+        errorLine1="            a:text=&quot;0 dB&quot;
+"
         errorLine2="            ~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/equalizer_bar.xml"
@@ -3383,7 +3384,8 @@
     <issue
         id="RtlHardcoded"
         message="Consider adding `a:layout_alignParentStart=&quot;true&quot;` to better support right-to-left layouts"
-        errorLine1="            a:layout_alignParentLeft=&quot;true&quot;"
+        errorLine1="            a:layout_alignParentLeft=&quot;true&quot;
+"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/equalizer_bar.xml"
@@ -3394,7 +3396,8 @@
     <issue
         id="RtlHardcoded"
         message="Use &quot;`end`&quot; instead of &quot;`right`&quot; to ensure correct behavior in right-to-left locales"
-        errorLine1="            a:gravity=&quot;right&quot;"
+        errorLine1="            a:gravity=&quot;right&quot;
+"
         errorLine2="                       ~~~~~">
         <location
             file="src/main/res/layout/equalizer_bar.xml"
@@ -3405,7 +3408,8 @@
     <issue
         id="RtlHardcoded"
         message="Consider adding `a:layout_alignParentEnd=&quot;true&quot;` to better support right-to-left layouts"
-        errorLine1="            a:layout_alignParentRight=&quot;true&quot;"
+        errorLine1="            a:layout_alignParentRight=&quot;true&quot;
+"
         errorLine2="            ~~~~~~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/equalizer_bar.xml"
@@ -3416,7 +3420,8 @@
     <issue
         id="RtlHardcoded"
         message="Consider adding `a:layout_toEndOf=&quot;@+id/equalizer.frequency&quot;` to better support right-to-left layouts"
-        errorLine1="            a:layout_toRightOf=&quot;@+id/equalizer.frequency&quot;"
+        errorLine1="            a:layout_toRightOf=&quot;@+id/equalizer.frequency&quot;
+"
         errorLine2="            ~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/equalizer_bar.xml"
@@ -3735,7 +3740,8 @@
     <issue
         id="RtlHardcoded"
         message="Use &quot;`start`&quot; instead of &quot;`left`&quot; to ensure correct behavior in right-to-left locales"
-        errorLine1="  android:gravity=&quot;left|center_vertical&quot;"
+        errorLine1="  android:gravity=&quot;left|center_vertical&quot;
+"
         errorLine2="                   ~~~~~~~~~~~~~~~~~~~~">
         <location
             file="src/main/res/layout/playlist_list_item.xml"

@@ -6,6 +6,8 @@ import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.Album
 import org.moire.ultrasonic.api.subsonic.models.Artist
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
+import pt.ipleiria.mymusicqoe.domain.toMusicDirectoryDomainEntity
 import java.util.Calendar
 
 /**

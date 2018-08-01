@@ -4,7 +4,7 @@
               a:layout_height="fill_parent"
               a:orientation="horizontal">
 
-    <org.moire.ultrasonic.util.MyViewFlipper
+    <pt.ipleiria.mymusicqoe.util.MyViewFlipper
         a:id="@+id/download_playlist_flipper"
         a:layout_width="fill_parent"
         a:layout_height="fill_parent"
@@ -41,7 +41,7 @@
 
         <include layout="@layout/download_playlist"/>
         <include layout="@layout/vertical_seekbar_rating" />
-    </org.moire.ultrasonic.util.MyViewFlipper>
+    </pt.ipleiria.mymusicqoe.util.MyViewFlipper>
 
     <RelativeLayout
         a:id="@+id/download_control_layout"

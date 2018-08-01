@@ -7,6 +7,9 @@ import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.MusicDirectoryChild
 import org.moire.ultrasonic.api.subsonic.models.Share
+import pt.ipleiria.mymusicqoe.domain.toDomainEntitiesList
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
+import pt.ipleiria.mymusicqoe.domain.toDomainEntityList
 import java.util.Calendar
 
 /**
@@ -24,9 +27,9 @@ class APIShareConverterTest {
             url `should equal` entity.url
             description `should equal` entity.description
             username `should equal` entity.username
-            created `should equal` shareTimeFormat.format(entity.created?.time)
-            lastVisited `should equal` shareTimeFormat.format(entity.lastVisited?.time)
-            expires `should equal` shareTimeFormat.format(entity.expires?.time)
+            created `should equal` pt.ipleiria.mymusicqoe.domain.shareTimeFormat.format(entity.created?.time)
+            lastVisited `should equal` pt.ipleiria.mymusicqoe.domain.shareTimeFormat.format(entity.lastVisited?.time)
+            expires `should equal` pt.ipleiria.mymusicqoe.domain.shareTimeFormat.format(entity.expires?.time)
             visitCount `should equal` entity.visitCount.toLong()
             this.getEntries() `should equal` entity.items.toDomainEntityList()
         }
