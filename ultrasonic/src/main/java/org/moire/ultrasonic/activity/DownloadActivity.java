@@ -1235,8 +1235,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
-			verticalSeekBarChangeText(verticalSeekBar.getProgress());
 			playlistFlipper.setDisplayedChild(2);
+			verticalSeekBarChangeText(verticalSeekBar.getProgress());
 
 		}else if(playlistFlipper.getDisplayedChild() == 1 && index == 1){
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
@@ -1245,8 +1245,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}else if (playlistFlipper.getDisplayedChild() == 1 && index == 2){
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
-			verticalSeekBarChangeText(verticalSeekBar.getProgress());
 			playlistFlipper.setDisplayedChild(2);
+			verticalSeekBarChangeText(verticalSeekBar.getProgress());
 
 		}else{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
