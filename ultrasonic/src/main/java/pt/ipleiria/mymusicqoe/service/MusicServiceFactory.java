@@ -23,7 +23,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.jetbrains.annotations.NotNull;
-import org.moire.ultrasonic.BuildConfig;
+import pt.ipleiria.mymusicqoe.BuildConfig;
 import org.moire.ultrasonic.api.subsonic.SubsonicAPIClient;
 import org.moire.ultrasonic.api.subsonic.SubsonicAPIVersions;
 import org.moire.ultrasonic.cache.Directories;

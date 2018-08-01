@@ -18,7 +18,7 @@
  */
 package pt.ipleiria.mymusicqoe.provider;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 
 public class UltraSonicAppWidgetProvider4x3 extends UltraSonicAppWidgetProvider
 {

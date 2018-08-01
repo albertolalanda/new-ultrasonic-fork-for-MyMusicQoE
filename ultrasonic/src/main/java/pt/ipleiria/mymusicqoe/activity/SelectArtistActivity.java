@@ -34,7 +34,7 @@ import android.widget.TextView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.Artist;
 import org.moire.ultrasonic.domain.Indexes;
 import org.moire.ultrasonic.domain.MusicFolder;

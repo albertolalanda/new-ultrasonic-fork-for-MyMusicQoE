@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 
 /**
  * Created by Joshua Bahnsen on 12/22/13.

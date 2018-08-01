@@ -33,7 +33,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.MusicDirectory;
 import org.moire.ultrasonic.domain.PlayerState;
 import pt.ipleiria.mymusicqoe.util.CacheCleaner;

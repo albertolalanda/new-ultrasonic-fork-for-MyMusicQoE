@@ -28,7 +28,7 @@ import android.widget.ArrayAdapter;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.Genre;
 
 import java.util.ArrayList;

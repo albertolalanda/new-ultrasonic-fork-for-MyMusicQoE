@@ -30,7 +30,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.api.subsonic.models.LastIdUser;
 import org.moire.ultrasonic.domain.Genre;
 import pt.ipleiria.mymusicqoe.service.MusicService;

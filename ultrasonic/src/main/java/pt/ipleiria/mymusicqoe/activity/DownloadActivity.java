@@ -57,7 +57,7 @@ import android.widget.ViewFlipper;
 
 import com.mobeta.android.dslv.DragSortListView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.MusicDirectory;
 import org.moire.ultrasonic.domain.MusicDirectory.Entry;
 import org.moire.ultrasonic.domain.PlayerState;

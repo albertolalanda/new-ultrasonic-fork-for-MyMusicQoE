@@ -15,7 +15,7 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 
 import pt.ipleiria.mymusicqoe.activity.SubsonicTabActivity;
 import pt.ipleiria.mymusicqoe.provider.SearchSuggestionProvider;

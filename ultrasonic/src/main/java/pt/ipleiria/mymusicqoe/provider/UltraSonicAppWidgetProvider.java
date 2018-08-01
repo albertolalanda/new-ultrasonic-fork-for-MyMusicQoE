@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.RemoteViews;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.activity.DownloadActivity;
 import pt.ipleiria.mymusicqoe.activity.MainActivity;
 import org.moire.ultrasonic.domain.MusicDirectory;

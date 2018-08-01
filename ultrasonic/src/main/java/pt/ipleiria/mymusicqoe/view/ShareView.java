@@ -22,7 +22,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.Share;
 
 /**

@@ -17,7 +17,7 @@
 //import com.handmark.pulltorefresh.library.PullToRefreshBase.Mode;
 //import com.handmark.pulltorefresh.library.PullToRefreshBase.OnRefreshListener;
 //import com.handmark.pulltorefresh.library.PullToRefreshListView;
-//import org.moire.ultrasonic.R;
+//import pt.ipleiria.mymusicqoe.R;
 //import org.moire.ultrasonic.domain.ChatMessage;
 //import MusicService;
 //import MusicServiceFactory;

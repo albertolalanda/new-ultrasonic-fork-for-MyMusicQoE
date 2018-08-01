@@ -21,7 +21,7 @@ package pt.ipleiria.mymusicqoe.activity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.fragment.SettingsFragment;
 
 public class SettingsActivity extends SubsonicTabActivity {

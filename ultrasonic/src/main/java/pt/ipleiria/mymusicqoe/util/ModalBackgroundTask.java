@@ -23,7 +23,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.util.Log;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 
 /**
  * @author Sindre Mehus

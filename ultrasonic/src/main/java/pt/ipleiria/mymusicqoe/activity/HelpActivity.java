@@ -35,7 +35,7 @@ import android.widget.ImageView;
 import net.simonvt.menudrawer.MenuDrawer;
 import net.simonvt.menudrawer.Position;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.util.Constants;
 import pt.ipleiria.mymusicqoe.util.Util;
 

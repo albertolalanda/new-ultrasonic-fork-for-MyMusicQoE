@@ -27,7 +27,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.api.subsonic.ApiNotSupportedException;
 import org.moire.ultrasonic.domain.JukeboxStatus;
 import org.moire.ultrasonic.domain.PlayerState;

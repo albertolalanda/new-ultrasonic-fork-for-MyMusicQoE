@@ -24,7 +24,7 @@ import android.util.Log;
 
 import com.fasterxml.jackson.core.JsonParseException;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.service.SubsonicRESTException;
 import pt.ipleiria.mymusicqoe.subsonic.RestErrorMapper;
 

@@ -30,7 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.audiofx.EqualizerController;
 import pt.ipleiria.mymusicqoe.service.DownloadService;
 import pt.ipleiria.mymusicqoe.service.DownloadServiceImpl;

@@ -5,7 +5,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.activity.SubsonicTabActivity;
 import org.moire.ultrasonic.domain.Share;
 

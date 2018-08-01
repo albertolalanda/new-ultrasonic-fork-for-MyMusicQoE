@@ -43,7 +43,7 @@ import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.activity.DownloadActivity;
 import pt.ipleiria.mymusicqoe.activity.SubsonicTabActivity;
 import pt.ipleiria.mymusicqoe.audiofx.EqualizerController;

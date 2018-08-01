@@ -50,7 +50,7 @@ import android.view.KeyEvent;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.activity.DownloadActivity;
 import pt.ipleiria.mymusicqoe.activity.MainActivity;
 import pt.ipleiria.mymusicqoe.activity.UserInformationActivity;

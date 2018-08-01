@@ -26,7 +26,7 @@
 //import android.widget.AdapterView;
 //import android.widget.ListView;
 //
-//import org.moire.ultrasonic.R;
+//import pt.ipleiria.mymusicqoe.R;
 //import org.moire.ultrasonic.domain.PodcastsChannel;
 //import MusicService;
 //import MusicServiceFactory;

@@ -33,7 +33,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 
 import pt.ipleiria.mymusicqoe.service.DownloadService;
 import pt.ipleiria.mymusicqoe.service.DownloadServiceImpl;

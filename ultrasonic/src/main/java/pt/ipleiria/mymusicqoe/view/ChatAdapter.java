@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.activity.SubsonicTabActivity;
 import org.moire.ultrasonic.domain.ChatMessage;
 import pt.ipleiria.mymusicqoe.util.ImageLoader;

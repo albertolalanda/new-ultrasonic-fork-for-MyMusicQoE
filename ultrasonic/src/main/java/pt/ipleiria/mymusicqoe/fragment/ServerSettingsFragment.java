@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 
 import org.jetbrains.annotations.Nullable;
-import org.moire.ultrasonic.BuildConfig;
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.BuildConfig;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.cache.PermanentFileStorage;
 import pt.ipleiria.mymusicqoe.service.MusicService;
 import pt.ipleiria.mymusicqoe.service.MusicServiceFactory;

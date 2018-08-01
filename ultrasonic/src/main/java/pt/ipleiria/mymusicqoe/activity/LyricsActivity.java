@@ -23,7 +23,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.Lyrics;
 import pt.ipleiria.mymusicqoe.service.MusicService;
 import pt.ipleiria.mymusicqoe.service.MusicServiceFactory;

@@ -5,7 +5,7 @@ import android.preference.DialogPreference;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 
 import java.util.regex.Pattern;
 

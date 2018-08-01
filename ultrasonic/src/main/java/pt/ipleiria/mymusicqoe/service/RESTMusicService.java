@@ -26,7 +26,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import org.jetbrains.annotations.Nullable;
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.api.subsonic.ApiNotSupportedException;
 import org.moire.ultrasonic.api.subsonic.SubsonicAPIClient;
 import org.moire.ultrasonic.api.subsonic.models.AlbumListType;

@@ -24,7 +24,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 
-import org.moire.ultrasonic.R;
+import pt.ipleiria.mymusicqoe.R;
 import org.moire.ultrasonic.domain.MusicDirectory;
 import pt.ipleiria.mymusicqoe.service.MusicServiceFactory;
 
