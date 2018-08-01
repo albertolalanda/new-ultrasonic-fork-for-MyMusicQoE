@@ -171,6 +171,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	private boolean newSong = true;
 	//--------------------------------------------------------------------------------------------//
 	private CountDownTimerPausable countDownTimerPausable;
+	private boolean hasRated = false;
 	//--------------------------------------------------------------------------------------------//
 
 	static
@@ -971,6 +972,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					public void onFinish() {
 						if (DownloadActivity.isActivityVisible()) {
 							DownloadActivity.countDownEnded();
+							hasRated = false;
 						}
 					}
 				};
@@ -982,7 +984,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			sendRatingMyMusicQoE(getCurrentPlaying());
 		}
 
-			DownloadActivity.setHasRated(false);
+			setHasRated(false);
+			//DownloadActivity.setHasRated(false);
 
 
 		updateRemoteControl();
@@ -1281,6 +1284,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		try
 		{
 			setPlayerState(IDLE);
+			//-------------MYMUSICQOETEST---------------------//
+//			List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
+//			songs.add(getCurrentPlaying().getSong());
+//			delete(songs);
+			//-----------------------------------//
 			mediaPlayer.setOnErrorListener(null);
 			mediaPlayer.setOnCompletionListener(null);
 			mediaPlayer.reset();
@@ -1973,7 +1981,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				//LALANDA SEND RATING
 				sendRatingMyMusicQoE(downloadFile);
 
-				DownloadActivity.setHasRated(false);
+				setHasRated(false);
+				//DownloadActivity.setHasRated(false);
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
@@ -2618,7 +2627,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				int transcoderNum = downloadFile.getSong().getTranscoderNum();
 				int index = downloadList.indexOf(downloadFile);
 
-				if (DownloadActivity.isRated()){
+				//if (DownloadActivity.isRated()){
+				if (hasRated){
 					if (getSongsRatingInfo(index, 0) == 0){
 						setNewRatingRest(songId, transcoderNum);
 						setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
@@ -2673,4 +2683,15 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	public CountDownTimerPausable getCountDownTimer(){
 		return this.countDownTimerPausable;
 	}
+
+	@Override
+	public boolean isHasRated() {
+		return hasRated;
+	}
+
+	@Override
+	public void setHasRated(boolean hasRated) {
+		this.hasRated = hasRated;
+	}
+
 }

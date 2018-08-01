@@ -437,8 +437,8 @@
     <string name="api.subsonic.trial_period_is_over">O período de avaliação acabou.</string>
     <string name="api.subsonic.upgrade_client">Versões incompativeis. Atualize o aplicativo UltraSonic para Android.</string>
     <string name="api.subsonic.upgrade_server">Versões incompativeis. Atualize o servidor UltraSonic.</string>
-    <string name="user_information_age_20" translatable="false">menos de 20</string>
-    <string name="user_information_age_20_30" translatable="false">entre 20 e 30</string>
+    <string name="user_information_age_20">menos de 20</string>
+    <string name="user_information_age_20_30">entre 20 e 30</string>
     <string name="user_information_age_30_40">entre 30 e 40</string>
     <string name="user_information_age_40_50">entre 40 e 50</string>
     <string name="user_information_age_50_60">entre 50 e 60</string>
@@ -449,10 +449,10 @@
     <string name="user_information_button">GUARDAR</string>
     <string name="user_information_saved_message">guardado com sucesso</string>
     <string name="user_information_error_message">ocurreu um problema a enviar os seus dados</string>
-    <string name="mymusicqoe_rating_saved_success" translatable="false">avaliação enviada com sucesso</string>
-    <string name="mymusicqoe_rating_error" translatable="false">ocurreu um problema a enviar a avaliação</string>
-    <string name="mymusicqoe_rating_updated_success" translatable="false">avaliação atualizada com sucesso</string>
-    <string name="mymusicqoe_rating_tooltip" translatable="false">por favor classifique</string>
+    <string name="mymusicqoe_rating_saved_success">avaliação enviada com sucesso</string>
+    <string name="mymusicqoe_rating_error">ocurreu um problema a enviar a avaliação</string>
+    <string name="mymusicqoe_rating_updated_success">avaliação atualizada com sucesso</string>
+    <string name="mymusicqoe_rating_tooltip">por favor classifique</string>
     <string name="user_information_favoritegenres_button">escolha os seus géneros favoritos</string>
     <string name="user_information_selectgenres_title">Escolha os seus Géneros Favoritos</string>
     <string name="user_information_selectgenres_clearbtn">Limpar</string>

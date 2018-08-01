@@ -166,4 +166,8 @@ public interface DownloadService
 	void songsRatingInfoDragNDrop(int from, int to);
 
 	CountDownTimerPausable getCountDownTimer();
+
+	boolean isHasRated();
+
+	void setHasRated(boolean hasRated);
 }

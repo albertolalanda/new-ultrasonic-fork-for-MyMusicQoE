@@ -152,7 +152,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	// variables for the user rating
 	//private static boolean canRate = true; //TIMER REMOVE
 	private static boolean canRate = false; // timer is over and user can rate
-	private static boolean hasRated = false; //has rated in the activity, star goes full
+	//private static boolean hasRated = false; //has rated in the activity, star goes full
 	private static boolean changeStar = false; //true when we want to change star
 	private boolean showTooltip = false;
 
@@ -187,7 +187,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 		activityVisible = true;
-		Util.setisDownloadActivityDestroyed(DownloadActivity.this, false);
+		//Util.setisDownloadActivityDestroyed(DownloadActivity.this, false);
 
 		swipeDistance = (width + height) * PERCENTAGE_OF_SCREEN_FOR_SWIPE / 100;
 		swipeVelocity = swipeDistance;
@@ -583,8 +583,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 				seekbarRatingText.setText((""+i));
-				if (!hasRated){
-					hasRated = true;
+				//if (!hasRated){
+				if (!downloadService.isHasRated()){
+					//hasRated = true;
+					downloadService.setHasRated(true);
 					changeStar = true;
 				}
 				verticalSeekBarChangeText(i);
@@ -680,20 +682,25 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		invalidateOptionsMenu();
 
 		//TIMER REMOVE
-		if ((downloadService != null || downloadService.getCurrentPlaying() != null) && downloadService.getCountDownTimer() != null) {
+		//if ((downloadService != null || downloadService.getCurrentPlaying() != null) && downloadService.getCountDownTimer() != null) {
+		if (downloadService != null && downloadService.getCurrentPlaying() != null) {
 			//RESUME LALANDA
 			if (downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
 				countDownEnded();
+				downloadService.setHasRated(false);
+				verticalSeekBarChangeText(0);
 			} else if(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 1){
 				verticalSeekBar.setProgress(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 1));
 				seekbarRatingText.setText(String.valueOf(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 1)));
 				verticalSeekBarChangeText(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 1));
 				canRate = true;
-				hasRated = true;
+				downloadService.setHasRated(true);
+				//hasRated = true;
 				changeStar = true;
 			}else{
 				canRate = false;
-				hasRated = false;
+				downloadService.setHasRated(false);
+				//hasRated = false;
 				changeStar = true;
 			}
 		}
@@ -742,7 +749,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		super.onPause();
 
-		if (hasRated){
+		//if (hasRated){
+		if (getDownloadService().isHasRated()){
 			//LALANDA to keep rating
 			getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 		}
@@ -765,7 +773,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		super.onDestroy();
 		//ACTIVITY AND APP CONTROL FOR NOTIFICATIONS AND TIMER
 		activityVisible = false;
-		Util.setisDownloadActivityDestroyed(DownloadActivity.this, true);
+		//Util.setisDownloadActivityDestroyed(DownloadActivity.this, true);
 	}
 
 	@Override
@@ -910,7 +918,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				if (changeStar) {
 					if (!canRate){
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_disabled);
-					}else if(!hasRated) {
+					//}else if(!hasRated) {
+					}else if(!downloadService.isHasRated()) {
 						starDrawable = Util.getDrawableFromAttribute(SubsonicTabActivity.getInstance(), R.attr.star_hollow);
 						showTooltip = true;
 					}else {
@@ -1420,7 +1429,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				verticalSeekBarChangeText(0);
 				//songUnrated = true;
 				canRate = false;
-				hasRated = false;
+				downloadService.setHasRated(false);
+				//hasRated = false;
 				changeStar = true;
 				//secondsLeftForRate = 10;
 			}else{
@@ -1430,7 +1440,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				verticalSeekBarChangeText(progress);
 				//songUnrated = false;
 				canRate = true;
-				hasRated = true;
+				downloadService.setHasRated(true);
+				//hasRated = true;
 				changeStar = true;
 				//secondsLeftForRate = 10;
 			}
@@ -1944,13 +1955,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		return verticalSeekBar.getProgress();
 	}
 
-	public static boolean isRated() {
-		return hasRated;
-	}
-
-	public static void setHasRated(boolean value) {
-		hasRated = value;
-	}
+//	public static boolean isRated() {
+//		return hasRated;
+//	}
+//
+//	public static void setHasRated(boolean value) {
+//		hasRated = value;
+//	}
 
 	public static boolean isActivityVisible() {
 		return activityVisible;
@@ -1958,7 +1969,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	public static void countDownEnded() {
 		canRate = true;
-		hasRated = false;
+		//hasRated = false;
 		changeStar = true;
 	}
 }
