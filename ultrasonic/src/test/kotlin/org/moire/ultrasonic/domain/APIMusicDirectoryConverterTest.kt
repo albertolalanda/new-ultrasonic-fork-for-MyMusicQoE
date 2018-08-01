@@ -7,6 +7,8 @@ import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.MusicDirectory
 import org.moire.ultrasonic.api.subsonic.models.MusicDirectoryChild
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
+import pt.ipleiria.mymusicqoe.domain.toDomainEntityList
 import java.util.Calendar
 
 /**
@@ -81,7 +83,7 @@ class APIMusicDirectoryConverterTest {
 
         with(convertedEntity) {
             id `should equal` entity.streamId
-            artist `should equal` dateFormat.format(entity.publishDate?.time)
+            artist `should equal` pt.ipleiria.mymusicqoe.domain.dateFormat.format(entity.publishDate?.time)
         }
     }
 

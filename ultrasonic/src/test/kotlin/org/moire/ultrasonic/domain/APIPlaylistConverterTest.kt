@@ -7,6 +7,9 @@ import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.MusicDirectoryChild
 import org.moire.ultrasonic.api.subsonic.models.Playlist
+import pt.ipleiria.mymusicqoe.domain.toDomainEntitiesList
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
+import pt.ipleiria.mymusicqoe.domain.toMusicDirectoryDomainEntity
 import java.util.Calendar
 
 /**
@@ -46,7 +49,7 @@ class APIPlaylistConverterTest {
             owner `should be equal to` entity.owner
             public `should equal` entity.public
             songCount `should be equal to` entity.songCount.toString()
-            created `should be equal to` playlistDateFormat.format(entity.created?.time)
+            created `should be equal to` pt.ipleiria.mymusicqoe.domain.playlistDateFormat.format(entity.created?.time)
         }
     }
 

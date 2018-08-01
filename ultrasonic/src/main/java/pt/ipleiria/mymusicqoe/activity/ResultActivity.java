@@ -1,0 +1,37 @@
+package pt.ipleiria.mymusicqoe.activity;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+
+import pt.ipleiria.mymusicqoe.util.Constants;
+import pt.ipleiria.mymusicqoe.util.Util;
+
+/**
+ * Created by Joshua Bahnsen on 12/30/13.
+ */
+public class ResultActivity extends AppCompatActivity
+{
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		switch (resultCode)
+		{
+			case Constants.RESULT_CLOSE_ALL:
+				setResult(Constants.RESULT_CLOSE_ALL);
+				finish();
+		}
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	public void startActivityForResultWithoutTransition(Activity currentActivity, Class<? extends Activity> newActivity)
+	{
+		startActivityForResultWithoutTransition(currentActivity, new Intent(currentActivity, newActivity));
+	}
+
+	public void startActivityForResultWithoutTransition(Activity currentActivity, Intent intent)
+	{
+		startActivityForResult(intent, 0);
+		Util.disablePendingTransition(currentActivity);
+	}
+}

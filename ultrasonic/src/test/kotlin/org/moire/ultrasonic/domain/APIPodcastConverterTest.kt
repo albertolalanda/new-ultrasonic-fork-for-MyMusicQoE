@@ -6,6 +6,8 @@ import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.PodcastChannel
+import pt.ipleiria.mymusicqoe.domain.toDomainEntitiesList
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
 
 /**
  * Unit test for extension functions in APIPodcastConverter.kt file.

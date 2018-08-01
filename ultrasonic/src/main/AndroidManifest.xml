@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.moire.ultrasonic"
+    package="pt.ipleiria.mymusicqoe"
     android:installLocation="auto">
 
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -31,7 +31,7 @@
         android:theme="@style/Theme.AppCompat"
         android:label="@string/common.appname">
         <activity
-            android:name=".activity.MainActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="MyMusicQoE"
             android:launchMode="standard">
@@ -41,14 +41,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.SelectArtistActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.SelectArtistActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"/>
         <activity
-            android:name=".activity.SelectAlbumActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.SelectAlbumActivity"
             android:configChanges="orientation|keyboardHidden"/>
         <activity
-            android:name=".activity.SearchActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.SearchActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/search.label"
             android:launchMode="singleTask"/>
@@ -63,7 +63,7 @@
             <!--a:label="@string/podcasts.label"-->
             <!--a:launchMode="standard"/>-->
         <activity
-            android:name=".activity.BookmarkActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.BookmarkActivity"
             android:configChanges="orientation|keyboardHidden"/>
         <!--<activity-->
             <!--a:name=".activity.ShareActivity"-->
@@ -72,39 +72,39 @@
             <!--a:name=".activity.ChatActivity"-->
             <!--a:configChanges="orientation|keyboardHidden"/>-->
         <activity
-            android:name=".activity.DownloadActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.DownloadActivity"
             android:screenOrientation="portrait"
             android:configChanges="keyboardHidden"
             android:launchMode="singleTask"
             android:exported="true" />
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".activity.UserInformationActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.UserInformationActivity"
             android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".activity.HelpActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.HelpActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".activity.LyricsActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.LyricsActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".activity.EqualizerActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.EqualizerActivity"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/equalizer.label"
             android:launchMode="singleTask"/>
         <activity
-            android:name=".activity.SelectGenreActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.SelectGenreActivity"
             android:configChanges="orientation|keyboardHidden"
             android:launchMode="standard"/>
         <activity
-            android:name=".activity.VoiceQueryReceiverActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.VoiceQueryReceiverActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.media.action.MEDIA_PLAY_FROM_SEARCH"/>
@@ -112,7 +112,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.QueryReceiverActivity"
+            android:name="pt.ipleiria.mymusicqoe.activity.QueryReceiverActivity"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH"/>
@@ -124,10 +124,10 @@
                 android:resource="@xml/searchable"/>
         </activity>
 
-        <activity android:name=".activity.ServerSettingsActivity" />
+        <activity android:name="pt.ipleiria.mymusicqoe.activity.ServerSettingsActivity" />
 
         <service
-            android:name=".service.DownloadServiceImpl"
+            android:name="pt.ipleiria.mymusicqoe.service.DownloadServiceImpl"
             android:label="UltraSonic Download Service"
             android:exported="false">
             <intent-filter>
@@ -140,12 +140,12 @@
             </intent-filter>
         </service>
 
-        <receiver android:name=".receiver.MediaButtonIntentReceiver">
+        <receiver android:name="pt.ipleiria.mymusicqoe.receiver.MediaButtonIntentReceiver">
             <intent-filter android:priority="2147483647">
                 <action android:name="android.intent.action.MEDIA_BUTTON"/>
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.BluetoothIntentReceiver">
+        <receiver android:name="pt.ipleiria.mymusicqoe.receiver.BluetoothIntentReceiver">
             <intent-filter>
                 <action android:name="android.bluetooth.device.action.ACL_CONNECTED"/>
                 <action android:name="android.bluetooth.device.action.ACL_DISCONNECTED"/>
@@ -154,7 +154,7 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".provider.UltraSonicAppWidgetProvider4x1"
+            android:name="pt.ipleiria.mymusicqoe.provider.UltraSonicAppWidgetProvider4x1"
             android:label="UltraSonic (4x1)">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -165,7 +165,7 @@
                 android:resource="@xml/appwidget_info_4x1"/>
         </receiver>
         <receiver
-            android:name=".provider.UltraSonicAppWidgetProvider4x2"
+            android:name="pt.ipleiria.mymusicqoe.provider.UltraSonicAppWidgetProvider4x2"
             android:label="UltraSonic (4x2)">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -176,7 +176,7 @@
                 android:resource="@xml/appwidget_info_4x2"/>
         </receiver>
         <receiver
-            android:name=".provider.UltraSonicAppWidgetProvider4x3"
+            android:name="pt.ipleiria.mymusicqoe.provider.UltraSonicAppWidgetProvider4x3"
             android:label="UltraSonic (4x3)">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -187,7 +187,7 @@
                 android:resource="@xml/appwidget_info_4x3"/>
         </receiver>
         <receiver
-            android:name=".provider.UltraSonicAppWidgetProvider4x4"
+            android:name="pt.ipleiria.mymusicqoe.provider.UltraSonicAppWidgetProvider4x4"
             android:label="UltraSonic (4x4)">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
@@ -199,15 +199,15 @@
         </receiver>
 
         <provider
-            android:name=".provider.SearchSuggestionProvider"
-            android:authorities="org.moire.ultrasonic.provider.SearchSuggestionProvider"/>
+            android:name="pt.ipleiria.mymusicqoe.provider.SearchSuggestionProvider"
+            android:authorities="pt.ipleiria.mymusicqoe.provider.SearchSuggestionProvider"/>
 
         <meta-data
             android:name="android.app.default_searchable"
             android:value="org.moire.ultrasonic.activity.QueryReceiverActivity"/>
 
         <receiver
-            android:name=".receiver.A2dpIntentReceiver"
+            android:name="pt.ipleiria.mymusicqoe.receiver.A2dpIntentReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.android.music.playstatusrequest"/>

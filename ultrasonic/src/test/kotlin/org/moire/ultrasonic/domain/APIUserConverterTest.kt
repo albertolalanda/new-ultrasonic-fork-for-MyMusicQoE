@@ -6,6 +6,7 @@ import org.amshove.kluent.`should be equal to`
 import org.amshove.kluent.`should equal`
 import org.junit.Test
 import org.moire.ultrasonic.api.subsonic.models.User
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
 
 /**
  * Test conversion  from api [User] to domain [UserInfo].

@@ -12,6 +12,7 @@ import org.moire.ultrasonic.api.subsonic.models.MusicDirectoryChild
 import org.moire.ultrasonic.api.subsonic.models.SearchResult
 import org.moire.ultrasonic.api.subsonic.models.SearchThreeResult
 import org.moire.ultrasonic.api.subsonic.models.SearchTwoResult
+import pt.ipleiria.mymusicqoe.domain.toDomainEntity
 
 /**
  * Unit test for extension function in APISearchConverter.kt file.
