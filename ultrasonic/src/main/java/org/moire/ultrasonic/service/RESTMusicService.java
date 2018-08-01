@@ -694,7 +694,6 @@ public class RESTMusicService implements MusicService {
         */
 
         StreamResponse response = subsonicAPIClient.stream(song.getId(), maxBitrate, song.getTranscoderNum(),songOffset);
-        System.out.println("TIAGO: song.getId() "+song.getId());
         checkStreamResponseError(response);
         if (response.getStream() == null) {
             throw new IOException("Null stream response");

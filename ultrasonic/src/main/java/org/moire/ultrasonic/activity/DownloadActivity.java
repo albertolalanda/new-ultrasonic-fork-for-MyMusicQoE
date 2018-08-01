@@ -1235,7 +1235,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
-
+			verticalSeekBarChangeText(verticalSeekBar.getProgress());
 			playlistFlipper.setDisplayedChild(2);
 
 		}else if(playlistFlipper.getDisplayedChild() == 1 && index == 1){
@@ -1245,7 +1245,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}else if (playlistFlipper.getDisplayedChild() == 1 && index == 2){
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
-
+			verticalSeekBarChangeText(verticalSeekBar.getProgress());
 			playlistFlipper.setDisplayedChild(2);
 
 		}else{
@@ -1407,7 +1407,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//index of current song
 		//ATENÇÃO O SEGUINTE VALOR DE INDEX IRÁ COMERÇAR NO 1
 		int currentSongIndex = downloadService.getCurrentPlayingIndex() + 1;
-		System.out.println("LALANDA onCurrentChanged: current song index - " + currentSongIndex);
 
 		//LALANDA WHEN CURRENT MUSIC IS CHANGED MODIFICATIONS
 		//this will get information of the music the user changed to and change rating button and rating bar
@@ -1947,6 +1946,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 	public static boolean isRated() {
 		return hasRated;
+	}
+
+	public static void setHasRated(boolean value) {
+		hasRated = value;
 	}
 
 	public static boolean isActivityVisible() {

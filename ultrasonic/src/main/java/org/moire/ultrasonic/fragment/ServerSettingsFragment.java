@@ -52,9 +52,6 @@ public class ServerSettingsFragment extends PreferenceFragment implements Prefer
         final Bundle args = new Bundle();
         args.putInt(ARG_SERVER_ID, serverId);
         fragment.setArguments(args);
-        //LALANDA TESTE VERIFICAR ID DO SERVER
-        System.out.println("SERVERSETTINGSFRAGMENT - SERVER ID = " + serverId);
-        //---------//
 
         return fragment;
     }

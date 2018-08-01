@@ -982,6 +982,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			sendRatingMyMusicQoE(getCurrentPlaying());
 		}
 
+			DownloadActivity.setHasRated(false);
 
 
 		updateRemoteControl();
@@ -1971,6 +1972,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 				//LALANDA SEND RATING
 				sendRatingMyMusicQoE(downloadFile);
+
+				DownloadActivity.setHasRated(false);
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
