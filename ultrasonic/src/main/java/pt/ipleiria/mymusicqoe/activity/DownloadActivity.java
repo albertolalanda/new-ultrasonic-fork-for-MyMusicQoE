@@ -1098,7 +1098,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				deleteFromPlaylist(song);
 				getDownloadService().remove(song);
 				onDownloadListChanged();
-				getDownloadService().play(0);
+				if (getDownloadService().getCurrentPlaying() == null){
+					getDownloadService().play(0);
+				}
 				return true;
 			case R.id.menu_item_screen_on_off:
 				if (getDownloadService().getKeepScreenOn())
