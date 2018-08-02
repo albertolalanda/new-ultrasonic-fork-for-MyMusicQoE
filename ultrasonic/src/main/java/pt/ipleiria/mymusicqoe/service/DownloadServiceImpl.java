@@ -1978,6 +1978,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				//setHasRated(false);
 				//DownloadActivity.setHasRated(false);
 
+				setNewSong(true);
+
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
 					setPlayerStateCompleted();

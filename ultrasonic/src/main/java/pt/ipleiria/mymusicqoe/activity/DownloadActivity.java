@@ -597,6 +597,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
+        if (!Util.isDownloadActivityDialogShown(DownloadActivity.this)){
+            showDownloadActivityInfoDialog(true);
+        }
+
 
 
 //LALANDA TOUCH ON THE RIGHT SEEKBAR DOENST WORK TO INVESTIGATE LATER
@@ -621,7 +625,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //		});
 	}
 
-	@Override
+    @Override
 	protected void onResume()
 	{
 		super.onResume();
@@ -1972,4 +1976,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//hasRated = false;
 		changeStar = true;
 	}
+
+    private void showDownloadActivityInfoDialog(final boolean show)
+    {
+        if (show)
+        {
+            Util.info(this, R.string.download_info_title, R.string.download_info_text);
+            Util.setDownloadActivityDialogShown(this, true);
+        }
+    }
 }
