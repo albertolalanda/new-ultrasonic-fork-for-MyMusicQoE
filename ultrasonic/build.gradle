@@ -9,11 +9,12 @@ android {
     defaultConfig {
         applicationId 'pt.ipleiria.mymusicqoe'
         versionName versions.versionName
+        versionCode versions.versionCode
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         resConfigs "en", "pt"
-        versionCode 1
-        versionName "1.0"
+//        versionCode 1
+//        versionName "1.0"
     }
     buildTypes {
         release {
