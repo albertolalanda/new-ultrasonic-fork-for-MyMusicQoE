@@ -2246,7 +2246,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			{
 				songs.add(downloadFile.getSong());
 			}
-
 			if (!songs.isEmpty())
 			{
 				delete(songs);
@@ -2617,12 +2616,12 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		new Handler(Looper.getMainLooper()).post(new Runnable() {
 			@Override
 			public void run() {
-				int songId = Integer.parseInt(downloadFile.getSong().getId());
-				int transcoderNum = downloadFile.getSong().getTranscoderNum();
-				int index = downloadList.indexOf(downloadFile);
-
 				//if (DownloadActivity.isRated()){
 				if (hasRated){
+					int songId = Integer.parseInt(downloadFile.getSong().getId());
+					int transcoderNum = downloadFile.getSong().getTranscoderNum();
+					int index = downloadList.indexOf(downloadFile);
+
 					if (getSongsRatingInfo(index, 0) == 0){
 						setNewRatingRest(songId, transcoderNum);
 						setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());

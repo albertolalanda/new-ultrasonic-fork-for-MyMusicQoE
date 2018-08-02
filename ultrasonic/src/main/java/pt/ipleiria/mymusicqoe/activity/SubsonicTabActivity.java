@@ -1028,7 +1028,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 			protected void done(List<Entry> songs)
 			{
 
-				//LALANDA TODO TODO LOOKS LIKE IT WORKS I DUNNO
+				//LALANDA DELETE TODO TODO LOOKS LIKE IT WORKS I DUNNO
 				getDownloadService().delete(songs);
 
 				if (Util.getShouldSortByDisc(SubsonicTabActivity.this))
