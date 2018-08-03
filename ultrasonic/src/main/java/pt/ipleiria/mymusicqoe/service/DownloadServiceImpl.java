@@ -978,7 +978,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		//LALANDA I DONT THINK I NEED THIS
 		//setHasRated(false);
 		//DownloadActivity.setHasRated(false);
-		
+
 
 		updateRemoteControl();
 
