@@ -974,9 +974,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			sendRatingMyMusicQoE(getCurrentPlaying());
 		}
 
-			setHasRated(false);
-			//DownloadActivity.setHasRated(false);
-
+		setHasRated(false);
+		//DownloadActivity.setHasRated(false);
 
 		updateRemoteControl();
 

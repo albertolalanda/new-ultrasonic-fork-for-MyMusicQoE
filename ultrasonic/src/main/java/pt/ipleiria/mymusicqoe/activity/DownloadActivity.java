@@ -1093,9 +1093,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				startActivityForResultWithoutTransition(this, intent);
 				return true;
 			case R.id.menu_remove:
-				getDownloadService().remove(song);
+				//getDownloadService().remove(song);
 				//lalanda delete song !!!!!!!!!!!!!!!!!!!!
-				//deleteFromPlaylist(song);
+				deleteFromPlaylist(song);
 				onDownloadListChanged();
 				return true;
 			case R.id.menu_item_screen_on_off:
