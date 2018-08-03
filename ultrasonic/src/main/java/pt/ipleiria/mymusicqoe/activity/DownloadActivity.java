@@ -1938,6 +1938,17 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
 							separatorRatingBadText.setTextColor(Color.CYAN);
 							separatorRatingBadText.setTypeface(Typeface.DEFAULT_BOLD);
+						}else{
+							separatorRatingExcellentText.setTextColor(color);
+							separatorRatingExcellentText.setTypeface(Typeface.DEFAULT);
+							separatorRatingGoodText.setTextColor(color);
+							separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
+							separatorRatingFairText.setTextColor(color);
+							separatorRatingFairText.setTypeface(Typeface.DEFAULT);
+							separatorRatingPoorText.setTextColor(color);
+							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
+							separatorRatingBadText.setTypeface(Typeface.DEFAULT);
+							separatorRatingBadText.setTextColor(color);
 						}
 					}
 				}

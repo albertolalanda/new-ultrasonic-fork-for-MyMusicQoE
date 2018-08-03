@@ -865,6 +865,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 //					}
 					if (getDownloadService() != null)
 					{
+						System.out.println("1 DOWNLOAD() DELETE SONGS");
 						getDownloadService().delete(songs);
 					}
 					//----------------------------------------------------------------------
@@ -1029,6 +1030,7 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 			{
 
 				//LALANDA DELETE TODO TODO LOOKS LIKE IT WORKS I DUNNO
+				System.out.println("2 DOWNLOAD RECURSiVILY DELETE");
 				getDownloadService().delete(songs);
 
 				if (Util.getShouldSortByDisc(SubsonicTabActivity.this))

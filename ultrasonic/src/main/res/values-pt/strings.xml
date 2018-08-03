@@ -416,8 +416,10 @@
         <item quantity="other">%d músicas selecionadas para serem desfixadas.</item>
     </plurals>
     <plurals name="select_album_n_songs_added">
-        <item quantity="one">%d música adicionada ao fim da fila.</item>
-        <item quantity="other">%d músicas adicionadas ao fim da fila.</item>
+        <!--<item quantity="one">%d música adicionada ao fim da fila.</item>-->
+        <!--<item quantity="other">%d músicas adicionadas ao fim da fila.</item>-->
+        <item quantity="one">%d música a tocar agora.</item>
+        <item quantity="other">%d músicas a tocar agora.</item>
     </plurals>
     <plurals name="select_album_n_songs_play_next">
         <item quantity="one">%d música inserida após a atual.</item>

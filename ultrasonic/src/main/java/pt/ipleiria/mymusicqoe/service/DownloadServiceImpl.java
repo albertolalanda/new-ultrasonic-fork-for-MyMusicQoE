@@ -380,9 +380,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			//test LALANDA THIS WORKS? TODO TODO
 			//delete(songs);
 
-
 			//downloadFileCache.clear();
 			/////////////////////////////////////////////////////////////////////
+
+			//LALANDA DELETE THIS HOW IT IS ON ULTRASONIC
 			downloadList.clear();
 			songsRatingInfo.clear();
 		}
@@ -2234,24 +2235,27 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		int size = size();
 		if (size < listSize)
 		{
+			final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
 			for (MusicDirectory.Entry song : shufflePlayBuffer.get(listSize - size))
 			{
 				DownloadFile downloadFile = new DownloadFile(this, song, false);
+				//LALANDA DELETE FOR SHUFFLE (This is not max performance)
+				System.out.println("5 LALANDA check suffle play delete");
+				songs.add(downloadFile.getSong());
+				if (!songs.isEmpty())
+				{
+					delete(songs);
+				}
+				songs.remove(downloadFile.getSong());
+				//-------------------//
+
 				downloadList.add(downloadFile);
+
+
 				songsRatingInfo.add(new int[2]);
 				revision++;
 			}
-			//LALANDA DELETE FOR SHUFFLE
-			final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
-			for (final DownloadFile downloadFile : downloadList)
-			{
-				songs.add(downloadFile.getSong());
-			}
-			if (!songs.isEmpty())
-			{
-				delete(songs);
-			}
-			//-------------------//
+			
 		}
 
 		//LALANDA INFINITE SHUFFLE LIST FOR NOW WE TAKE
