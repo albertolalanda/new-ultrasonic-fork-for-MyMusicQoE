@@ -102,6 +102,8 @@
     <string name="main.videos">Videos</string>
     <string name="main.welcome_text">The purpose of <b>MyMusicQoE</b> is to gather statistics of music streaming quality of experience. If you want to know more check our <b>About</b> page, available on the side menu. Before you can use the application you just need to fill a quick form.</string>
     <string name="main.welcome_title">Welcome to MyMusicQoE!</string>
+    <string name="download.info_text">On this page you will be able to listen to songs that will have a variety of audio quality. After 10 seconds you will be able to rate the audio of the song you are listening to, however it is recommended that you listen to the entire track in question.</string>
+    <string name="download.info_title">How it works</string>
     <string name="menu.about">About</string>
     <string name="menu.common">Common</string>
     <string name="menu.deleted_playlist">Deleted playlist %s</string>
@@ -474,5 +476,6 @@
     <string name="seekbar_poor">Poor</string>
     <string name="seekbar_bad">Bad</string>
     <string name="seekbar_question">how is the sound quality ?</string>
+    <string name="user_information_genresbutton_loading">loading genres ...</string>
 
 </resources>

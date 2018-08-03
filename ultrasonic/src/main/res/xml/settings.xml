@@ -81,7 +81,7 @@
             a:summary="@string/settings.gapless_playback_summary"
             a:title="@string/settings.gapless_playback"/>
         <CheckBoxPreference
-            a:defaultValue="true"
+            a:defaultValue="false"
             a:key="clearPlaylist"
             a:summary="@string/settings.clear_playlist_summary"
             a:title="@string/settings.clear_playlist"/>

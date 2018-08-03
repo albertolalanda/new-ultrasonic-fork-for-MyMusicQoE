@@ -360,7 +360,8 @@ public class FileUtil
 
 	public static File getUltraSonicDirectory()
 	{
-		return new File(Environment.getExternalStorageDirectory(), "Android/data/org.moire.ultrasonic");
+		//return new File(Environment.getExternalStorageDirectory(), "Android/data/org.moire.ultrasonic");
+		return new File(Environment.getExternalStorageDirectory(), "Android/data/pt.ipleiria.mymusicqoe");
 	}
 
 	public static File getDefaultMusicDirectory()

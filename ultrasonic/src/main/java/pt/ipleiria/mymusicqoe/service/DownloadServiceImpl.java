@@ -974,8 +974,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			sendRatingMyMusicQoE(getCurrentPlaying());
 		}
 
-		setHasRated(false);
+
+		//LALANDA I DONT THINK I NEED THIS
+		//setHasRated(false);
 		//DownloadActivity.setHasRated(false);
+		
 
 		updateRemoteControl();
 
@@ -1970,8 +1973,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				//LALANDA SEND RATING
 				sendRatingMyMusicQoE(downloadFile);
 
-				setHasRated(false);
+				//LALANDA MAYBE I DONT NEED THIS
+				//setHasRated(false);
 				//DownloadActivity.setHasRated(false);
+
+				setNewSong(true);
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
@@ -2241,7 +2247,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			{
 				songs.add(downloadFile.getSong());
 			}
-
 			if (!songs.isEmpty())
 			{
 				delete(songs);
@@ -2612,12 +2617,12 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		new Handler(Looper.getMainLooper()).post(new Runnable() {
 			@Override
 			public void run() {
-				int songId = Integer.parseInt(downloadFile.getSong().getId());
-				int transcoderNum = downloadFile.getSong().getTranscoderNum();
-				int index = downloadList.indexOf(downloadFile);
-
 				//if (DownloadActivity.isRated()){
 				if (hasRated){
+					int songId = Integer.parseInt(downloadFile.getSong().getId());
+					int transcoderNum = downloadFile.getSong().getTranscoderNum();
+					int index = downloadList.indexOf(downloadFile);
+
 					if (getSongsRatingInfo(index, 0) == 0){
 						setNewRatingRest(songId, transcoderNum);
 						setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());

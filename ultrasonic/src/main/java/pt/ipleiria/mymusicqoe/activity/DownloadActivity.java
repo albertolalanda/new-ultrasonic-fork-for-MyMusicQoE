@@ -251,7 +251,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					protected Void doInBackground() throws Throwable
 					{
 						//LALANDA SEND ON PREVIEOUS
-						//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+						getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 						getDownloadService().previous();
 						return null;
 					}
@@ -291,7 +291,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 						if (getDownloadService().getCurrentPlayingIndex() < getDownloadService().size() - 1)
 						{
-							//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+							getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 							getDownloadService().next();
 							return true;
 						}
@@ -597,6 +597,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
+        if (!Util.isDownloadActivityDialogShown(DownloadActivity.this)){
+            showDownloadActivityInfoDialog(true);
+        }
+
 
 
 //LALANDA TOUCH ON THE RIGHT SEEKBAR DOENST WORK TO INVESTIGATE LATER
@@ -621,7 +625,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //		});
 	}
 
-	@Override
+    @Override
 	protected void onResume()
 	{
 		super.onResume();
@@ -742,10 +746,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		super.onPause();
 
 		//if (hasRated){
-		if (getDownloadService().isHasRated()){
+		//the following line was redundant
+		//if (getDownloadService().isHasRated()){
 			//LALANDA to keep rating
 			getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
-		}
+		//}
 
 		executorService.shutdown();
 
@@ -1093,10 +1098,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				startActivityForResultWithoutTransition(this, intent);
 				return true;
 			case R.id.menu_remove:
-				//getDownloadService().remove(song);
 				//lalanda delete song !!!!!!!!!!!!!!!!!!!!
 				deleteFromPlaylist(song);
+				getDownloadService().remove(song);
 				onDownloadListChanged();
+				if (getDownloadService().getCurrentPlaying() == null){
+					getDownloadService().play(0);
+				}
 				return true;
 			case R.id.menu_item_screen_on_off:
 				if (getDownloadService().getKeepScreenOn())
@@ -1226,35 +1234,39 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE AND RATING BAR
 	private void toggleFullScreenAlbumArtRating(int index)
 	{
+		//is on rating clicks star
 		if (playlistFlipper.getDisplayedChild() == 2 && index == 2)
 		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
 			playlistFlipper.setDisplayedChild(0);
-		}
+			getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+		}//is on album image clicks star
 		else if(playlistFlipper.getDisplayedChild() == 0 && index == 2)
 		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
 			playlistFlipper.setDisplayedChild(2);
 			verticalSeekBarChangeText(verticalSeekBar.getProgress());
-
-		}else if(playlistFlipper.getDisplayedChild() == 1 && index == 1){
+		}//is on playlist clicks playlist
+		else if(playlistFlipper.getDisplayedChild() == 1 && index == 1)
+		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
 			playlistFlipper.setDisplayedChild(0);
-		}else if (playlistFlipper.getDisplayedChild() == 1 && index == 2){
+		}//is on playlist clicks star
+		else if (playlistFlipper.getDisplayedChild() == 1 && index == 2)
+		{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_down_out));
 			playlistFlipper.setDisplayedChild(2);
 			verticalSeekBarChangeText(verticalSeekBar.getProgress());
-
 		}else{
 			playlistFlipper.setInAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_in));
 			playlistFlipper.setOutAnimation(AnimationUtils.loadAnimation(this, R.anim.push_up_out));
 			playlistFlipper.setDisplayedChild(1);
+			getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 		}
-
 		scrollToCurrent();
 	}
 
@@ -1964,4 +1976,13 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//hasRated = false;
 		changeStar = true;
 	}
+
+    private void showDownloadActivityInfoDialog(final boolean show)
+    {
+        if (show)
+        {
+            Util.info(this, R.string.download_info_title, R.string.download_info_text);
+            Util.setDownloadActivityDialogShown(this, true);
+        }
+    }
 }
