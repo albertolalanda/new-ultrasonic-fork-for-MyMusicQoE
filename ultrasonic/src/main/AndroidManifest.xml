@@ -204,7 +204,7 @@
 
         <meta-data
             android:name="android.app.default_searchable"
-            android:value="org.moire.ultrasonic.activity.QueryReceiverActivity"/>
+            android:value="pt.ipleiria.mymusicqoe.activity.QueryReceiverActivity"/>
 
         <receiver
             android:name="pt.ipleiria.mymusicqoe.receiver.A2dpIntentReceiver"

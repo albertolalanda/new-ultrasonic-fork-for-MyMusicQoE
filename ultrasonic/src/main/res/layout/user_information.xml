@@ -86,7 +86,7 @@
 			a:layout_centerHorizontal="true"
 			a:layout_marginTop="10dp"
 			a:layout_weight="1"
-			a:text="loading genres ..." />
+			a:text="@string/user_information_genresbutton_loading" />
 	</LinearLayout>
 
 	<RelativeLayout
