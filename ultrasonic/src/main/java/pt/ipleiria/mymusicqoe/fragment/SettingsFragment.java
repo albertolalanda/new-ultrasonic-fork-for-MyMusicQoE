@@ -51,7 +51,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     //private ListPreference defaultSongs;
     //private ListPreference defaultArtists;
     //private ListPreference chatRefreshInterval;
-    private ListPreference directoryCacheTime;
+    //private ListPreference directoryCacheTime;
     private CheckBoxPreference mediaButtonsEnabled;
     private CheckBoxPreference lockScreenEnabled;
     private CheckBoxPreference sendBluetoothNotifications;
@@ -98,7 +98,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         //defaultSongs = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_SONGS);
         //defaultAlbums = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DEFAULT_ALBUMS);
         //chatRefreshInterval = (ListPreference) findPreference(Constants.PREFERENCES_KEY_CHAT_REFRESH_INTERVAL);
-        directoryCacheTime = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DIRECTORY_CACHE_TIME);
+        //directoryCacheTime = (ListPreference) findPreference(Constants.PREFERENCES_KEY_DIRECTORY_CACHE_TIME);
         mediaButtonsEnabled = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_MEDIA_BUTTONS);
         lockScreenEnabled = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SHOW_LOCK_SCREEN_CONTROLS);
         //sendBluetoothAlbumArt = (CheckBoxPreference) findPreference(Constants.PREFERENCES_KEY_SEND_BLUETOOTH_ALBUM_ART);
@@ -290,7 +290,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         //defaultArtists.setSummary(defaultArtists.getEntry());
         //defaultSongs.setSummary(defaultSongs.getEntry());
         //chatRefreshInterval.setSummary(chatRefreshInterval.getEntry());
-        directoryCacheTime.setSummary(directoryCacheTime.getEntry());
+        //directoryCacheTime.setSummary(directoryCacheTime.getEntry());
         //viewRefresh.setSummary(viewRefresh.getEntry());
         //imageLoaderConcurrency.setSummary(imageLoaderConcurrency.getEntry());
 //        sharingDefaultExpiration.setSummary(sharingDefaultExpiration.getText());

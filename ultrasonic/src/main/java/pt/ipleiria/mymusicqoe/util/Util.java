@@ -1599,8 +1599,9 @@ public class Util extends DownloadActivity
 
 	public static int getDirectoryCacheTime(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DIRECTORY_CACHE_TIME, "300"));
+//		SharedPreferences preferences = getPreferences(context);
+//		return Integer.parseInt(preferences.getString(Constants.PREFERENCES_KEY_DIRECTORY_CACHE_TIME, "300"));
+		return 300;
 	}
 
 	public static boolean isNullOrWhiteSpace(String string)

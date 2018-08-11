@@ -230,7 +230,7 @@
     <string name="settings.max_bitrate_mobile">Máx. de Taxa de Bits - Celular</string>
     <string name="settings.max_bitrate_unlimited">Ilimitado</string>
     <string name="settings.max_bitrate_wifi">Máx. de Taxa de Bits - Wi-Fi</string>
-    <string name="settings.max_songs">Máximo de Músicas</string>
+    <string name="settings.max_songs">Máximo de Músicas Aleatórias</string>
     <string name="settings.media_button_summary">Obedecer aos botões do telemóvel, auricular etc.</string>
     <string name="settings.media_button_title">Botões de Média</string>
     <string name="settings.network_timeout">Timeout da Rede</string>
