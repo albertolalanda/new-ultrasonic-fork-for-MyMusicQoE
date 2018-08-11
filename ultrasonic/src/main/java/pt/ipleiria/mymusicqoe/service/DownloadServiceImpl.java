@@ -380,9 +380,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			//test LALANDA THIS WORKS? TODO TODO
 			//delete(songs);
 
-
 			//downloadFileCache.clear();
 			/////////////////////////////////////////////////////////////////////
+
+			//LALANDA DELETE THIS HOW IT IS ON ULTRASONIC
 			downloadList.clear();
 			songsRatingInfo.clear();
 		}
@@ -2234,24 +2235,27 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		int size = size();
 		if (size < listSize)
 		{
+			final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
 			for (MusicDirectory.Entry song : shufflePlayBuffer.get(listSize - size))
 			{
 				DownloadFile downloadFile = new DownloadFile(this, song, false);
+				//LALANDA DELETE FOR SHUFFLE (This is not max performance)
+				System.out.println("5 LALANDA check suffle play delete");
+				songs.add(downloadFile.getSong());
+				if (!songs.isEmpty())
+				{
+					delete(songs);
+				}
+				songs.remove(downloadFile.getSong());
+				//-------------------//
+
 				downloadList.add(downloadFile);
+
+
 				songsRatingInfo.add(new int[2]);
 				revision++;
 			}
-			//LALANDA DELETE FOR SHUFFLE
-			final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();
-			for (final DownloadFile downloadFile : downloadList)
-			{
-				songs.add(downloadFile.getSong());
-			}
-			if (!songs.isEmpty())
-			{
-				delete(songs);
-			}
-			//-------------------//
+			
 		}
 
 		//LALANDA INFINITE SHUFFLE LIST FOR NOW WE TAKE
@@ -2548,7 +2552,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	}
 
 	//MyMusicQoE SEND RATING RELATED METHODS
-	private void setNewRatingRest(final int songId, final int transcoderNum) {
+	private void setNewRatingRest(final int songId, final int transcoderNum, final int index) {
 		BackgroundTask<Boolean> task = new TabActivityBackgroundTask<Boolean>(DownloadActivity.getInstance(), true)
 		{
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
@@ -2563,7 +2567,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
 						DownloadActivity.getVerticaSeekBar().getProgress(), this);
 
-
 				return responseSuccessful;
 			}
 
@@ -2571,16 +2574,17 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			protected void done(Boolean result)
 			{
 				if (!result) {
-					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
+					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_saved_success);
+					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_saved_success);
 				}
 			}
 		};
 		task.execute();
 	}
 
-	private void setUpdateRatingRest(final int songId, final int transcoderNum) {
+	private void setUpdateRatingRest(final int songId, final int transcoderNum, final int index) {
 		BackgroundTask<Boolean> task = new TabActivityBackgroundTask<Boolean>(DownloadActivity.getInstance(), true)
 		{
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
@@ -2603,9 +2607,10 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			protected void done(Boolean result)
 			{
 				if (!result) {
-					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
+					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_updated_success);
+					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_updated_success);
 				}
 			}
 		};
@@ -2624,12 +2629,11 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					int index = downloadList.indexOf(downloadFile);
 
 					if (getSongsRatingInfo(index, 0) == 0){
-						setNewRatingRest(songId, transcoderNum);
-						setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+						setNewRatingRest(songId, transcoderNum, index);
+
 					}else{
 						if (getSongsRatingInfo(index, 1) != DownloadActivity.getVerticaSeekBar().getProgress()){
-							setUpdateRatingRest(songId, transcoderNum);
-							setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+							setUpdateRatingRest(songId, transcoderNum, index);
 						}
 					}
 				}

@@ -251,7 +251,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					protected Void doInBackground() throws Throwable
 					{
 						//LALANDA SEND ON PREVIEOUS
-						getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+						//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 						getDownloadService().previous();
 						return null;
 					}
@@ -291,7 +291,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 						if (getDownloadService().getCurrentPlayingIndex() < getDownloadService().size() - 1)
 						{
-							getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
+							//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 							getDownloadService().next();
 							return true;
 						}
@@ -1938,6 +1938,17 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
 							separatorRatingBadText.setTextColor(Color.CYAN);
 							separatorRatingBadText.setTypeface(Typeface.DEFAULT_BOLD);
+						}else{
+							separatorRatingExcellentText.setTextColor(color);
+							separatorRatingExcellentText.setTypeface(Typeface.DEFAULT);
+							separatorRatingGoodText.setTextColor(color);
+							separatorRatingGoodText.setTypeface(Typeface.DEFAULT);
+							separatorRatingFairText.setTextColor(color);
+							separatorRatingFairText.setTypeface(Typeface.DEFAULT);
+							separatorRatingPoorText.setTextColor(color);
+							separatorRatingPoorText.setTypeface(Typeface.DEFAULT);
+							separatorRatingBadText.setTypeface(Typeface.DEFAULT);
+							separatorRatingBadText.setTextColor(color);
 						}
 					}
 				}
