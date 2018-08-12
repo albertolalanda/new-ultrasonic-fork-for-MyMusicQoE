@@ -220,16 +220,16 @@ public class Util extends DownloadActivity
     }
 
 	public static boolean isUserInfoSent(Context context)
-{
-	SharedPreferences preferences = getPreferences(context);
-	return preferences.getBoolean(Constants.USER_INFORMATION_IS_SENT, false);
-}
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getBoolean(Constants.USER_INFORMATION_IS_SENT_NEW, false);
+	}
 
 	public static void setUserInfoSent(Context context, boolean value)
 	{
 		SharedPreferences preferences = getPreferences(context);
 		SharedPreferences.Editor editor = preferences.edit();
-		editor.putBoolean(Constants.USER_INFORMATION_IS_SENT, value);
+		editor.putBoolean(Constants.USER_INFORMATION_IS_SENT_NEW, value);
 		editor.commit();
 	}
 
