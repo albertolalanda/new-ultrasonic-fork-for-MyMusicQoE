@@ -74,18 +74,18 @@
 		a:text="@string/main.genres_title"
 		a:textAppearance="?android:attr/textAppearanceMedium" />
 
-	<TextView
-		a:id="@+id/main_songs"
-		a:layout_width="fill_parent"
-		a:layout_height="wrap_content"
-		a:gravity="center_vertical"
-		a:paddingLeft="6dp"
-		a:text="@string/main.songs_title"
-		a:textAllCaps="true"
-		a:textAppearance="?android:attr/textAppearanceSmall"
-		a:textColor="@color/cyan"
-		a:textSize="16dp"
-		a:textStyle="bold" />
+	<!--<TextView-->
+		<!--a:id="@+id/main_songs"-->
+		<!--a:layout_width="fill_parent"-->
+		<!--a:layout_height="wrap_content"-->
+		<!--a:gravity="center_vertical"-->
+		<!--a:paddingLeft="6dp"-->
+		<!--a:text="@string/main.songs_title"-->
+		<!--a:textAllCaps="true"-->
+		<!--a:textAppearance="?android:attr/textAppearanceSmall"-->
+		<!--a:textColor="@color/cyan"-->
+		<!--a:textSize="16dp"-->
+		<!--a:textStyle="bold" />-->
 
 	<TextView
 		a:id="@+id/main_songs_button"
