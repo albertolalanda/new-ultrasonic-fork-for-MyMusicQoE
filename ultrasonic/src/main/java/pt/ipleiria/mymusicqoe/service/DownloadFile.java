@@ -74,10 +74,24 @@ public class DownloadFile
 		this.song = song;
 		this.save = save;
 
+		//System.out.println("LALANDA TRANSCODINGS " + song.getApplicableTranscodings());
+
 		String[] applicableTranscodings = song.getApplicableTranscodings().split("/");
+
+		//System.out.println("LALANDA TRANSCODINGS " + applicableTranscodings.toString());
+
 		Random r = new Random();
 		int rand = r.nextInt(applicableTranscodings.length);
 		song.setTranscoderNum(Integer.parseInt(applicableTranscodings[rand]));
+
+		//LALANDA transcoded suffix pedreiro
+//		song.setTranscoderNum(4);
+//		if (song.getTranscoderNum() == 4){
+//			song.setTranscodedSuffix("flac");
+//		}else{
+//			if (song.getTranscoderNum() == )
+//		}
+
 
 		saveFile = FileUtil.getSongFile(context, song);
 		bitRate = Util.getMaxBitRate(context);
