@@ -1584,11 +1584,12 @@ public class Util extends DownloadActivity
 	}
 
 	//LALANDA NEVER USE ID3 ALWAYS FILE SYSTEM BASED METHODS
+    //SINCE 1.1.0 WE USE ID3Tags
 	public static boolean getShouldUseId3Tags(Context context)
 	{
 //		SharedPreferences preferences = getPreferences(context);
 //		return preferences.getBoolean(Constants.PREFERENCES_KEY_ID3_TAGS, false);
-		return false;
+		return true;
 	}
 
 	public static int getChatRefreshInterval(Context context)

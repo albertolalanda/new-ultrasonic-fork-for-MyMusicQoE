@@ -107,10 +107,10 @@ public class MusicServiceFactory {
                     Constants.REST_CLIENT_ID+"-API"+androidClientSDK, allowSelfSignedCertificate,
                     enableLdapUserSupport, BuildConfig.DEBUG);
         }
-        //LALANDA API LEVEL IS SENT HERE
+        //.LALANDA API LEVEL IS SENT HERE AND USER ID since 1.1.0
         return new SubsonicAPIClient(serverUrl, username, password,
                 SubsonicAPIVersions.fromApiVersion(Constants.REST_PROTOCOL_VERSION),
-                Constants.REST_CLIENT_ID+"-API"+androidClientSDK, allowSelfSignedCertificate,
+                Constants.REST_CLIENT_ID+"-"+Util.getUserId(context)+"-API"+androidClientSDK, allowSelfSignedCertificate,
                 enableLdapUserSupport, BuildConfig.DEBUG);
     }
 
