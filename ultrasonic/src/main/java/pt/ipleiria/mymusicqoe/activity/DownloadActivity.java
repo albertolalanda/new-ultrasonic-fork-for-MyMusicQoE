@@ -623,6 +623,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //				}
 //			}
 //		});
+
 	}
 
     @Override
