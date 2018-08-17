@@ -43,35 +43,36 @@ public class MusicServiceFactory {
     private static MusicService OFFLINE_MUSIC_SERVICE = null;
 
     public static MusicService getMusicService(Context context) {
-        if (Util.isOffline(context)) {
-            Log.d(LOG_TAG, "App is offline, returning offline music service.");
-            if (OFFLINE_MUSIC_SERVICE == null) {
-                synchronized (MusicServiceFactory.class) {
-                    if (OFFLINE_MUSIC_SERVICE == null) {
-                        Log.d(LOG_TAG, "Creating new offline music service");
-                        OFFLINE_MUSIC_SERVICE = new OfflineMusicService(
-                                createSubsonicApiClient(context),
-                                getPermanentFileStorage(context));
+            if (Util.isOffline(context)) {
+                Log.d(LOG_TAG, "App is offline, returning offline music service.");
+                if (OFFLINE_MUSIC_SERVICE == null) {
+                    synchronized (MusicServiceFactory.class) {
+                        if (OFFLINE_MUSIC_SERVICE == null) {
+                            Log.d(LOG_TAG, "Creating new offline music service");
+                            OFFLINE_MUSIC_SERVICE = new OfflineMusicService(
+                                    createSubsonicApiClient(context),
+                                    getPermanentFileStorage(context));
+                        }
                     }
                 }
-            }
 
-            return OFFLINE_MUSIC_SERVICE;
-        } else {
-            Log.d(LOG_TAG, "Returning rest music service");
-            if (REST_MUSIC_SERVICE == null) {
-                synchronized (MusicServiceFactory.class) {
-                    if (REST_MUSIC_SERVICE == null) {
-                        Log.d(LOG_TAG, "Creating new rest music service");
-                        REST_MUSIC_SERVICE = new CachedMusicService(new RESTMusicService(
-                                createSubsonicApiClient(context),
-                                getPermanentFileStorage(context)));
+                return OFFLINE_MUSIC_SERVICE;
+            } else {
+                Log.d(LOG_TAG, "Returning rest music service");
+                if (REST_MUSIC_SERVICE == null) {
+                    synchronized (MusicServiceFactory.class) {
+                        if (REST_MUSIC_SERVICE == null) {
+                            Log.d(LOG_TAG, "Creating new rest music service");
+                            REST_MUSIC_SERVICE = new CachedMusicService(new RESTMusicService(
+                                    createSubsonicApiClient(context),
+                                    getPermanentFileStorage(context)));
+                        }
                     }
                 }
+
+                return REST_MUSIC_SERVICE;
             }
 
-            return REST_MUSIC_SERVICE;
-        }
     }
 
     /**
@@ -97,6 +98,7 @@ public class MusicServiceFactory {
         boolean enableLdapUserSupport = preferences
                 .getBoolean(Constants.PREFERENCES_KEY_LDAP_SUPPORT + instance , false);
         int androidClientSDK = Integer.valueOf(android.os.Build.VERSION.SDK);
+        int userID = Util.getUserId(context);
 
         if (serverUrl == null ||
                 username == null ||
@@ -104,13 +106,13 @@ public class MusicServiceFactory {
             Log.i("MusicServiceFactory", "Server credentials is not available");
             return new SubsonicAPIClient("http://localhost", "", "",
                     SubsonicAPIVersions.fromApiVersion(Constants.REST_PROTOCOL_VERSION),
-                    Constants.REST_CLIENT_ID+"-API"+androidClientSDK, allowSelfSignedCertificate,
+                    Constants.REST_CLIENT_ID+"-"+userID+"-API"+androidClientSDK, allowSelfSignedCertificate,
                     enableLdapUserSupport, BuildConfig.DEBUG);
         }
         //.LALANDA API LEVEL IS SENT HERE AND USER ID since 1.1.0
         return new SubsonicAPIClient(serverUrl, username, password,
                 SubsonicAPIVersions.fromApiVersion(Constants.REST_PROTOCOL_VERSION),
-                Constants.REST_CLIENT_ID+"-"+Util.getUserId(context)+"-API"+androidClientSDK, allowSelfSignedCertificate,
+                Constants.REST_CLIENT_ID+"-"+userID+"-API"+androidClientSDK, allowSelfSignedCertificate,
                 enableLdapUserSupport, BuildConfig.DEBUG);
     }
 
