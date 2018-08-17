@@ -2255,7 +2255,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				songsRatingInfo.add(new int[2]);
 				revision++;
 			}
-			
+
 		}
 
 		//LALANDA INFINITE SHUFFLE LIST FOR NOW WE TAKE
