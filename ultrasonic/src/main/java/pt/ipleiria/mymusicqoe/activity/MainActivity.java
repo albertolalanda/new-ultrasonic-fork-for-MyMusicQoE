@@ -110,7 +110,7 @@ public class MainActivity extends SubsonicTabActivity
 		final View albumsButton = buttons.findViewById(R.id.main_albums_button);
 		final View genresButton = buttons.findViewById(R.id.main_genres_button);
 		//final View videosTitle = buttons.findViewById(R.id.main_videos_title);
-		final View songsTitle = buttons.findViewById(R.id.main_songs);
+		//final View songsTitle = buttons.findViewById(R.id.main_songs);
 		final View randomSongsButton = buttons.findViewById(R.id.main_songs_button);
 		//final View songsStarredButton = buttons.findViewById(R.id.main_songs_starred);
 		final View albumsTitle = buttons.findViewById(R.id.main_albums);
@@ -165,7 +165,7 @@ public class MainActivity extends SubsonicTabActivity
 		{
 			adapter.addView(musicTitle, false);
 			adapter.addViews(asList(artistsButton, albumsButton, genresButton), true);
-			adapter.addView(songsTitle, false);
+			//adapter.addView(songsTitle, false);
 			adapter.addViews(asList(randomSongsButton), true);
 			adapter.addView(albumsTitle, false);
 
@@ -270,7 +270,7 @@ public class MainActivity extends SubsonicTabActivity
 		theme = Util.getTheme(this);
 
 		//showInfoDialog(shouldShowDialog);
-		if (!Util.isUserInfoSent(MainActivity.this) && shouldShowDialog){
+		if (shouldShowDialog || !Util.isUserInfoSent(MainActivity.this)){
 			showInfoDialog(true);
 		}
 	}

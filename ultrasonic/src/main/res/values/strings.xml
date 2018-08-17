@@ -232,7 +232,7 @@
     <string name="settings.max_bitrate_mobile">Max Bitrate - Mobile</string>
     <string name="settings.max_bitrate_unlimited">Unlimited</string>
     <string name="settings.max_bitrate_wifi">Max Bitrate - Wi-Fi</string>
-    <string name="settings.max_songs">Max Songs</string>
+    <string name="settings.max_songs">Max Random Songs</string>
     <string name="settings.media_button_summary">Respond to phone, headset and Bluetooth media buttons</string>
     <string name="settings.media_button_title">Media Buttons</string>
     <string name="settings.network_timeout">Network Timeout</string>

@@ -74,10 +74,51 @@ public class DownloadFile
 		this.song = song;
 		this.save = save;
 
+		//System.out.println("LALANDA TRANSCODINGS " + song.getApplicableTranscodings());
+
 		String[] applicableTranscodings = song.getApplicableTranscodings().split("/");
+
+		//System.out.println("LALANDA TRANSCODINGS " + applicableTranscodings.toString());
+
 		Random r = new Random();
 		int rand = r.nextInt(applicableTranscodings.length);
 		song.setTranscoderNum(Integer.parseInt(applicableTranscodings[rand]));
+
+		//LALANDA transcoded suffix pedreiro
+//		song.setTranscoderNum(4);
+//		if (song.getTranscoderNum() == 4){
+//			song.setTranscodedSuffix("flac");
+//		}
+		//LALANDA transcoded suffix pedreiro
+
+//        System.out.println("LALANDA RAND " + rand);
+//
+//        if (rand == 4){
+//			song.setTranscodedSuffix("flac");
+//		}
+
+//		switch (rand) {
+//			case 1:  song.setTranscodedSuffix("mp3");
+//				break;
+//			case 2:  song.setTranscodedSuffix("mp3");
+//				break;
+//			case 3:  song.setTranscodedSuffix("mp3");
+//				break;
+//			case 4:  song.setTranscodedSuffix("flac");
+//				break;
+//			case 5:  song.setTranscodedSuffix("ogg");
+//				break;
+//			case 6:  song.setTranscodedSuffix("ogg");
+//				break;
+//			case 7:  song.setTranscodedSuffix("ogg");
+//				break;
+//			case 8:  song.setTranscodedSuffix("mp3");
+//				break;
+//			case 9:  song.setTranscodedSuffix("ogg");
+//				break;
+//			default: song.setTranscodedSuffix("mp3");
+//				break;
+//		}
 
 		saveFile = FileUtil.getSongFile(context, song);
 		bitRate = Util.getMaxBitRate(context);
