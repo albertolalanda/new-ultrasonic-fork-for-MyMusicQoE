@@ -4,6 +4,7 @@
 <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="90"/></a>
 
 The purpose of MyMusicQoE is to gather statistics of music streaming quality of experience.
+For the server of this project, check out (https://github.com/RIPASSAS/airsonic)
 
 ## Contributing
 
@@ -11,7 +12,7 @@ If you want to contribute to this project install the application, and just list
 
 # Thanks
 
-This application was based on Ultrasonic (https://github.com/ultrasonic/ultrasonic) and uses a modified airsonic server(https://github.com/RIPASSAS/airsonic).
+This application was based on Ultrasonic (https://github.com/ultrasonic/ultrasonic) and uses a modified airsonic server (https://github.com/airsonic/airsonic).
 
 ## License
 
