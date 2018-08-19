@@ -1,4 +1,4 @@
-# MyMusicQoE [<img src="https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/blob/master/ultrasonic/src/main/res/mipmap-xxxhdpi/ic_launcher_mymusicqoe.png" width=60>](https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/blob/master/ultrasonic/src/main/res/mipmap-xxxhdpi/ic_launcher_mymusicqoe.png)
+# MyMusicQoE <img src="https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/blob/master/ultrasonic/src/main/res/mipmap-xxxhdpi/ic_launcher_mymusicqoe.png" width=60>
 
 <a href="https://f-droid.org/en/packages/pt.ipleiria.mymusicqoe/" target="_blank">
 <img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="90"/></a>
