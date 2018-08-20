@@ -454,6 +454,8 @@
     <string name="user_information_saved_message">guardado com sucesso</string>
     <string name="user_information_error_message">ocurreu um problema a enviar os seus dados</string>
     <string name="mymusicqoe_rating_saved_success">avaliação enviada com sucesso</string>
+    <string name="mymusicqoe_rating_success2">obrigado pela sua contribuição</string>
+    <string name="mymusicqoe_rating_success3">classificação recebida para análise. Obrigado</string>
     <string name="mymusicqoe_rating_error">ocurreu um problema a enviar a avaliação</string>
     <string name="mymusicqoe_rating_updated_success">avaliação atualizada com sucesso</string>
     <string name="mymusicqoe_rating_tooltip">por favor classifique</string>

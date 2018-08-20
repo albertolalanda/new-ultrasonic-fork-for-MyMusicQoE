@@ -80,9 +80,13 @@ public class DownloadFile
 
 		//System.out.println("LALANDA TRANSCODINGS " + applicableTranscodings.toString());
 
-		Random r = new Random();
-		int rand = r.nextInt(applicableTranscodings.length);
-		song.setTranscoderNum(Integer.parseInt(applicableTranscodings[rand]));
+
+		if (song.getTranscoderNum() == 0 || song.getTranscoderNum() == null){
+			Random r = new Random();
+			int rand = r.nextInt(applicableTranscodings.length);
+			song.setTranscoderNum(Integer.parseInt(applicableTranscodings[rand]));
+		}
+
 
 		//LALANDA transcoded suffix pedreiro
 //		song.setTranscoderNum(4);
