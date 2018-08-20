@@ -461,6 +461,8 @@
     <string name="user_information_saved_message">saved successfully</string>
     <string name="user_information_error_message">there was a problem saving your data</string>
     <string name="mymusicqoe_rating_saved_success">rating sent successfully</string>
+    <string name="mymusicqoe_rating_success2">thank you for your contribution</string>
+    <string name="mymusicqoe_rating_success3">rating received for study. Thank You</string>
     <string name="mymusicqoe_rating_error">there was a problem sending the rating</string>
     <string name="mymusicqoe_rating_updated_success">rating updated successfully</string>
     <string name="mymusicqoe_rating_tooltip">please rate</string>

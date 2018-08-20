@@ -682,7 +682,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//if ((downloadService != null || downloadService.getCurrentPlaying() != null) && downloadService.getCountDownTimer() != null) {
 		if (downloadService != null && downloadService.getCurrentPlaying() != null) {
 			//RESUME LALANDA
-			if (downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
+			if (downloadService.getCountDownTimer() != null && downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
 				countDownEnded();
 				downloadService.setHasRated(false);
 				verticalSeekBarChangeText(0);
@@ -1428,7 +1428,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		///LALANDA THIS NEEDS TO BE RESOLVED
 		if (downloadService.isNewSong()){
 			downloadService.setNewSong(false);
-			if (downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
+			if (currentSongIndex-1 == -1 || downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
 				verticalSeekBar.setProgress(0);
 				seekbarRatingText.setText("");
 				verticalSeekBarChangeText(0);

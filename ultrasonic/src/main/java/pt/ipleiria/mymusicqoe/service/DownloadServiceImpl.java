@@ -42,6 +42,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.SeekBar;
+import android.widget.Toast;
 
 import pt.ipleiria.mymusicqoe.R;
 import pt.ipleiria.mymusicqoe.activity.DownloadActivity;
@@ -474,6 +475,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	@Override
 	public void restore(List<MusicDirectory.Entry> songs, int currentPlayingIndex, int currentPlayingPosition, boolean autoPlay, boolean newPlaylist)
 	{
+		//delete(songs);
 		download(songs, false, false, false, false, newPlaylist);
 
 		if (currentPlayingIndex != -1)
@@ -2577,7 +2579,12 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
 					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
-					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_saved_success);
+
+					Random random = new Random();
+					int[] toastMessages = new int[]{R.string.mymusicqoe_rating_saved_success, R.string.mymusicqoe_rating_success2, R.string.mymusicqoe_rating_success3};
+					int randomMsgIndex = random.nextInt(toastMessages.length);
+
+					Util.toast(DownloadActivity.getInstance(), toastMessages[randomMsgIndex]);
 				}
 			}
 		};
@@ -2610,7 +2617,12 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
 					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
-					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_updated_success);
+
+					Random random = new Random();
+					int[] toastMessages = new int[]{R.string.mymusicqoe_rating_updated_success, R.string.mymusicqoe_rating_success2};
+					int randomMsgIndex = random.nextInt(toastMessages.length);
+
+					Util.toast(DownloadActivity.getInstance(), toastMessages[randomMsgIndex]);
 				}
 			}
 		};
