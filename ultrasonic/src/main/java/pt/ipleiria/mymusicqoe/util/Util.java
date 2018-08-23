@@ -961,7 +961,8 @@ public class Util extends DownloadActivity
 	//LALANDA WELCOME DIALOG
 	public static void showWelcomeDialog(final Context context, final MainActivity activity, int titleId, int messageId)
 	{
-		new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_info).setTitle(titleId).setMessage(messageId).setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener()
+		//LALANDA dialog
+		AlertDialog.Builder dialog = new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_info).setTitle(titleId).setMessage(messageId).setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener()
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int i)
@@ -974,7 +975,9 @@ public class Util extends DownloadActivity
 				}*/
 				activity.startActivityForResultWithoutTransition(activity, UserInformationActivity.class);
 			}
-		}).show();
+		});
+		dialog.setCancelable(false);
+		dialog.show();
 	}
 
 	private static void showDialog(Context context, int icon, int titleId, int messageId)

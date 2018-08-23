@@ -5,9 +5,8 @@ import android.os.CountDownTimer;
 /**
  * This class uses the native CountDownTimer to
  * create a timer which could be paused and then
- * started again from the previous point. You can
+ * started again from the previous point.
  * provide implementation for onTick() and onFinish()
- * then use it in your projects.
  */
 public abstract class CountDownTimerPausable {
     long millisInFuture = 0;

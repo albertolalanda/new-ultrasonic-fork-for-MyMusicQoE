@@ -681,9 +681,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//TIMER REMOVE
 		//if ((downloadService != null || downloadService.getCurrentPlaying() != null) && downloadService.getCountDownTimer() != null) {
 		if (downloadService != null && downloadService.getCurrentPlaying() != null) {
-			//RESUME LALANDA
 			if (downloadService.getCountDownTimer() != null && downloadService.getCountDownTimer().isFinished() && downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 0) {
-				countDownEnded();
+				//countDownEnded();
+				canRate = true;
+				changeStar = true;
 				downloadService.setHasRated(false);
 				verticalSeekBarChangeText(0);
 			} else if(downloadService.getSongsRatingInfo(downloadService.getCurrentPlayingIndex(), 0) == 1){
@@ -920,6 +921,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					}else if(!downloadService.isHasRated()) {
 						starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_hollow);
 						showTooltip = true;
+
 					}else {
 						starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_full);
 					}
@@ -1560,6 +1562,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 									.build()
 									.show();
 							showTooltip = false;
+							canRate = true;
+							starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_hollow);
 						}
 
 						//TIMER REMOVE
