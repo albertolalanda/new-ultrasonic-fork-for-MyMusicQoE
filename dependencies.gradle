@@ -1,7 +1,7 @@
 ext.versions = [
 //        LALANDA HERE WE CHANGE VERSIONS. SHOULD BE DONE BEFORE RELEASE. ALSO MIN SDK
-        versionCode          : 8,
-        versionName          : "1.1.2",
+        versionCode          : 9,
+        versionName          : "1.1.3",
 
         minSdk               : 14,
         targetSdk            : 22,

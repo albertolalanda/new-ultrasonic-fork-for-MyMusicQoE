@@ -10,8 +10,8 @@ android {
         applicationId 'pt.ipleiria.mymusicqoe'
 //      versionName versions.versionName
 //      versionCode versions.versionCode
-        versionCode 8
-        versionName "1.1.2"
+        versionCode 9
+        versionName "1.1.3"
         minSdkVersion versions.minSdk
         targetSdkVersion versions.targetSdk
         resConfigs "en", "pt"
