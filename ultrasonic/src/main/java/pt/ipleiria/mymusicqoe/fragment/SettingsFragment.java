@@ -232,8 +232,6 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
                 if (activeServers == maxServerCount) {
                     return false;
                 }
-                //LALANDA SOUT CHECK ACTIVE SERVERS
-                System.out.println("LALANDA SOUT - ACTIVESERVERS = " + activeServers);
                 System.out.println(getActivity());
                 //-------
                 activeServers++;

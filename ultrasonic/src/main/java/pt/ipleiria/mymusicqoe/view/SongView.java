@@ -154,14 +154,6 @@ public class SongView extends UpdateView implements Checkable
 
 		StringBuilder artist = new StringBuilder(60);
 
-		//LALANDA not needed bitrate
-		/*String bitRate = null;
-
-		if (song.getBitRate() != null)
-		{
-			bitRate = String.format(this.context.getString(R.string.song_details_kbps), song.getBitRate());
-		}*/
-
 		String fileFormat;
 		String suffix = song.getSuffix();
 		String transcodedSuffix = song.getTranscodedSuffix();
@@ -175,15 +167,8 @@ public class SongView extends UpdateView implements Checkable
 
 		if (artistName != null)
 		{
-			//LALANDA TO NEVER DISPLAY BITRATE. THE VALUES WERE WRONG ANYWAY
-//			if (Util.shouldDisplayBitrateWithArtist(this.context))
-//			{
-//				artist.append(artistName).append(" (").append(String.format(this.context.getString(R.string.song_details_all), bitRate == null ? "" : String.format("%s ", bitRate), fileFormat)).append(')');
-//			}
-//			else
-//			{
+
 				artist.append(artistName);
-//			}
 		}
 
 		int trackNumber = (song.getTrack() == null) ? 0 : song.getTrack();

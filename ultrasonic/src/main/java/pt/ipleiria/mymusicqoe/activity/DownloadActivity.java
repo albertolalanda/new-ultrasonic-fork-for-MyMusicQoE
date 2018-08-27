@@ -862,8 +862,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//MenuItem bookmarkRemoveMenuItem = menu.findItem(R.id.menu_item_bookmark_delete);
 
 
-
-		//Lalanda star button view
 		starButtonView = findViewById(R.id.menu_item_star);
 
 		if (Util.isOffline(this))
@@ -1101,7 +1099,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				startActivityForResultWithoutTransition(this, intent);
 				return true;
 			case R.id.menu_remove:
-				//lalanda delete song !!!!!!!!!!!!!!!!!!!!
 				deleteFromPlaylist(song);
 				getDownloadService().remove(song);
 				onDownloadListChanged();
@@ -1144,13 +1141,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().setShowVisualization(visualizerView.isActive());
 				Util.toast(DownloadActivity.this, active ? R.string.download_visualizer_on : R.string.download_visualizer_off);
 				return true;
-				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
 				toggleFullScreenAlbumArtRating(1);
 				return true;
 			case R.id.menu_item_clear_playlist:
 				getDownloadService().setShufflePlayEnabled(false);
-				//lalanda playlist
+				//mymusicqoeplaylist
 				deletePlaylist();
 
 				getDownloadService().clear();
@@ -1234,7 +1230,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}.execute();
 	}
 
-	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE AND RATING BAR
 	private void toggleFullScreenAlbumArtRating(int index)
 	{
 		//is on rating clicks star
@@ -1299,19 +1294,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
-	//LALANDA when this happens might need to delete the cache
-	//UPDATE. THIS CAN BE ON
-
-	//REPEAT
-	//REMOVE A SONG FROM PLAYLIST
-	//CLEAR PLAYLIST
-	//
-	//REMOVE FROM PLAYLIST
 	private void onDownloadListChanged()
 	{
 		final DownloadService downloadService = getDownloadService();
 
-		// ALBERTO LALANDA METHOD WHEN DOWNLOAD LIST IS CHANGED IN THE ORDER
 		if (downloadService == null)
 		{
 			return;
@@ -1399,11 +1385,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
-	//WHEN MUSIC IS CHANGED LALANDA OR PAUSED OR WHATEVER
+	//WHEN MUSIC IS CHANGED STATE (PAUSE CHANGE ETC)
 	private void onCurrentChanged()
 	{
 		DownloadService downloadService = getDownloadService();
 		if (playlistFlipper.getDisplayedChild()==2){
+			//downloadService.stop();
 			toggleFullScreenAlbumArtRating(0);
 		}
 
@@ -1424,10 +1411,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//ATENÇÃO O SEGUINTE VALOR DE INDEX IRÁ COMERÇAR NO 1
 		int currentSongIndex = downloadService.getCurrentPlayingIndex() + 1;
 
-		//LALANDA WHEN CURRENT MUSIC IS CHANGED MODIFICATIONS
-		//this will get information of the music the user changed to and change rating button and rating bar
-
-		///LALANDA THIS NEEDS TO BE RESOLVED
+		//this should be on the service
 		if (downloadService.isNewSong()){
 			downloadService.setNewSong(false);
 			if (currentSongIndex-1 == -1 || downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
@@ -1558,6 +1542,8 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 									.transparentOverlay(true)
 									.backgroundColor(Color.parseColor("#31698a"))
 									.arrowColor(Color.parseColor("#31698a"))
+									.dismissOnOutsideTouch(true)
+									.dismissOnInsideTouch(true)
 									.textColor(Color.WHITE)
 									.build()
 									.show();
@@ -1787,25 +1773,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		return verticalSeekBar;
 	}
 
-	/*private void setSecondsPassed(int newValue, int oldValue)
-	{
-		newValue = newValue - offset;
-		secondsPassed = newValue - oldValue;
-	}
 
-	private int getSecondsPassed(){
-        //System.out.println("LALANDA seconds passed " + secondsPassed);
-		return secondsPassed;
-	}
-
-
-
-	private void setOffset(int newOffset){
-        //System.out.println("LALANDA offset " + newOffset);
-		offset = newOffset;
-	}*/
-
-	//LALANDA DELETE CACHE
 	private void deletePlaylist()
 	{
 		final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();

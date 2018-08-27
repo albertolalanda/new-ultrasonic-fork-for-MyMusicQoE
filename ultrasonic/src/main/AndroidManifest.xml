@@ -20,7 +20,7 @@
         android:xlargeScreens="true"/>
     <!--next 2 lines -->
     <!--was false-->
-    <!--added the next 1 LALANDA! SE HOUVER PROBLEMA VIR AQUI VER SE É A RAZÃO-->
+    <!--added the next 1-->
     <!--icon changed-->
     <application
         android:allowBackup="false"
