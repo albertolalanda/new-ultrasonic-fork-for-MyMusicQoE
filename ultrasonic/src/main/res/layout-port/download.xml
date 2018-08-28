@@ -4,7 +4,6 @@
     a:layout_height="fill_parent"
     a:orientation="vertical" >
 
-    <!--LALANDA LAYOUT OF FLIPPER-->
     <pt.ipleiria.mymusicqoe.util.MyViewFlipper
         a:id="@+id/download_playlist_flipper"
         a:layout_width="fill_parent"

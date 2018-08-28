@@ -69,7 +69,7 @@ public class ErrorDialog
 		builder.create().show();
 	}
 
-	//LALANDA THIS WAS MADE BY ME
+	//Custom made by me
 	public ErrorDialog(final Activity activity, CharSequence message, final boolean finishActivityOnClose, final boolean definitiveFinish)
 	{
 

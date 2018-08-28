@@ -356,7 +356,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		int offset = 1;
 
 		final Context context = DownloadActivity.getInstance().getApplicationContext();
-		//LALANDA SET PLAYLIST NUMBER
 		Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
 
 
@@ -367,24 +366,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		if (newPlaylist)
 		{
-			//LOOKS LIKE WE ONLY ENTER HERE ON BOOKMARK?
-
-			//ALBERTO LALANDA CLEAR OLD PLAYLIST IF NEW PLAYLIST IS GOING TO PLAY
-			//DOES NOT WORK
-//			final List<MusicDirectory.Entry> oldPlaylistSong = new LinkedList<Entry>();
-//			for (final DownloadFile downloadFile : downloadList)
-//			{
-//				oldPlaylistSong.add(downloadFile.getSong());
-//			}
-//			delete(oldPlaylistSong);
-
-			//test LALANDA THIS WORKS? TODO TODO
-			//delete(songs);
-
-			//downloadFileCache.clear();
-			/////////////////////////////////////////////////////////////////////
-
-			//LALANDA DELETE THIS HOW IT IS ON ULTRASONIC
 			downloadList.clear();
 			songsRatingInfo.clear();
 		}
@@ -448,7 +429,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		lifecycleSupport.serializeDownloadQueue();
 	}
 
-	//LALANDA ACHO QUE ISTO É QUANDO FAZEMOS O DOWNLOAD DE MUSICAS PARA OUVIR DEPOIS
 	@Override
 	public synchronized void downloadBackground(List<MusicDirectory.Entry> songs, boolean save)
 	{
@@ -522,7 +502,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	public synchronized void setShufflePlayEnabled(boolean enabled)
 	{
 		shufflePlay = enabled;
-		//LALANDA SHUFFLEPLAY CORNER BUTTON
 		final Context context = DownloadActivity.getInstance().getApplicationContext();
 		Util.setUserPlaylistNumber(context, Util.getUserPlaylistNumber(context)+1);
 		if (shufflePlay)
@@ -625,7 +604,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		return downloadFile;
 	}
 
-	//LALANDA
 	@Override
 	public synchronized boolean forSongGetIsRated(MusicDirectory.Entry song)
 	{
@@ -711,7 +689,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		songsRatingInfo.remove(which);
 	}
 
-	//LALANDA MAYBE I NEED TO DELETE HERE AS WELL
 	@Override
 	public synchronized void remove(DownloadFile downloadFile)
 	{
@@ -955,7 +932,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		if (getSongsRatingInfo(index, 0) == 0){
-
 				countDownTimerPausable = new CountDownTimerPausable(10000, 1000) {
 					@Override
 					public void onTick(long millisUntilFinished) {
@@ -976,11 +952,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		if (getCurrentPlaying() != null){
 			sendRatingMyMusicQoE(getCurrentPlaying());
 		}
-
-
-		//LALANDA I DONT THINK I NEED THIS
-		//setHasRated(false);
-		//DownloadActivity.setHasRated(false);
 
 
 		updateRemoteControl();
@@ -1017,6 +988,8 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		setNewSong(true);
+		//lalanda 27 agosto poorly tested next line
+		//hasRated = false;
 	}
 
 	private synchronized void resetPlayback()
@@ -1026,7 +999,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		lifecycleSupport.serializeDownloadQueue();
 	}
 
-	//LALANDA PLAYNEXT SONG
 	private synchronized void playNext()
 	{
 
@@ -1035,7 +1007,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		nextMediaPlayer = tmp;
 
 //		mediaPlayer.pause();
-//		System.out.println("LALANDA MEDIA PLAYER PAUSE");
+//		System.out.println(" MEDIA PLAYER PAUSE");
 
 		setCurrentPlaying(nextPlaying);
 		setPlayerState(PlayerState.STARTED);
@@ -1933,15 +1905,16 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				int pos = cachedPosition;
 				Log.i(TAG, String.format("Ending position %d of %d", pos, duration));
 
-//                if(DownloadActivity.isRated()){
-//					DownloadActivity.getVerticaSeekBar().getProgress()
+
+
+//				if (isHasRated()){
+//
 //				}
 
 
-				//TODO LALANDA NOTIFICATION FOR NOW FORGET IT
 //                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
-//                   // if (Util.isDownloadActivityDestroyed(DownloadServiceImpl.this) && !forSongGetIsRated(downloadFile.getSong()) ){
-////                    	&& DownloadActivity.isRated()
+//                    if (!Util.isDownloadActivityDestroyed(DownloadServiceImpl.this) && ){
+//                    	//&& DownloadActivity.isRated()
 //
 //                        // prepare intent which is triggered if the // notification is selected
 //                        Intent intent = new Intent(DownloadServiceImpl.this, DownloadActivity.class);
@@ -1950,37 +1923,24 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //                        // the addAction re-use the same intent to keep the example short
 //                        Notification n = null;
 //
-//                            n = new Notification.Builder(DownloadServiceImpl.this)
-//                                    .setContentTitle("New mail from " + "test@gmail.com")
-//                                    .setContentText("Subject")
-//                                    .setSmallIcon(android.R.drawable.ic_dialog_info)
-//                                    .setContentIntent(pIntent)
-//									.setVibrate(new long[] {200, 200})
-//									.setLights(Color.BLUE, 3000, 3000)
-//									.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//									.setPriority(NotificationCompat.PRIORITY_DEFAULT)
-//									.addAction(R.drawable.ic_star_hollow_light, "Rate", pIntent)
-//									.setAutoCancel(true).build();
 //
-//    //                            .addAction(R.drawable.icon, "Call", pIntent)
-//    //                            .addAction(R.drawable.icon, "More", pIntent)
-//    //                            .addAction(R.drawable.icon, "And more", pIntent)
 //
-//                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//                        notificationManager.notify(0, n);
-//                        pause();
+////                        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+////                        notificationManager.notify(0, n);
+////                        pause();
 //                        return ;
 //                    //}
 //                }
 
 				//LALANDA SEND RATING
-				sendRatingMyMusicQoE(downloadFile);
+				//sendRatingMyMusicQoE(downloadFile);
 
 				//LALANDA MAYBE I DONT NEED THIS
 				//setHasRated(false);
 				//DownloadActivity.setHasRated(false);
 
 				setNewSong(true);
+
 
 				if (!isPartial || (downloadFile.isWorkDone() && (Math.abs(duration - pos) < 1000)))
 				{
@@ -2560,6 +2520,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
 			boolean responseSuccessful = false;
 			int playlistNumber;
+			int value = DownloadActivity.getVerticaSeekBar().getProgress();
 			@Override
 			protected Boolean doInBackground() throws Throwable
 			{
@@ -2567,7 +2528,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				playlistNumber = Util.getUserPlaylistNumber(context);
 				responseSuccessful = musicService.setCreateRatingQoE(context, playlistNumber,
 						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
-						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+						value, this);
 
 				return responseSuccessful;
 			}
@@ -2578,8 +2539,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				if (!result) {
 					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
-
+					setSongsRatingInfo(index, 1, value);
 					Random random = new Random();
 					int[] toastMessages = new int[]{R.string.mymusicqoe_rating_saved_success, R.string.mymusicqoe_rating_success2, R.string.mymusicqoe_rating_success3};
 					int randomMsgIndex = random.nextInt(toastMessages.length);
@@ -2597,7 +2557,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
 			boolean responseSuccessful = false;
 			int playlistNumber;
-
+			int value = DownloadActivity.getVerticaSeekBar().getProgress();
 			@Override
 			protected Boolean doInBackground() throws Throwable
 			{
@@ -2605,7 +2565,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				playlistNumber = Util.getUserPlaylistNumber(context);
 				responseSuccessful = musicService.setUpdateRatingQoE(context, playlistNumber,
 						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
-						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+						value, this);
 
 				return responseSuccessful;
 			}
@@ -2616,7 +2576,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				if (!result) {
 					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+					setSongsRatingInfo(index, 1, value);
 
 					Random random = new Random();
 					int[] toastMessages = new int[]{R.string.mymusicqoe_rating_updated_success, R.string.mymusicqoe_rating_success2};
@@ -2640,9 +2600,13 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					int transcoderNum = downloadFile.getSong().getTranscoderNum();
 					int index = downloadList.indexOf(downloadFile);
 
+
+					if (!Util.isToolTipShownBefore(DownloadServiceImpl.this)){
+						Util.setToolTipShownBefore(DownloadServiceImpl.this, true);
+					}
+
 					if (getSongsRatingInfo(index, 0) == 0){
 						setNewRatingRest(songId, transcoderNum, index);
-
 					}else{
 						if (getSongsRatingInfo(index, 1) != DownloadActivity.getVerticaSeekBar().getProgress()){
 							setUpdateRatingRest(songId, transcoderNum, index);

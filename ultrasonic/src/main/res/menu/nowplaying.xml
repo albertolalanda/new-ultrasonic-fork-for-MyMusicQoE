@@ -3,13 +3,11 @@
     xmlns:a="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <!--LALANDA NOWPLAYING UPPER RIGHT MENU-->
     <item
         a:id="@+id/menu_item_toggle_list"
         a:icon="?attr/playlist_toggle"
         app:showAsAction="always"
         a:title="@string/download.toggle_playlist"/>
-    <!--lalanda added action view class-->
     <item
         a:id="@+id/menu_item_star"
         a:icon="?attr/star_hollow"
@@ -53,9 +51,9 @@
         <!--a:id="@+id/menu_item_jukebox"-->
         <!--app:showAsAction="never"-->
         <!--a:title="@string/download.menu_jukebox_on"/>-->
-    <item
+    <!--<item
         a:id="@+id/menu_item_screen_on_off"
         app:showAsAction="never"
-        a:title="@string/download.menu_screen_on"/>
+        a:title="@string/download.menu_screen_on"/>-->
 
 </menu>

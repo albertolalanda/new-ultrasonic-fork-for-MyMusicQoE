@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -147,6 +148,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	//private static boolean hasRated = false; //has rated in the activity, star goes full
 	private static boolean changeStar = false; //true when we want to change star
 	private boolean showTooltip = false;
+	private SimpleTooltip tooltip;
 
 	//use for timer
 //	private int secondsLeftForRate = 10;
@@ -852,7 +854,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		super.onPrepareOptionsMenu(menu);
 
-		final MenuItem screenOption = menu.findItem(R.id.menu_item_screen_on_off);
+		//final MenuItem screenOption = menu.findItem(R.id.menu_item_screen_on_off);
 		//final MenuItem jukeboxOption = menu.findItem(R.id.menu_item_jukebox);
 		final MenuItem equalizerMenuItem = menu.findItem(R.id.menu_item_equalizer);
 		final MenuItem visualizerMenuItem = menu.findItem(R.id.menu_item_visualizer);
@@ -862,8 +864,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//MenuItem bookmarkRemoveMenuItem = menu.findItem(R.id.menu_item_bookmark_delete);
 
 
-
-		//Lalanda star button view
 		starButtonView = findViewById(R.id.menu_item_star);
 
 		if (Util.isOffline(this))
@@ -944,7 +944,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 
 
-			if (downloadService.getKeepScreenOn())
+			/*if (downloadService.getKeepScreenOn())
 			{
 				if (screenOption != null)
 				{
@@ -957,7 +957,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				{
 					screenOption.setTitle(R.string.download_menu_screen_on);
 				}
-			}
+			}*/
 
 //			if (jukeboxOption != null)
 //			{
@@ -1101,7 +1101,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				startActivityForResultWithoutTransition(this, intent);
 				return true;
 			case R.id.menu_remove:
-				//lalanda delete song !!!!!!!!!!!!!!!!!!!!
 				deleteFromPlaylist(song);
 				getDownloadService().remove(song);
 				onDownloadListChanged();
@@ -1109,7 +1108,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					getDownloadService().play(0);
 				}
 				return true;
-			case R.id.menu_item_screen_on_off:
+			/*case R.id.menu_item_screen_on_off:
 				if (getDownloadService().getKeepScreenOn())
 				{
 					getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -1120,7 +1119,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 					getDownloadService().setKeepScreenOn(true);
 				}
-				return true;
+				return true;*/
 			case R.id.menu_shuffle:
 				getDownloadService().shuffle();
 				Util.toast(this, R.string.download_menu_shuffle_notification);
@@ -1144,13 +1143,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				getDownloadService().setShowVisualization(visualizerView.isActive());
 				Util.toast(DownloadActivity.this, active ? R.string.download_visualizer_on : R.string.download_visualizer_off);
 				return true;
-				//LALANDA TOGGLE PLAYLIST BUTTON
 			case R.id.menu_item_toggle_list:
 				toggleFullScreenAlbumArtRating(1);
 				return true;
 			case R.id.menu_item_clear_playlist:
 				getDownloadService().setShufflePlayEnabled(false);
-				//lalanda playlist
+				//mymusicqoeplaylist
 				deletePlaylist();
 
 				getDownloadService().clear();
@@ -1163,6 +1161,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				if (canRate) {
 					toggleFullScreenAlbumArtRating(2);
+					if (tooltip.isShowing()){
+						tooltip.dismiss();
+					}
 				}
 				//TIMER REMOVE
 				else{
@@ -1234,7 +1235,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}.execute();
 	}
 
-	//TOGGLE LIST LALANDA BETWEEN PLAYLIST AND ALBUM IMAGE AND RATING BAR
 	private void toggleFullScreenAlbumArtRating(int index)
 	{
 		//is on rating clicks star
@@ -1299,19 +1299,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
-	//LALANDA when this happens might need to delete the cache
-	//UPDATE. THIS CAN BE ON
-
-	//REPEAT
-	//REMOVE A SONG FROM PLAYLIST
-	//CLEAR PLAYLIST
-	//
-	//REMOVE FROM PLAYLIST
 	private void onDownloadListChanged()
 	{
 		final DownloadService downloadService = getDownloadService();
 
-		// ALBERTO LALANDA METHOD WHEN DOWNLOAD LIST IS CHANGED IN THE ORDER
 		if (downloadService == null)
 		{
 			return;
@@ -1399,11 +1390,12 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		}
 	}
 
-	//WHEN MUSIC IS CHANGED LALANDA OR PAUSED OR WHATEVER
+	//WHEN MUSIC IS CHANGED STATE (PAUSE CHANGE ETC)
 	private void onCurrentChanged()
 	{
 		DownloadService downloadService = getDownloadService();
 		if (playlistFlipper.getDisplayedChild()==2){
+			//downloadService.stop();
 			toggleFullScreenAlbumArtRating(0);
 		}
 
@@ -1424,10 +1416,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//ATENÇÃO O SEGUINTE VALOR DE INDEX IRÁ COMERÇAR NO 1
 		int currentSongIndex = downloadService.getCurrentPlayingIndex() + 1;
 
-		//LALANDA WHEN CURRENT MUSIC IS CHANGED MODIFICATIONS
-		//this will get information of the music the user changed to and change rating button and rating bar
-
-		///LALANDA THIS NEEDS TO BE RESOLVED
+		//this should be on the service
 		if (downloadService.isNewSong()){
 			downloadService.setNewSong(false);
 			if (currentSongIndex-1 == -1 || downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
@@ -1549,18 +1538,54 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //						if (getDownloadService().getCountDownTimer() != null && !getDownloadService().getCountDownTimer().isFinished()){
 //							getDownloadService().getCountDownTimer().start();
 //						}
+
+
+//						.modal(true)
+//						.animated(true)
+//						.animationDuration(2000)
 						if (showTooltip){
-							new SimpleTooltip.Builder(DownloadActivity.this)
-									.anchorView(starButtonView)
-									.text(R.string.mymusicqoe_rating_tooltip)
-									.gravity(Gravity.BOTTOM)
-									.animated(false)
-									.transparentOverlay(true)
-									.backgroundColor(Color.parseColor("#31698a"))
-									.arrowColor(Color.parseColor("#31698a"))
-									.textColor(Color.WHITE)
-									.build()
-									.show();
+							if (Util.isToolTipShownBefore(DownloadActivity.this)){
+								tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
+										.anchorView(starButtonView)
+										.text(R.string.mymusicqoe_rating_tooltip)
+										.gravity(Gravity.BOTTOM)
+										.backgroundColor(Color.parseColor("#31698a"))
+										.arrowColor(Color.parseColor("#31698a"))
+										.dismissOnOutsideTouch(false)
+										.transparentOverlay(true)
+										.dismissOnInsideTouch(true)
+										.onDismissListener(new SimpleTooltip.OnDismissListener() {
+											@Override
+											public void onDismiss(SimpleTooltip tooltip) {
+												if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
+													toggleFullScreenAlbumArtRating(2);
+												}
+											}
+										})
+										.textColor(Color.WHITE)
+										.build();
+							}else{
+								tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
+										.anchorView(starButtonView)
+										.text(R.string.mymusicqoe_rating_tooltip)
+										.gravity(Gravity.BOTTOM)
+										.backgroundColor(Color.parseColor("#FDB10C"))
+										.arrowColor(Color.parseColor("#FDB10C"))
+										.dismissOnOutsideTouch(false)
+										.transparentOverlay(false)
+										.dismissOnInsideTouch(true)
+										.onDismissListener(new SimpleTooltip.OnDismissListener() {
+											@Override
+											public void onDismiss(SimpleTooltip tooltip) {
+												if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
+													toggleFullScreenAlbumArtRating(2);
+												}
+											}
+										})
+										.textColor(Color.WHITE)
+										.build();
+							}
+							tooltip.show();
 							showTooltip = false;
 							canRate = true;
 							starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_hollow);
@@ -1787,25 +1812,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		return verticalSeekBar;
 	}
 
-	/*private void setSecondsPassed(int newValue, int oldValue)
-	{
-		newValue = newValue - offset;
-		secondsPassed = newValue - oldValue;
-	}
 
-	private int getSecondsPassed(){
-        //System.out.println("LALANDA seconds passed " + secondsPassed);
-		return secondsPassed;
-	}
-
-
-
-	private void setOffset(int newOffset){
-        //System.out.println("LALANDA offset " + newOffset);
-		offset = newOffset;
-	}*/
-
-	//LALANDA DELETE CACHE
 	private void deletePlaylist()
 	{
 		final List<MusicDirectory.Entry> songs = new LinkedList<MusicDirectory.Entry>();

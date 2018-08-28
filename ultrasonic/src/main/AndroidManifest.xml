@@ -20,7 +20,7 @@
         android:xlargeScreens="true"/>
     <!--next 2 lines -->
     <!--was false-->
-    <!--added the next 1 LALANDA! SE HOUVER PROBLEMA VIR AQUI VER SE É A RAZÃO-->
+    <!--added the next 1-->
     <!--icon changed-->
     <application
         android:allowBackup="false"
@@ -33,6 +33,7 @@
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:label="MyMusicQoE"
             android:launchMode="standard">
             <intent-filter>
@@ -43,12 +44,15 @@
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.SelectArtistActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:launchMode="standard"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.SelectAlbumActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.SearchActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/search.label"
             android:launchMode="singleTask"/>
@@ -64,6 +68,7 @@
             <!--a:launchMode="standard"/>-->
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.BookmarkActivity"
+            android:screenOrientation="portrait"
             android:configChanges="orientation|keyboardHidden"/>
         <!--<activity-->
             <!--a:name=".activity.ShareActivity"-->
@@ -80,6 +85,7 @@
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.SettingsActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.UserInformationActivity"
@@ -89,19 +95,23 @@
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.HelpActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.LyricsActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.EqualizerActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:label="@string/equalizer.label"
             android:launchMode="singleTask"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.SelectGenreActivity"
             android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="portrait"
             android:launchMode="standard"/>
         <activity
             android:name="pt.ipleiria.mymusicqoe.activity.VoiceQueryReceiverActivity"

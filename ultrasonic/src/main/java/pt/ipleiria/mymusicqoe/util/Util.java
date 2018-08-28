@@ -186,7 +186,6 @@ public class Util extends DownloadActivity
 		return true;
 	}
 
-	//LALANDA MEDIA BUTTON  LOCK SCREEN ENABLED
 	public static boolean isLockScreenEnabled(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
@@ -233,6 +232,20 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
+	public static boolean isToolTipShownBefore(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getBoolean(Constants.USER_TOOLTIP_SHOWN_BEFORE, false);
+	}
+
+	public static void setToolTipShownBefore(Context context, boolean value)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putBoolean(Constants.USER_TOOLTIP_SHOWN_BEFORE, value);
+		editor.commit();
+	}
+
 	public static boolean isDownloadActivityDialogShown(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
@@ -247,7 +260,7 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
-	//LALANDA SET MYMUSICQOESERVER
+	//SET MYMUSICQOESERVER
 	public static void setMyMusicQoEServer(Context context, int instance)
 	{
 		SharedPreferences preferences = getPreferences(context);
@@ -910,7 +923,6 @@ public class Util extends DownloadActivity
 		return null;
 	}
 
-	//LALANDA IS NETWORK CONNECTED METHOD
 	public static boolean isNetworkConnected(Context context)
 	{
 		ConnectivityManager manager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -958,21 +970,14 @@ public class Util extends DownloadActivity
 		showDialog(context, android.R.drawable.ic_dialog_info, titleId, messageId);
 	}
 
-	//LALANDA WELCOME DIALOG
 	public static void showWelcomeDialog(final Context context, final MainActivity activity, int titleId, int messageId)
 	{
-		//LALANDA dialog
 		AlertDialog.Builder dialog = new AlertDialog.Builder(context).setIcon(android.R.drawable.ic_dialog_info).setTitle(titleId).setMessage(messageId).setPositiveButton(R.string.common_ok, new DialogInterface.OnClickListener()
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int i)
 			{
 				dialog.dismiss();
-				//activity.startActivityForResultWithoutTransition(activity, SettingsActivity.class);
-				//LALANDA IF NETWORK CONNECTED ELSE ERROR DIALOG
-				/*if (!isNetworkConnected(activity)){
-					new ErrorDialog(activity, R.string.background_task_network_error, true);
-				}*/
 				activity.startActivityForResultWithoutTransition(activity, UserInformationActivity.class);
 			}
 		});
@@ -1565,7 +1570,6 @@ public class Util extends DownloadActivity
 		//return false;
 	}
 
-	//LALANDA now playing summary
 	public static boolean getShowNowPlayingPreference(Context context)
 	{
 //		SharedPreferences preferences = getPreferences(context);
@@ -1758,7 +1762,6 @@ public class Util extends DownloadActivity
 		return false;
 	}
 
-	//LALANDA refresh interval for views always 1sec
 	public static int getViewRefreshInterval(Context context)
 	{
 //		SharedPreferences preferences = getPreferences(context);
@@ -1834,8 +1837,6 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
-
-	//LALANDA always show all songs by artist
 	public static boolean getShouldShowAllSongsByArtist(Context context)
 	{
 //		SharedPreferences preferences = getPreferences(context);
@@ -1857,7 +1858,6 @@ public class Util extends DownloadActivity
 		context.sendBroadcast(scanFileIntent);
 	}
 
-	//LALANDA SETTINGS IMAGE LOADER CONCURRENCY LETS MAKE IT 5
 	public static int getImageLoaderConcurrency(Context context)
 	{
 //		SharedPreferences preferences = getPreferences(context);
