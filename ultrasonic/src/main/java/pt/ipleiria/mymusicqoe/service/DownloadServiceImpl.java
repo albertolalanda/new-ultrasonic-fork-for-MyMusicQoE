@@ -2520,6 +2520,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
 			boolean responseSuccessful = false;
 			int playlistNumber;
+			int value = DownloadActivity.getVerticaSeekBar().getProgress();
 			@Override
 			protected Boolean doInBackground() throws Throwable
 			{
@@ -2527,7 +2528,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				playlistNumber = Util.getUserPlaylistNumber(context);
 				responseSuccessful = musicService.setCreateRatingQoE(context, playlistNumber,
 						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
-						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+						value, this);
 
 				return responseSuccessful;
 			}
@@ -2538,8 +2539,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				if (!result) {
 					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
-
+					setSongsRatingInfo(index, 1, value);
 					Random random = new Random();
 					int[] toastMessages = new int[]{R.string.mymusicqoe_rating_saved_success, R.string.mymusicqoe_rating_success2, R.string.mymusicqoe_rating_success3};
 					int randomMsgIndex = random.nextInt(toastMessages.length);
@@ -2557,7 +2557,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			final Context context = DownloadActivity.getInstance().getApplicationContext();
 			boolean responseSuccessful = false;
 			int playlistNumber;
-
+			int value = DownloadActivity.getVerticaSeekBar().getProgress();
 			@Override
 			protected Boolean doInBackground() throws Throwable
 			{
@@ -2565,7 +2565,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				playlistNumber = Util.getUserPlaylistNumber(context);
 				responseSuccessful = musicService.setUpdateRatingQoE(context, playlistNumber,
 						Util.getUserId(context), songId, transcoderNum, isHeadphonesPlugged(),
-						DownloadActivity.getVerticaSeekBar().getProgress(), this);
+						value, this);
 
 				return responseSuccessful;
 			}
@@ -2576,7 +2576,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 				if (!result) {
 					//Util.toast(DownloadActivity.getInstance(), R.string.mymusicqoe_rating_error);
 				}else {
-					setSongsRatingInfo(index, 1, DownloadActivity.getVerticaSeekBar().getProgress());
+					setSongsRatingInfo(index, 1, value);
 
 					Random random = new Random();
 					int[] toastMessages = new int[]{R.string.mymusicqoe_rating_updated_success, R.string.mymusicqoe_rating_success2};
@@ -2600,9 +2600,13 @@ public class DownloadServiceImpl extends Service implements DownloadService
 					int transcoderNum = downloadFile.getSong().getTranscoderNum();
 					int index = downloadList.indexOf(downloadFile);
 
+
+					if (!Util.isToolTipShownBefore(DownloadServiceImpl.this)){
+						Util.setToolTipShownBefore(DownloadServiceImpl.this, true);
+					}
+
 					if (getSongsRatingInfo(index, 0) == 0){
 						setNewRatingRest(songId, transcoderNum, index);
-
 					}else{
 						if (getSongsRatingInfo(index, 1) != DownloadActivity.getVerticaSeekBar().getProgress()){
 							setUpdateRatingRest(songId, transcoderNum, index);

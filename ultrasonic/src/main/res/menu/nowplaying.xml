@@ -51,9 +51,9 @@
         <!--a:id="@+id/menu_item_jukebox"-->
         <!--app:showAsAction="never"-->
         <!--a:title="@string/download.menu_jukebox_on"/>-->
-    <item
+    <!--<item
         a:id="@+id/menu_item_screen_on_off"
         app:showAsAction="never"
-        a:title="@string/download.menu_screen_on"/>
+        a:title="@string/download.menu_screen_on"/>-->
 
 </menu>

@@ -208,7 +208,7 @@
     <string name="settings.download_transition">Downloads na Reprodução</string>
     <string name="settings.download_transition_summary">Transição para atividade de download quando iniciar reprodução</string>
     <string name="settings.gapless_playback">Reprodução sem Interrupção</string>
-    <string name="settings.gapless_playback_summary">Habilita reprodução sem interrupção</string>
+    <string name="settings.gapless_playback_summary">Reprodução de uma música para a outra sem pausas</string>
     <string name="settings.hide_media_summary">Esconder músicas de outros aplicativos.</string>
     <string name="settings.hide_media_title">Esconder de Outros</string>
     <string name="settings.hide_media_toast">Será realizado na próxima vez que o Android procurar por músicas em seu telemóvel.</string>
@@ -232,7 +232,7 @@
     <string name="settings.max_bitrate_wifi">Máx. de Taxa de Bits - Wi-Fi</string>
     <string name="settings.max_songs">Máximo de Músicas Aleatórias</string>
     <string name="settings.media_button_summary">Obedecer aos botões do telemóvel, auricular etc.</string>
-    <string name="settings.media_button_title">Botões de Média</string>
+    <string name="settings.media_button_title">Botões Externos</string>
     <string name="settings.network_timeout">Timeout da Rede</string>
     <string name="settings.network_timeout_105000">105 segundos</string>
     <string name="settings.network_timeout_120000">120 segundos</string>

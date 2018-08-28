@@ -148,6 +148,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	//private static boolean hasRated = false; //has rated in the activity, star goes full
 	private static boolean changeStar = false; //true when we want to change star
 	private boolean showTooltip = false;
+	private SimpleTooltip tooltip;
 
 	//use for timer
 //	private int secondsLeftForRate = 10;
@@ -853,7 +854,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	{
 		super.onPrepareOptionsMenu(menu);
 
-		final MenuItem screenOption = menu.findItem(R.id.menu_item_screen_on_off);
+		//final MenuItem screenOption = menu.findItem(R.id.menu_item_screen_on_off);
 		//final MenuItem jukeboxOption = menu.findItem(R.id.menu_item_jukebox);
 		final MenuItem equalizerMenuItem = menu.findItem(R.id.menu_item_equalizer);
 		final MenuItem visualizerMenuItem = menu.findItem(R.id.menu_item_visualizer);
@@ -943,7 +944,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 
 
-			if (downloadService.getKeepScreenOn())
+			/*if (downloadService.getKeepScreenOn())
 			{
 				if (screenOption != null)
 				{
@@ -956,7 +957,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				{
 					screenOption.setTitle(R.string.download_menu_screen_on);
 				}
-			}
+			}*/
 
 //			if (jukeboxOption != null)
 //			{
@@ -1107,7 +1108,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					getDownloadService().play(0);
 				}
 				return true;
-			case R.id.menu_item_screen_on_off:
+			/*case R.id.menu_item_screen_on_off:
 				if (getDownloadService().getKeepScreenOn())
 				{
 					getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -1118,7 +1119,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 					getDownloadService().setKeepScreenOn(true);
 				}
-				return true;
+				return true;*/
 			case R.id.menu_shuffle:
 				getDownloadService().shuffle();
 				Util.toast(this, R.string.download_menu_shuffle_notification);
@@ -1160,6 +1161,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				if (canRate) {
 					toggleFullScreenAlbumArtRating(2);
+					if (tooltip.isShowing()){
+						tooltip.dismiss();
+					}
 				}
 				//TIMER REMOVE
 				else{
@@ -1537,22 +1541,51 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 
 //						.modal(true)
-//							.animated(true)
-//							.animationDuration(2000)
+//						.animated(true)
+//						.animationDuration(2000)
 						if (showTooltip){
-							new SimpleTooltip.Builder(DownloadActivity.this)
-									.anchorView(starButtonView)
-									.text(R.string.mymusicqoe_rating_tooltip)
-									.gravity(Gravity.BOTTOM)
-
-									.transparentOverlay(true)
-									.backgroundColor(Color.parseColor("#31698a"))
-									.arrowColor(Color.parseColor("#31698a"))
-									.dismissOnOutsideTouch(true)
-									.dismissOnInsideTouch(true)
-									.textColor(Color.WHITE)
-									.build()
-									.show();
+							if (Util.isToolTipShownBefore(DownloadActivity.this)){
+								tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
+										.anchorView(starButtonView)
+										.text(R.string.mymusicqoe_rating_tooltip)
+										.gravity(Gravity.BOTTOM)
+										.backgroundColor(Color.parseColor("#31698a"))
+										.arrowColor(Color.parseColor("#31698a"))
+										.dismissOnOutsideTouch(false)
+										.transparentOverlay(true)
+										.dismissOnInsideTouch(true)
+										.onDismissListener(new SimpleTooltip.OnDismissListener() {
+											@Override
+											public void onDismiss(SimpleTooltip tooltip) {
+												if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
+													toggleFullScreenAlbumArtRating(2);
+												}
+											}
+										})
+										.textColor(Color.WHITE)
+										.build();
+							}else{
+								tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
+										.anchorView(starButtonView)
+										.text(R.string.mymusicqoe_rating_tooltip)
+										.gravity(Gravity.BOTTOM)
+										.backgroundColor(Color.parseColor("#FDB10C"))
+										.arrowColor(Color.parseColor("#FDB10C"))
+										.dismissOnOutsideTouch(false)
+										.transparentOverlay(false)
+										.dismissOnInsideTouch(true)
+										.onDismissListener(new SimpleTooltip.OnDismissListener() {
+											@Override
+											public void onDismiss(SimpleTooltip tooltip) {
+												if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
+													toggleFullScreenAlbumArtRating(2);
+												}
+											}
+										})
+										.textColor(Color.WHITE)
+										.build();
+							}
+							tooltip.show();
 							showTooltip = false;
 							canRate = true;
 							starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_hollow);

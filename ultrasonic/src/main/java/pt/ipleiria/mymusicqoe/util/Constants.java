@@ -72,6 +72,7 @@ public final class Constants
 	public static final String USER_NUMBER_OF_PLAYLIST = "myMusicQoE.userNumberOfPlaylist";
 	public static final String USER_INFORMATION_IS_SENT = "myMusicQoE.userInformationIsSent";
 	public static final String USER_INFORMATION_IS_SENT_NEW = "myMusicQoE.userInformationIsSentNew";
+	public static final String USER_TOOLTIP_SHOWN_BEFORE = "myMusicQoE.userTooltipShownBefore";
 	public static final String DOWNLOAD_ACTIVITY_DIALOG_SHOWN = "myMusicQoE.downloadactivitydialogshown";
 	public static final String DOWNLOAD_ACTIVITY_IS_DESTROYED = "myMusicQoE.downloadDestroyed";
 

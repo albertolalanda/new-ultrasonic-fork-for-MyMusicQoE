@@ -232,6 +232,20 @@ public class Util extends DownloadActivity
 		editor.commit();
 	}
 
+	public static boolean isToolTipShownBefore(Context context)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		return preferences.getBoolean(Constants.USER_TOOLTIP_SHOWN_BEFORE, false);
+	}
+
+	public static void setToolTipShownBefore(Context context, boolean value)
+	{
+		SharedPreferences preferences = getPreferences(context);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.putBoolean(Constants.USER_TOOLTIP_SHOWN_BEFORE, value);
+		editor.commit();
+	}
+
 	public static boolean isDownloadActivityDialogShown(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
