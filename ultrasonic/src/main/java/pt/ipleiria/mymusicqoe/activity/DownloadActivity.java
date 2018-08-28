@@ -23,6 +23,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -1533,12 +1534,17 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //						if (getDownloadService().getCountDownTimer() != null && !getDownloadService().getCountDownTimer().isFinished()){
 //							getDownloadService().getCountDownTimer().start();
 //						}
+
+
+//						.modal(true)
+//							.animated(true)
+//							.animationDuration(2000)
 						if (showTooltip){
 							new SimpleTooltip.Builder(DownloadActivity.this)
 									.anchorView(starButtonView)
 									.text(R.string.mymusicqoe_rating_tooltip)
 									.gravity(Gravity.BOTTOM)
-									.animated(false)
+
 									.transparentOverlay(true)
 									.backgroundColor(Color.parseColor("#31698a"))
 									.arrowColor(Color.parseColor("#31698a"))
