@@ -150,6 +150,9 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 	private boolean showTooltip = false;
 	private SimpleTooltip tooltip;
 
+	//tooltip
+	private boolean tooltipTypeOfDismissFlip = true;
+
 	//use for timer
 //	private int secondsLeftForRate = 10;
 //	private boolean songUnrated = true; // song unrated on saved array of the service
@@ -912,6 +915,11 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				currentSong = downloadFile.getSong();
 			}
 
+			if (tooltip != null && tooltip.isShowing() && menuDrawer.isMenuVisible()){
+				tooltipTypeOfDismissFlip = false;
+				tooltip.dismiss();
+			}
+
 			if (currentSong != null)
 			{
 				if (changeStar) {
@@ -921,7 +929,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					}else if(!downloadService.isHasRated()) {
 						starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_hollow);
 						showTooltip = true;
-
 					}else {
 						starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_full);
 					}
@@ -1161,7 +1168,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 				}
 				if (canRate) {
 					toggleFullScreenAlbumArtRating(2);
-					if (tooltip.isShowing()){
+					if (tooltip != null && tooltip.isShowing()){
 						tooltip.dismiss();
 					}
 				}
@@ -1419,6 +1426,10 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//this should be on the service
 		if (downloadService.isNewSong()){
 			downloadService.setNewSong(false);
+			if (tooltip != null && tooltip.isShowing()){
+				tooltipTypeOfDismissFlip = false;
+				tooltip.dismiss();
+			}
 			if (currentSongIndex-1 == -1 || downloadService.getSongsRatingInfo(currentSongIndex-1, 0) == 0){
 				verticalSeekBar.setProgress(0);
 				seekbarRatingText.setText("");
@@ -1544,49 +1555,57 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 //						.animated(true)
 //						.animationDuration(2000)
 						if (showTooltip){
-							if (Util.isToolTipShownBefore(DownloadActivity.this)){
-								tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
-										.anchorView(starButtonView)
-										.text(R.string.mymusicqoe_rating_tooltip)
-										.gravity(Gravity.BOTTOM)
-										.backgroundColor(Color.parseColor("#31698a"))
-										.arrowColor(Color.parseColor("#31698a"))
-										.dismissOnOutsideTouch(false)
-										.transparentOverlay(true)
-										.dismissOnInsideTouch(true)
-										.onDismissListener(new SimpleTooltip.OnDismissListener() {
-											@Override
-											public void onDismiss(SimpleTooltip tooltip) {
-												if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
-													toggleFullScreenAlbumArtRating(2);
-												}
-											}
-										})
-										.textColor(Color.WHITE)
-										.build();
-							}else{
-								tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
-										.anchorView(starButtonView)
-										.text(R.string.mymusicqoe_rating_tooltip)
-										.gravity(Gravity.BOTTOM)
-										.backgroundColor(Color.parseColor("#FDB10C"))
-										.arrowColor(Color.parseColor("#FDB10C"))
-										.dismissOnOutsideTouch(false)
-										.transparentOverlay(false)
-										.dismissOnInsideTouch(true)
-										.onDismissListener(new SimpleTooltip.OnDismissListener() {
-											@Override
-											public void onDismiss(SimpleTooltip tooltip) {
-												if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
-													toggleFullScreenAlbumArtRating(2);
-												}
-											}
-										})
-										.textColor(Color.WHITE)
-										.build();
-							}
-							tooltip.show();
-							showTooltip = false;
+                            if (tooltip == null || !tooltip.isShowing()){
+                                if (Util.isToolTipShownBefore(DownloadActivity.this)){
+                                    tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
+                                            .anchorView(starButtonView)
+                                            .text(R.string.mymusicqoe_rating_tooltip)
+                                            .gravity(Gravity.BOTTOM)
+                                            .backgroundColor(Color.parseColor("#31698a"))
+                                            .arrowColor(Color.parseColor("#31698a"))
+                                            .dismissOnOutsideTouch(false)
+                                            .transparentOverlay(true)
+                                            .dismissOnInsideTouch(true)
+                                            .onDismissListener(new SimpleTooltip.OnDismissListener() {
+                                                @Override
+                                                public void onDismiss(SimpleTooltip tooltip) {
+                                                    if (tooltipTypeOfDismissFlip){
+                                                        if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2){
+                                                            toggleFullScreenAlbumArtRating(2);
+                                                        }
+                                                    }
+                                                    tooltipTypeOfDismissFlip = true;
+                                                }
+                                            })
+                                            .textColor(Color.WHITE)
+                                            .build();
+                                }else{
+                                    tooltip = new SimpleTooltip.Builder(DownloadActivity.this)
+                                            .anchorView(starButtonView)
+                                            .text(R.string.mymusicqoe_rating_tooltip)
+                                            .gravity(Gravity.BOTTOM)
+                                            .backgroundColor(Color.parseColor("#FDB10C"))
+                                            .arrowColor(Color.parseColor("#FDB10C"))
+                                            .dismissOnOutsideTouch(false)
+                                            .transparentOverlay(false)
+                                            .dismissOnInsideTouch(true)
+                                            .onDismissListener(new SimpleTooltip.OnDismissListener() {
+                                                @Override
+                                                public void onDismiss(SimpleTooltip tooltip) {
+                                                    if (tooltipTypeOfDismissFlip) {
+                                                        if (playlistFlipper.isFlipping() || playlistFlipper.getDisplayedChild() != 2) {
+                                                            toggleFullScreenAlbumArtRating(2);
+                                                        }
+                                                    }
+                                                    tooltipTypeOfDismissFlip = true;
+                                                }
+                                            })
+                                            .textColor(Color.WHITE)
+                                            .build();
+                                }
+                                tooltip.show();
+                            }
+                            showTooltip = false;
 							canRate = true;
 							starDrawable = Util.getDrawableFromAttribute(getInstance(), R.attr.star_hollow);
 						}

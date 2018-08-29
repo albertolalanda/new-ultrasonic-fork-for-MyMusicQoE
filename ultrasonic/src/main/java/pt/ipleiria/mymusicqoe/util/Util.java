@@ -188,9 +188,9 @@ public class Util extends DownloadActivity
 
 	public static boolean isLockScreenEnabled(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_LOCK_SCREEN_CONTROLS, false);
-//		return false;
+//		SharedPreferences preferences = getPreferences(context);
+//		return preferences.getBoolean(Constants.PREFERENCES_KEY_SHOW_LOCK_SCREEN_CONTROLS, false);
+		return true;
 	}
 
 	public static void setActiveServer(Context context, int instance)
@@ -1579,8 +1579,9 @@ public class Util extends DownloadActivity
 
 	public static boolean getGaplessPlaybackPreference(Context context)
 	{
-		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_GAPLESS_PLAYBACK, false);
+		/*SharedPreferences preferences = getPreferences(context);
+		return preferences.getBoolean(Constants.PREFERENCES_KEY_GAPLESS_PLAYBACK, false);*/
+		return false;
 	}
 
 	public static boolean getShouldTransitionOnPlaybackPreference(Context context)
@@ -1625,7 +1626,7 @@ public class Util extends DownloadActivity
 	public static boolean getShouldClearPlaylist(Context context)
 	{
 		SharedPreferences preferences = getPreferences(context);
-		return preferences.getBoolean(Constants.PREFERENCES_KEY_CLEAR_PLAYLIST, false);
+		return preferences.getBoolean(Constants.PREFERENCES_KEY_CLEAR_PLAYLIST, true);
 	}
 
 	//always sort by disc number and track number. dont know for sure what this does

@@ -931,7 +931,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			countDownTimerPausable.cancel();
 		}
 
-		if (getSongsRatingInfo(index, 0) == 0){
+		if (songsRatingInfo.size() != 0 && getSongsRatingInfo(index, 0) == 0){
 				countDownTimerPausable = new CountDownTimerPausable(10000, 1000) {
 					@Override
 					public void onTick(long millisUntilFinished) {
@@ -1156,7 +1156,9 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		{
 
 
-			if (!countDownTimerPausable.isFinished() && !countDownTimerPausable.isPaused()){
+			if (countDownTimerPausable != null &&
+					!countDownTimerPausable.isFinished() &&
+					!countDownTimerPausable.isPaused()){
 				new Handler(Looper.getMainLooper()).post(new Runnable() {
 					@Override
 					public void run() {
