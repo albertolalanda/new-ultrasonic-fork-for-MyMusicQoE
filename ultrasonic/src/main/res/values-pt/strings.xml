@@ -285,12 +285,12 @@
     <string name="settings.server_password">Senha</string>
     <string name="settings.server_remove_server">Apagar Servidor</string>
     <string name="settings.server_scaling_summary">Descarrega imagens reduzidas do servidor ao invés do tamanho completo (economiza dados)</string>
-    <string name="settings.server_scaling_title">Reduzir Arte dos Álbuns</string>
+    <string name="settings.server_scaling_title">Reduzir Capas dos Álbuns</string>
     <string name="settings.server_unused">Não usado</string>
     <string name="settings.server_username">Login</string>
     <string name="settings.servers_title">Servidores</string>
-    <string name="settings.show_lockscreen_controls">Controles no Ecrã de Bloqueio</string>
-    <string name="settings.show_lockscreen_controls_summary">Mostra controles de reprodução no ecrã de bloqueio</string>
+    <string name="settings.show_lockscreen_controls">Controlos no Ecrã de Bloqueio</string>
+    <string name="settings.show_lockscreen_controls_summary">Mostra controlos de reprodução no ecrã de bloqueio</string>
     <string name="settings.show_notification">Mostrar Notificações</string>
     <string name="settings.show_notification_always">Sempre Mostrar Notificações</string>
     <string name="settings.show_notification_always_summary">Sempre mostrar a reprodução atual quando uma playlist é preenchida</string>

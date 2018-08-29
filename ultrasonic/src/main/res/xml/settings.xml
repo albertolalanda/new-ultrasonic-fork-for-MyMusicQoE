@@ -74,13 +74,13 @@
             <!--a:key="transitionToDownloadOnPlay"-->
             <!--a:summary="@string/settings.download_transition_summary"-->
             <!--a:title="@string/settings.download_transition"/>-->
-        <CheckBoxPreference
+       <!-- <CheckBoxPreference
             a:defaultValue="false"
             a:key="gaplessPlayback"
             a:summary="@string/settings.gapless_playback_summary"
-            a:title="@string/settings.gapless_playback"/>
+            a:title="@string/settings.gapless_playback"/>-->
         <CheckBoxPreference
-            a:defaultValue="false"
+            a:defaultValue="true"
             a:key="clearPlaylist"
             a:summary="@string/settings.clear_playlist_summary"
             a:title="@string/settings.clear_playlist"/>
@@ -107,7 +107,7 @@
             a:summary="@string/settings.playback.resume_play_on_headphones_plug.summary"
             />
     </PreferenceCategory>
-    <PreferenceCategory a:title="@string/settings.notifications_title">
+    <!--<PreferenceCategory a:title="@string/settings.notifications_title">-->
         <!--<CheckBoxPreference-->
             <!--a:defaultValue="true"-->
             <!--a:key="showNowPlaying"-->
@@ -123,11 +123,11 @@
             <!--a:key="alwaysShowNotification"-->
             <!--a:summary="@string/settings.show_notification_always_summary"-->
             <!--a:title="@string/settings.show_notification_always"/>-->
-        <CheckBoxPreference
-            a:defaultValue="true"
-            a:key="showLockScreen"
-            a:summary="@string/settings.show_lockscreen_controls_summary"
-            a:title="@string/settings.show_lockscreen_controls"/>
+        <!--<CheckBoxPreference-->
+            <!--a:defaultValue="true"-->
+            <!--a:key="showLockScreen"-->
+            <!--a:summary="@string/settings.show_lockscreen_controls_summary"-->
+            <!--a:title="@string/settings.show_lockscreen_controls"/>-->
         <!--<CheckBoxPreference-->
             <!--a:defaultValue="true"-->
             <!--a:key="sendBluetoothNotifications"-->
@@ -138,7 +138,7 @@
             <!--a:key="sendBluetoothAlbumArt"-->
             <!--a:summary="@string/settings.send_bluetooth_album_art_summary"-->
             <!--a:title="@string/settings.send_bluetooth_album_art"/>-->
-    </PreferenceCategory>
+    <!--</PreferenceCategory>-->
     <!--<PreferenceCategory a:title="@string/settings.video_title">-->
         <!--<ListPreference-->
             <!--a:defaultValue="default"-->
