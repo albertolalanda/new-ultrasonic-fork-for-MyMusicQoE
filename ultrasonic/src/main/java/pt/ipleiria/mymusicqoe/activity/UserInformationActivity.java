@@ -164,7 +164,6 @@ public class UserInformationActivity extends SubsonicTabActivity {
 			@Override
 			protected void error(Throwable error) {
 				Log.w(TAG, error.toString(), error);
-				//LALANDA THIS IS NOT PERFECT. OPENS THE ACTIVITY AGAIN. BETTER THAN NOTHING
 				new ErrorDialog(getInstance(), String.format("%s", getResources().getString(R.string.background_task_no_network)), true, true);
 			}
 
@@ -354,7 +353,7 @@ public class UserInformationActivity extends SubsonicTabActivity {
 						for (int i = 0; i < userGenres.size(); i++){
 							Util.setFavoriteGenre(UserInformationActivity.this, listGenres[userGenres.get(i)], i);
 						}
-						//Lalanda so that REST_MUSIC_SERVICE is updated on MusicServiceFactory to show correct user id
+						// so that REST_MUSIC_SERVICE is updated on MusicServiceFactory to show correct user id
 						MusicServiceFactory.resetMusicService();
 					}else{
 						throw new java.lang.Error("Error sending the userInformation data to the server");

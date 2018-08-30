@@ -371,7 +371,6 @@ public class BookmarkActivity extends SubsonicTabActivity
 		checkLicenseAndTrialPeriod(onValid);
 	}
 
-	//LALANDA FUNCTION TO DELETE MUSIC FROM CACHE
 	private void delete()
 	{
 		List<MusicDirectory.Entry> songs = getSelectedSongs(albumListView);

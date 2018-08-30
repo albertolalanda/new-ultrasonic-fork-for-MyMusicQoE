@@ -320,7 +320,6 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 
 	private void applyTheme()
 	{
-		//THEME LALANDA TODO HERE YOU SHOULD PUT THE DRAWABLES AND COLORS FOR BOTH THEMES
 		String theme = Util.getTheme(this);
 
 		if ("dark".equalsIgnoreCase(theme) || "fullscreen".equalsIgnoreCase(theme))
@@ -851,8 +850,6 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 			{
 				if (!append && !playNext)
 				{
-					//LALANDA CLEAR OLD PLAYLIST SEEMS TO WORK //STILL NEED TO DO IT FOR SHUFFLE
-					//LALANDA DELETE TODO TODO
 //					final List<MusicDirectory.Entry> oldPlaylistSongs = new LinkedList<MusicDirectory.Entry>();
 //					for (final DownloadFile downloadFile : getDownloadService().getSongs())
 //					{
@@ -1028,9 +1025,6 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 			@Override
 			protected void done(List<Entry> songs)
 			{
-
-				//LALANDA DELETE TODO TODO LOOKS LIKE IT WORKS I DUNNO
-				System.out.println("2 DOWNLOAD RECURSiVILY DELETE");
 				getDownloadService().delete(songs);
 
 				if (Util.getShouldSortByDisc(SubsonicTabActivity.this))
@@ -1299,7 +1293,6 @@ public class SubsonicTabActivity extends ResultActivity implements OnClickListen
 		}
 	}
 
-	//TODO LALANDA AQUI SÃO OS CLIQUES
 	@Override
 	public void onClick(View v)
 	{

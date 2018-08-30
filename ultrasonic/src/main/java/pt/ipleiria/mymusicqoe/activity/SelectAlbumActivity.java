@@ -1037,7 +1037,6 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 		}
 
 		playNowButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
-		//LALANDA REMOVE THE BUTTONS
 //		playNextButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
 //		playLastButton.setVisibility(enabled ? View.VISIBLE : View.GONE);
 		playNextButton.setVisibility(View.GONE);
@@ -1185,7 +1184,6 @@ public class SelectAlbumActivity extends SubsonicTabActivity
 
 				selectButton.setVisibility(allVideos ? View.GONE : View.VISIBLE);
 				playNowButton.setVisibility(View.VISIBLE);
-				//LALANDA REMOVE BUTTONS
 				playNextButton.setVisibility(View.GONE);
 				playLastButton.setVisibility(View.GONE);
 				pinButton.setVisibility(View.GONE);

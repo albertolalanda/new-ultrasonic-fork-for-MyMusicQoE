@@ -155,7 +155,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	private final static int lockScreenBitmapSize = 500;
 
 	//--------------------------------------------------------------------------------------------//
-	//LALANDA RATING FOR MyMusicQoE variables
+	// RATING FOR MyMusicQoE variables
 
 	//SONG RATED ?, RATING GIVEN, NUMBER OF RATING FOR THIS PLAYLIST NUMBER (TO IMPLEMENT LATER)
 	private ArrayList<int[]> songsRatingInfo = new ArrayList<int[]>();
@@ -988,7 +988,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 
 		setNewSong(true);
-		//lalanda 27 agosto poorly tested next line
+		// 27 agosto poorly tested next line
 		//hasRated = false;
 	}
 
@@ -1096,7 +1096,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 		}
 	}
 
-	//LALANDA ON SONG COMPLETED DOWNLOAD!!!
 	private void onSongCompleted()
 	{
 		int index = getCurrentPlayingIndex();
@@ -1780,7 +1779,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 						if (start)
 						{
 							mediaPlayer.start();
-							//LALANDA TIMER START AFTER LOADING
+							//TIMER START AFTER LOADING
 							countDownTimerPausable.start();
 							setPlayerState(STARTED);
 						}
@@ -1892,8 +1891,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		final int duration = downloadFile.getSong().getDuration() == null ? 0 : downloadFile.getSong().getDuration() * 1000;
 
-
-		//LALANDA ON COMPLETION OF SONG MEDIAPLAYER
 		mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
 		{
 			@Override
@@ -1934,10 +1931,9 @@ public class DownloadServiceImpl extends Service implements DownloadService
 //                    //}
 //                }
 
-				//LALANDA SEND RATING
+				//SEND RATING
 				//sendRatingMyMusicQoE(downloadFile);
 
-				//LALANDA MAYBE I DONT NEED THIS
 				//setHasRated(false);
 				//DownloadActivity.setHasRated(false);
 
@@ -2069,7 +2065,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	}
 
 
-	//LALANDA WHEN SHUFFLE CORNER BUTTON IS PRESSED
+	// WHEN SHUFFLE CORNER BUTTON IS PRESSED
 	protected synchronized void checkDownloads()
 	{
 		if (!Util.isExternalStoragePresent() || !lifecycleSupport.isExternalStorageAvailable())
@@ -2186,7 +2182,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 
 
-	//LALANDA checkShufflePlay
+	//checkShufflePlay
 	private synchronized void checkShufflePlay()
 	{
 		// Get users desired random playlist size
@@ -2203,8 +2199,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			for (MusicDirectory.Entry song : shufflePlayBuffer.get(listSize - size))
 			{
 				DownloadFile downloadFile = new DownloadFile(this, song, false);
-				//LALANDA DELETE FOR SHUFFLE (This is not max performance)
-				System.out.println("5 LALANDA check suffle play delete");
+				// DELETE FOR SHUFFLE (This is not max performance)
 				songs.add(downloadFile.getSong());
 				if (!songs.isEmpty())
 				{
@@ -2222,7 +2217,7 @@ public class DownloadServiceImpl extends Service implements DownloadService
 
 		}
 
-		//LALANDA INFINITE SHUFFLE LIST FOR NOW WE TAKE
+		// INFINITE SHUFFLE LIST FOR NOW WE TAKE IT OUT
 		//int currIndex = currentPlaying == null ? 0 : getCurrentPlayingIndex();
 		// Only shift playlist if playing song #5 or later.
 		/*if (currIndex > 4)
@@ -2273,7 +2268,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 	}
 
     @SuppressWarnings("IconColors")
-	//LALANDA BUILD NOTIFICATION CONTROLLS
     private Notification buildForegroundNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
         builder.setSmallIcon(R.drawable.ic_stat_ultrasonic);
@@ -2349,7 +2343,6 @@ public class DownloadServiceImpl extends Service implements DownloadService
 			this.position = position;
 			partialFile = downloadFile.getPartialFile();
 
-			//LALANDA BUFFER LENGTH
 			long bufferLength = Util.getBufferLength(DownloadServiceImpl.this);
 
 			if (bufferLength == 0)
