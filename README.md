@@ -8,7 +8,7 @@ For the server of this project, check out (https://github.com/RIPASSAS/airsonic)
 
 ## Contributing
 
-If you want to contribute to this project install the application, and just listen to music and rate how you felt about the quality of the audio. Your ratings will be used for a report on digital audio quality and transcoders, so the songs you rate the better.
+If you want to contribute to this project install the application, and just listen to music and rate how you felt about the quality of the audio. Your ratings will be used for a report on digital audio quality and transcoders, so the more songs you rate the better.
 
 # Thanks
 
