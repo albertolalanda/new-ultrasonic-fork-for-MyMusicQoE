@@ -368,7 +368,6 @@ public class CachedMusicService implements MusicService
 		String newUrl = Util.getRestUrl(context, null);
 		if (!Util.equals(newUrl, restUrl))
 		{
-			///LALANDA CACHE
 			cachedMusicFolders.clear();
 			cachedMusicDirectories.clear();
 			cachedLicenseValid.clear();

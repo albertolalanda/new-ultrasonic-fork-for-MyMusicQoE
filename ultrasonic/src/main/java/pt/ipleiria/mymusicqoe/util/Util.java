@@ -1546,7 +1546,6 @@ public class Util extends DownloadActivity
 		return 3;
 	}
 
-	//GET BUFFER LENGTH LALANDA TODO VER COMO ISTO FUNCIONA PARA O RELATORIO
 	public static int getBufferLength(Context context)
 	{
 //		SharedPreferences preferences = getPreferences(context);
@@ -1591,7 +1590,6 @@ public class Util extends DownloadActivity
 		return true;
 	}
 
-	//LALANDA NEVER USE ID3 ALWAYS FILE SYSTEM BASED METHODS
     //SINCE 1.1.0 WE USE ID3Tags
 	public static boolean getShouldUseId3Tags(Context context)
 	{

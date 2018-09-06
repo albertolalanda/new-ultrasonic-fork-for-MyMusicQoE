@@ -506,7 +506,6 @@ public class SearchActivity extends SubsonicTabActivity
 		startActivityForResultWithoutTransition(SearchActivity.this, intent);
 	}
 
-	//LALANDA SEARCH ACTIVITY ADD NEW PLAYLIST
 	private void onSongSelected(MusicDirectory.Entry song, boolean save, boolean append, boolean autoplay, boolean playNext)
 	{
 		DownloadService downloadService = getDownloadService();

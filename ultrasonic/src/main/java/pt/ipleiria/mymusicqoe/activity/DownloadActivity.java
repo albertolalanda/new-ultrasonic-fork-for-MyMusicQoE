@@ -255,7 +255,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 					@Override
 					protected Void doInBackground() throws Throwable
 					{
-						//LALANDA SEND ON PREVIEOUS
 						//getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 						getDownloadService().previous();
 						return null;
@@ -406,7 +405,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
-		//LALANDA TODO TESTES PARA VER O QUÃO BEM ISTO FOI IMPLEMENTADO
+		// TODO TESTES PARA VER O QUÃO BEM ISTO FOI IMPLEMENTADO
 		// maybe this is the answer https://stackoverflow.com/questions/13532919/how-do-i-shuffle-two-arrays-in-same-order-in-java
 		shuffleButton.setOnClickListener(new View.OnClickListener()
 		{
@@ -446,7 +445,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			}
 		});
 
-		//LALANDA PROGRESS BAR CHANGED
 		progressBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
 		{
 			@Override
@@ -515,7 +513,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 			downloadService.setShufflePlayEnabled(true);
 		}
 
-		//LALANDA populate lists NOT NEEDED ANYMORE
+		// populate lists NOT NEEDED ANYMORE
 		/*if (downloadService != null && !downloadService.getSongs().isEmpty()){
 			List<DownloadFile> list = downloadService.getSongs();
 
@@ -608,7 +606,7 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 
 
 
-//LALANDA TOUCH ON THE RIGHT SEEKBAR DOENST WORK TO INVESTIGATE LATER
+//Lalanda TOUCH ON THE RIGHT SEEKBAR DOENST WORK. TO INVESTIGATE LATER
 //		final View child = verticalSeekBar;
 //		verticalSeekBarParent.post(new Runnable() {
 //			public void run() {
@@ -755,7 +753,6 @@ public class DownloadActivity extends SubsonicTabActivity implements OnGestureLi
 		//if (hasRated){
 		//the following line was redundant
 		//if (getDownloadService().isHasRated()){
-			//LALANDA to keep rating
 			getDownloadService().sendRatingMyMusicQoE(getDownloadService().getCurrentPlaying());
 		//}
 

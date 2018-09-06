@@ -65,7 +65,6 @@ public class MainActivity extends SubsonicTabActivity
 	private static boolean infoDialogDisplayed;
 	private static boolean shouldUseId3;
 
-	//LALANDA
 	private SharedPreferences settings;
 	private PreferenceCategory serversCategory;
 	//
@@ -127,7 +126,6 @@ public class MainActivity extends SubsonicTabActivity
 
 		boolean shouldShowDialog = false;
 
-		//LALANDA HERE WE CAN CHANGE TO ALWAYS SHOW DIALOG
 		//shouldShowDialog = true;
 
 		if (!getActiveServerEnabled())
@@ -504,7 +502,7 @@ public class MainActivity extends SubsonicTabActivity
 		finish();
 	}
 
-	//LALANDA WELCOME TO ULTRASONIC BOX
+	//MyMusicQoE WELCOME TO ULTRASONIC BOX
 	private void showInfoDialog(final boolean show)
 	{
 		/*if (!infoDialogDisplayed)

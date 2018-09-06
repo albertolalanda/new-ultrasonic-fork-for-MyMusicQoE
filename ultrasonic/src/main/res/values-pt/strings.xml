@@ -102,7 +102,7 @@
     <string name="main.videos">Vídeos</string>
     <string name="main.welcome_text">O objectivo do <b>MyMusicQoE</b> é recolher estatísticas da qualidade do aúdio na transmissão de música. Se quiser saber mais, visite a nossa página <b>Sobre</b>, disponível no menu lateral. Antes de poder usar a aplicação, preencha um pequeno formulário.</string>
     <string name="main.welcome_title">Bem-vindo ao MyMusicQoE!</string>
-    <string name="download.info_text">Nesta página conseguirá ouvir músicas que poderão ter uma variedade de qualidade de áudio. Após 10 segundos haverá a possibilidade de classificar o áudio da música que estiver a ouvir nesse momento, no entanto é recomendado que ouça a faixa em questão na sua totalidade.</string>
+    <string name="download.info_text">Nesta página conseguirá ouvir músicas com qualidades de áudio variavel. Após 10 segundos, na reprodução de uma música, haverá a possibilidade de classificar o áudio, no entanto é recomendado que ouça a faixa em questão na sua totalidade.</string>
     <string name="download.info_title">Como Funciona</string>
     <string name="menu.about">Sobre</string>
     <string name="menu.common">Diversos</string>

@@ -83,7 +83,7 @@ public class SelectArtistActivity extends SubsonicTabActivity implements Adapter
 
 		artistListView.setOnItemClickListener(this);
 
-		//LALANDA REMOVED FOLDER BUTTON
+		//MyMusicQoE REMOVED FOLDER BUTTON Maybe needed for Virtual machine
 //		folderButton = LayoutInflater.from(this).inflate(R.layout.select_artist_header, artistListView, false);
 //
 //		if (folderButton != null)

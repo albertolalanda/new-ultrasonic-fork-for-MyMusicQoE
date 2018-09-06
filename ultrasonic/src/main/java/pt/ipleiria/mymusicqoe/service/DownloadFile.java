@@ -74,11 +74,9 @@ public class DownloadFile
 		this.song = song;
 		this.save = save;
 
-		//System.out.println("LALANDA TRANSCODINGS " + song.getApplicableTranscodings());
 
 		String[] applicableTranscodings = song.getApplicableTranscodings().split("/");
 
-		//System.out.println("LALANDA TRANSCODINGS " + applicableTranscodings.toString());
 
 
 		if (song.getTranscoderNum() == 0 || song.getTranscoderNum() == null){
@@ -88,14 +86,11 @@ public class DownloadFile
 		}
 
 
-		//LALANDA transcoded suffix pedreiro
 //		song.setTranscoderNum(4);
 //		if (song.getTranscoderNum() == 4){
 //			song.setTranscodedSuffix("flac");
 //		}
-		//LALANDA transcoded suffix pedreiro
 
-//        System.out.println("LALANDA RAND " + rand);
 //
 //        if (rand == 4){
 //			song.setTranscodedSuffix("flac");
