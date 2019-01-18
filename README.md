@@ -6,7 +6,7 @@
 The purpose of MyMusicQoE is to gather statistics of music streaming quality of experience.
 For the server of this project, check out (https://github.com/RIPASSAS/airsonic)
 
-![Output sample](https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/demonstration.gif)
+![Output sample](https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/blob/master/demonstration.gif)
 
 ## Contributing
 
