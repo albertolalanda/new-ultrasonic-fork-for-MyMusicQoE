@@ -1,7 +1,7 @@
 # MyMusicQoE <img src="https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/blob/master/ultrasonic/src/main/res/mipmap-xxxhdpi/ic_launcher_mymusicqoe.png" width=60>
 
 <a href="https://f-droid.org/en/packages/pt.ipleiria.mymusicqoe/" target="_blank">
-<img src="https://f-droid.org/badge/get-it-on.png" alt="Get it on F-Droid" height="90"/></a>
+<img src="https://github.com/albertolalanda/new-ultrasonic-fork-for-MyMusicQoE/blob/master/get-it-on.png" height="90"/></a>
 
 The purpose of MyMusicQoE is to gather statistics of music streaming quality of experience.
 For the server of this project, check out (https://github.com/RIPASSAS/airsonic)
